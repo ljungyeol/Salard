@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ghosthawk.salard.Sell.AddProductFragment">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="요리이름"
+        android:id="@+id/textview"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/linear1"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_name"
+        android:text="요리의 이름을 적어주세요"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textview"
+        android:layout_alignRight="@+id/linear1"
+        android:layout_alignLeft="@+id/linear1"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가격"
+        android:id="@+id/textview2"
+        android:layout_below="@+id/edit_name"
+        android:layout_alignLeft="@+id/linear1"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear2"
+        android:layout_below="@+id/textview2"
+
+        android:orientation="horizontal"
+        android:layout_alignRight="@+id/linear1"
+        android:layout_alignLeft="@+id/linear1">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_price"
+            android:text="0원"
+            android:layout_centerHorizontal="true"
+            android:layout_alignRight="@+id/linear1"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_detail"
+        android:text="식재료 상세 정보"
+        android:layout_below="@+id/linear2"
+        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/linear1"
+        android:layout_alignLeft="@+id/linear1"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_recipe"
+        android:text="요리 레시피"
+        android:layout_below="@+id/edit_detail"
+        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/linear1"
+        android:layout_alignLeft="@+id/linear1"
+       />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear1"
+        android:layout_below="@+id/edit_recipe"
+        android:layout_centerHorizontal="true"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_picture"
+            android:background="@drawable/back" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_picture2"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/image_picture"
+            android:background="@drawable/back"/>
+    </LinearLayout>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="등록하기"
+        android:id="@+id/btn_regist"
+        android:layout_below="@+id/linear1"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

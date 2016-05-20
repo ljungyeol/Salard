@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/image_thumb"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop ="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/text1"
+        android:visibility ="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="이름"
+        android:id="@+id/text_name"
+        android:layout_below="@+id/text1"
+        android:layout_toRightOf="@+id/image_thumb"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:singleLine="true"
+        android:ellipsize="end" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="상태메세지"
+        android:id="@+id/text_state"
+        android:layout_below="@+id/text_name"
+        android:layout_toRightOf="@+id/image_thumb"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="gggggggggggggggggg"
+        android:id="@+id/text2"
+        android:layout_below="@+id/text_name"
+        android:layout_toRightOf="@+id/text_state"
+        android:visibility="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text ="거리"
+        android:id="@+id/text_distance"
+        android:layout_below="@+id/text_name"
+        android:layout_toRightOf="@+id/text2"
+        android:layout_alignParentRight="true"
+
+        />
+
+</RelativeLayout>

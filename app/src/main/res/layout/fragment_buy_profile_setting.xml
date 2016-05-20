@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ghosthawk.salard.Buy.BuyProfileSettingFragment"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:background="@color/settingback">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알림설정" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="메시지 알림"
+        android:id="@+id/switch_message"
+        android:layout_weight="0.07"
+        android:background="@color/setting"
+    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="팔로우 소식"
+        android:layout_weight="0.07"
+        android:background="@color/setting"
+        android:id="@+id/switch_follow" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="공지사항" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="공지사항"
+        android:id="@+id/btn_notice"
+        android:background="@color/setting"
+        android:gravity ="left|center" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="서비스"
+        android:id="@+id/textView14" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INTRO"
+        android:id="@+id/btn_intro"
+        android:background="@color/setting"
+        android:gravity ="left|center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="버전정보"
+        android:id="@+id/btn_version"
+        android:background="@color/setting"
+        android:gravity ="left|center"        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이용약관"
+        android:id="@+id/btn_rule"
+        android:background="@color/setting"
+        android:gravity ="left|center"/>
+
+
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ghosthawk.salard">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SelectActivity" />
+        <activity
+            android:name=".Login.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Login.MembershipActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Sell.SellHomeActivity"
+            android:label="@string/title_activity_sell_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Buy.BuyHomeActivity"
+            android:label="@string/title_activity_buy_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Map.MapActivity" />
+        <activity android:name=".Buy.BuyProductDetailActivity" />
+        <activity android:name=".Sell.SellProductDetailActivity" />
+        <activity android:name=".Sell.SellProfileActivity" />
+        <activity android:name=".Buy.BuyProfileActivity" />
+        <activity android:name=".Common.NoticeActivity" />
+        <activity android:name=".Common.VersionActivity" />
+        <activity android:name=".Common.RuleActivity" />
+        <activity android:name=".Common.RankActivity" />
+        <activity android:name=".Common.ReIntroActivity" />
+        <activity android:name=".Sell.ProductDetailActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity android:name=".Sell.OtherMemberInfoActivity"></activity>
+    </application>
+
+</manifest>

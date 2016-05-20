@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/buy"
+            android:title="구매자">
+            <menu>
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/ic_menu_camera"
+                    android:title="리스트" />
+                <item
+                    android:id="@+id/nav_wish_list"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="위시 리스트" />
+
+            </menu>
+        </item>
+    </group>
+    <item
+        android:title="띄우기">
+
+        <menu>
+            <item
+                android:title="띄우기"
+                >
+
+            </item>
+        </menu>
+
+    </item>
+
+
+    <item
+        android:id="@+id/sell"
+        android:title="판매자">
+        <menu>
+            <item
+                android:id="@+id/nav_add"
+                android:icon="@android:drawable/ic_menu_add"
+                android:title="식재료 등록" />
+            <item
+                android:id="@+id/nav_add_list"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="등록 리스트"/>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="설 정" />
+
+        </menu>
+    </item>
+
+
+</menu>
