@@ -2,7 +2,10 @@ package com.ghosthawk.salard.Sell;
 
 import android.content.Context;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.ghosthawk.salard.Data.Product;
 import com.ghosthawk.salard.R;
 
 /**
@@ -17,4 +20,20 @@ public class GridWishListItemView extends FrameLayout {
             R.drawable.sample4, R.drawable.sample5, R.drawable.sample6,
             R.drawable.sample7, R.drawable.sample8, R.drawable.sample9,
             R.drawable.sample10};
+
+    ImageView itemView;
+    TextView soldView;
+    private void init() {
+        inflate(getContext(), R.layout.view_product_item,this);
+        itemView = (ImageView)findViewById(R.id.img_item);
+        soldView = (TextView)findViewById(R.id.img_sold_out);
+    }
+
+
+    public void setImageData(Product product){
+        itemView.setImageResource(img[product.product_Picture]);
+        if(product.product_Soldout){
+            soldView.setVisibility(VISIBLE);
+        }
+    }
 }

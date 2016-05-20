@@ -30,7 +30,7 @@ import java.io.File;
 
  */
 public class AddProductFragment extends Fragment {
-    ImageView imageView;
+    ImageView imageView,imageView2;
     EditText editName,editDetail,editRecipe;
     Spinner spinner;
 
@@ -48,6 +48,7 @@ public class AddProductFragment extends Fragment {
 
 
         imageView = (ImageView)view.findViewById(R.id.image_picture);
+        imageView2 = (ImageView)view.findViewById(R.id.image_picture2);
         editName=(EditText)view.findViewById(R.id.edit_name);
         editDetail = (EditText)view.findViewById(R.id.edit_detail);
         editRecipe=(EditText)view.findViewById(R.id.edit_recipe);
@@ -75,16 +76,41 @@ public class AddProductFragment extends Fragment {
             }
         });
 
-        Button btn = (Button)view.findViewById(R.id.btn_location);
-        btn.setOnClickListener(new View.OnClickListener() {
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // getImageFromGallery();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                builder1.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch(which){
+                            case 0:
+                                getImageFromCamera();
+                                break;
+                            case 1:
+                                getImageFromGallery();
+                                break;
+                        }
+
+                    }
+                });
+                AlertDialog dialog = builder1.create();
+                ListView listView = dialog.getListView();
+                dialog.show();
             }
         });
 
 
-        btn = (Button)view.findViewById(R.id.btn_regist);
+
+
+
+
+
+
+
+
+        Button btn = (Button)view.findViewById(R.id.btn_regist);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

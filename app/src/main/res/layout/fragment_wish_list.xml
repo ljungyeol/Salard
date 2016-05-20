@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     tools:context="com.ghosthawk.salard.Sell.WishListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="153dp"
-        android:layout_height="93dp"
-        android:text="위시 리스트다"
-        android:layout_gravity="center" />
-
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/grid_product"
+        android:numColumns="3"/>
 </FrameLayout>
