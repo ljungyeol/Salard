@@ -41,15 +41,9 @@
             android:name=".Sell.SellHomeActivity"
             android:label="@string/title_activity_sell_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Buy.BuyHomeActivity"
-            android:label="@string/title_activity_buy_home"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Map.MapActivity" />
-        <activity android:name=".Buy.BuyProductDetailActivity" />
         <activity android:name=".Sell.SellProductDetailActivity" />
         <activity android:name=".Sell.SellProfileActivity" />
-        <activity android:name=".Buy.BuyProfileActivity" />
         <activity android:name=".Common.NoticeActivity" />
         <activity android:name=".Common.VersionActivity" />
         <activity android:name=".Common.RuleActivity" />
@@ -61,7 +55,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Sell.OtherMemberInfoActivity"></activity>
+        <activity android:name=".Sell.OtherMemberInfoActivity" />
+        <activity android:name=".Sell.HomeFollowingActivity" />
+        <activity android:name=".Sell.HomeFollowerActivity" />
+        <activity android:name=".Sell.MyProductDetailActivity"></activity>
     </application>
 
 </manifest>

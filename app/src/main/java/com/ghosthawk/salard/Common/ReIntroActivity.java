@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.ghosthawk.salard.Buy.BuyProfileSettingFragment;
 import com.ghosthawk.salard.MainActivity;
 import com.ghosthawk.salard.R;
 import com.ghosthawk.salard.SelectActivity;

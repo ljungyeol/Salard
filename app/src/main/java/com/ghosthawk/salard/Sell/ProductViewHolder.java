@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.ghosthawk.salard.Data.PackageProduct;
 import com.ghosthawk.salard.Data.Product;
 import com.ghosthawk.salard.R;
 
@@ -12,13 +14,13 @@ import com.ghosthawk.salard.R;
  * Created by Tacademy on 2016-05-18.
  */
 public class ProductViewHolder extends RecyclerView.ViewHolder {
-    ImageView imageView;
+    ImageView imageView,imageView2;
     TextView nameView, priceView, countView;
+    PackageProduct pack;
 
-    Product product;
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, Product product);
+        public void onItemClick(View view, PackageProduct pack);
     }
     OnItemClickListener mListener;
 
@@ -30,14 +32,16 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
     public ProductViewHolder(View itemView) {
         super(itemView);
         imageView = (ImageView)itemView.findViewById(R.id.image_product);
+        imageView2 = (ImageView)itemView.findViewById(R.id.img_mem_pic);
         nameView = (TextView)itemView.findViewById(R.id.text_name);
         priceView = (TextView)itemView.findViewById(R.id.text_price);
         countView = (TextView)itemView.findViewById(R.id.text_count);
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mListener!=null){
-                    mListener.onItemClick(v,product);
+                    mListener.onItemClick(v,pack);
                 }
 
             }
@@ -45,14 +49,18 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setPackage(PackageProduct pack) {
+        this.pack = pack;
 
-       // Glide.with(thumbView.getContext()).load(product.getThumbnailUrl()).into(thumbView);
-        imageView.setImageResource(product.getProduct_Picture());
-        nameView.setText(product.getProduct_Name());
-        priceView.setText("/"+product.getProduct_Price()+"원");
-        countView.setText("/"+product.getProduct_Count()+"개");
+        Glide.with(imageView.getContext()).load(pack.getPackage_mainpicture()).into(imageView);
+        //imageView.setImageBitmap(pack.getBm());
+
+
+        //imageView.setImageResource(Integer.parseInt(pack.getPackage_mainpicture()));
+        nameView.setText(pack.getPackage_name());
+        priceView.setText("/"+pack.getPackage_price()+"원");
+        countView.setText(+pack.getPackage_count()+"개");
+        Glide.with(imageView2.getContext()).load(pack.getPackage_personpicture()).into(imageView2);
     }
 
 }

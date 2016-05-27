@@ -9,48 +9,74 @@ import java.io.Serializable;
  */
 public class Member implements Serializable {
     public String mem_id;
-    public String mem_Name;
-    public int mem_Picture;
+    public String mem_name;
+    public String mem_picture;
     public Number mem_PicutureNum;
     public Number mem_NotifyNewCount;
     public Number mem_Phone;
     public Number mem_Xloca;
     public Number mem_Yloca;
-    public String mem_StatMsg; //상태메세지
+    public String mem_statemsg; //상태메세지
     public String mem_RecentLoca; //최근 위치
     public String mem_Email;
-    public Number mem_follow;
+    public int mem_followercount;
+    public int mem_followingcount;
+    public String mem_loca;
+    public int mem_sell_count;
 
+    public String getMem_id() {
+        return mem_id;
+    }
+
+    public void setMem_id(String mem_id) {
+        this.mem_id = mem_id;
+    }
+
+    public String getMem_Location() {
+        return mem_loca;
+    }
+
+    public void setMem_Location(String mem_loca) {
+        this.mem_loca = mem_loca;
+    }
 
     public String getMem_Name() {
-        return mem_Name;
+        return mem_name;
     }
 
-    public void setMem_Name(String mem_Name) {
-        this.mem_Name = mem_Name;
+    public void setMem_Name(String mem_name) {
+        this.mem_name = mem_name;
     }
 
-    public int getMem_Picture() {
-        return mem_Picture;
+    public String getMem_Picture() {
+        return mem_picture;
     }
 
-    public void setMem_Picture(int mem_Picture) {
-        this.mem_Picture = mem_Picture;
+    public void setMem_Picture(String mem_picture) {
+        this.mem_picture = mem_picture;
     }
 
     public String getMem_StatMsg() {
-        return mem_StatMsg;
+        return mem_statemsg;
     }
 
-    public void setMem_StatMsg(String mem_StatMsg) {
-        this.mem_StatMsg = mem_StatMsg;
+    public void setMem_StatMsg(String mem_statemsg) {
+        this.mem_statemsg = mem_statemsg;
     }
 
-    public void setMem_follow(Number mem_follow) {
-        this.mem_follow = mem_follow;
+    public int getMem_followingcount() {
+        return mem_followingcount;
     }
 
-    public Number getMem_follow() {
-        return mem_follow;
+    public void setMem_followingcount(int mem_followingcount) {
+        this.mem_followingcount = mem_followingcount;
+    }
+
+    public int getMem_followercount() {
+        return mem_followercount;
+    }
+
+    public void setMem_followercount(int mem_followercount) {
+        this.mem_followercount = mem_followercount;
     }
 }

@@ -101,15 +101,6 @@ public class AddProductFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
-
-
-
         Button btn = (Button)view.findViewById(R.id.btn_regist);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +173,7 @@ public class AddProductFragment extends Fragment {
                 BitmapFactory.Options opts = new BitmapFactory.Options();
                 opts.inSampleSize = 2;
                 Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+                imageView.setImageBitmap(bm);
                 mUploadFile = file;
             }
             return;

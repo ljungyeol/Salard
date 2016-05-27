@@ -5,6 +5,26 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import com.ghosthawk.salard.Data.CommentResult;
+import com.ghosthawk.salard.Data.FollowerResult;
+import com.ghosthawk.salard.Data.FollowingResult;
+import com.ghosthawk.salard.Data.MapResult;
+import com.ghosthawk.salard.Data.MapResultResult;
+import com.ghosthawk.salard.Data.Member;
+import com.ghosthawk.salard.Data.MessageResult;
+import com.ghosthawk.salard.Data.MyPageResult;
+import com.ghosthawk.salard.Data.MyPageResultResult;
+import com.ghosthawk.salard.Data.OtherProfileResult;
+import com.ghosthawk.salard.Data.OtherProfileResultResult;
+import com.ghosthawk.salard.Data.PackageProduct;
+import com.ghosthawk.salard.Data.PackageProductResult;
+import com.ghosthawk.salard.Data.ProductResult;
+import com.ghosthawk.salard.Data.ProductResultResult;
+import com.ghosthawk.salard.Data.ProfileResult;
+import com.ghosthawk.salard.Data.ProfileResultResult;
+import com.ghosthawk.salard.Data.SuccessCode;
+import com.ghosthawk.salard.Data.WishList;
+import com.ghosthawk.salard.Data.WishListResult;
 import com.ghosthawk.salard.Map.AddressInfo;
 import com.ghosthawk.salard.Map.AddressInfoResult;
 import com.ghosthawk.salard.Map.PoiSearchResult;
@@ -18,14 +38,17 @@ import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -168,5 +191,671 @@ public class NetworkManager {
         });
         return request;
     }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+    private static final String SALARD_SERVER="http://52.79.156.18:3000";
+
+    private static final String SALARD_PRODUCT_URL = SALARD_SERVER + "/salard_home/";
+
+    public Request getHomeProductList(Object tag, String my_xloca, String my_yloca, String my_id,
+                                                OnResultListener<List<PackageProduct>> listener) {
+        String url = String.format(SALARD_PRODUCT_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_xloca",my_xloca)
+                .add("my_yloca",my_yloca)
+                .add("my_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<List<PackageProduct>> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    PackageProductResult data = gson.fromJson(response.body().charStream(), PackageProductResult.class);
+                    result.result = data._package;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String SALARD_PRODUCT_DETAIL_URL = SALARD_SERVER + "/salard_home/info/";
+
+    public Request getProductDetail(Object tag, String _id, String my_id, OnResultListener<ProductResult> listener) {
+        String url = String.format(SALARD_PRODUCT_DETAIL_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("_id",_id)
+                .add("my_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<ProductResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    ProductResultResult data = gson.fromJson(response.body().charStream(), ProductResultResult.class);
+                    result.result = data.result;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String SALARD_MYPAGE_URL = SALARD_SERVER + "/salard_mypage/";
+
+    public Request getMyPage(Object tag, String my_id, OnResultListener<MyPageResult> listener) {
+        String url = String.format(SALARD_MYPAGE_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id", my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<MyPageResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    MyPageResultResult data = gson.fromJson(response.body().charStream(), MyPageResultResult.class);
+                    result.result = data.result;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+    private static final String SALARD_WISHLIST_URL = SALARD_SERVER + "/salard_wishlist/";
+
+    public Request getWishList(Object tag, String my_id, OnResultListener<WishList> listener) {
+        String url = String.format(SALARD_WISHLIST_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id", my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<WishList> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    WishListResult data = gson.fromJson(response.body().charStream(), WishListResult.class);
+                    result.result = data.result;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+       private static final String SALARD_ADDLIST_URL = SALARD_SERVER + "/salard_addlist/";
+
+    public Request getAddList(Object tag, String my_id, OnResultListener<WishList> listener) {
+        String url = String.format(SALARD_ADDLIST_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<WishList> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    WishListResult data = gson.fromJson(response.body().charStream(), WishListResult.class);
+                    result.result = data.result;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+
+
+
+    }
+
+    private static final String SALARD_FOLLOWING_LIST_URL = SALARD_SERVER + "/salard_showfollowing/";
+
+    public Request getFollowingList(Object tag, String my_id, OnResultListener<FollowingResult> listener) {
+        String url = String.format(SALARD_FOLLOWING_LIST_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<FollowingResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    FollowingResult data = gson.fromJson(response.body().charStream(), FollowingResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String SALARD_FOLLOWER_URL = SALARD_SERVER + "/salard_showfollower/";
+
+    public Request getFollowerList(Object tag, String my_id, OnResultListener<FollowerResult> listener) {
+        String url = String.format(SALARD_FOLLOWER_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<FollowerResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    FollowerResult data = gson.fromJson(response.body().charStream(), FollowerResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String SALARD_PROFILE_URL = SALARD_SERVER + "/salard_profile/";
+
+    public Request getProfile(Object tag, String person_id, String my_id,  OnResultListener<OtherProfileResult> listener) {
+        String url = String.format(SALARD_PROFILE_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("person_id",my_id)
+                .add("my_id",person_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<OtherProfileResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    OtherProfileResultResult data = gson.fromJson(response.body().charStream(), OtherProfileResultResult.class);
+                    result.result = data.result;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String SALARD_PROFILE_PACKAGE_URL = SALARD_SERVER + "/salard_profile/package";
+
+    public Request getProfilePackage(Object tag,String person_id, OnResultListener<PackageProductResult> listener) {
+        String url = String.format(SALARD_PROFILE_PACKAGE_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("person_id",person_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<PackageProductResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    PackageProductResult data = gson.fromJson(response.body().charStream(), PackageProductResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String SALARD_PROFILE_COMMENT_URL = SALARD_SERVER + "/salard_profile/comment";
+
+    public Request getProfileComment(Object tag,String person_id, OnResultListener<CommentResult> listener) {
+        String url = String.format(SALARD_PROFILE_COMMENT_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("person_id",person_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<CommentResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    CommentResult data = gson.fromJson(response.body().charStream(), CommentResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private static final String SALARD_MESSAGE_URL = SALARD_SERVER + "/message/";
+
+    public Request getMessage(Object tag, String my_id, OnResultListener<MessageResult> listener) {
+        String url = String.format(SALARD_MESSAGE_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<MessageResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    MessageResult data = gson.fromJson(response.body().charStream(), MessageResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String SALARD_MAP_URL = SALARD_SERVER + "/salard_home/map";
+
+    public Request getMap(OnResultListener<MapResult> listener) {
+        String url = String.format(SALARD_MAP_URL);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .build();
+
+        final NetworkResult<MapResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    MapResultResult data = gson.fromJson(response.body().charStream(), MapResultResult.class);
+                    result.result = data.mapresult;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String SALARD_FOLLOW_URL = SALARD_SERVER + "/following/";
+
+    public Request getFollow(Object tag, String my_id, String partner_id, OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_FOLLOW_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .add("partner_id",partner_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String SALARD_UNFOLLOW_URL = SALARD_SERVER + "/following/cancel";
+
+    public Request getUnFollow(Object tag, String my_id, String partner_id, OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_UNFOLLOW_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .add("partner_id",partner_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+
+
+
+    private static final String SALARD_LIKE_URL = SALARD_SERVER + "/like/";
+
+    public Request getLike(Object tag, String _id, String my_id, OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_LIKE_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("package_num",_id)
+                .add("mem_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String SALARD_DISLIKE_URL = SALARD_SERVER + "/dislike/";
+
+    public Request getDisLike(Object tag, String _id, String my_id, OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_DISLIKE_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("package_num",_id)
+                .add("mem_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
 
 }

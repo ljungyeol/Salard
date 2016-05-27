@@ -3,10 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ghosthawk.salard.Sell.WishListFragment">
-
-    <GridView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/grid_product"
-        android:numColumns="3"/>
+        android:id="@+id/rv_list"
+        android:layout_below="@id/linear"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
+
 </FrameLayout>

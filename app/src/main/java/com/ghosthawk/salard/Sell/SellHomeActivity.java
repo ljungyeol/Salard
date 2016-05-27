@@ -16,14 +16,12 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.ghosthawk.salard.Buy.BuyHomeActivity;
-import com.ghosthawk.salard.Buy.BuyHomeFragment;
-import com.ghosthawk.salard.Buy.BuyProfileSettingFragment;
 import com.ghosthawk.salard.Message.MessageFragment;
 import com.ghosthawk.salard.R;
-
 public class SellHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public String my_id = "test";
+
     ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +29,7 @@ public class SellHomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_sell_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +55,12 @@ public class SellHomeActivity extends AppCompatActivity
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MessageFragment ft = new MessageFragment();
+                Bundle b = new Bundle();
+                b.putString(ft.EXTRA_MY_ID,my_id);
+                ft.setArguments(b);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, new MessageFragment())
+                        .replace(R.id.container, ft)
                         .commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
@@ -66,8 +69,12 @@ public class SellHomeActivity extends AppCompatActivity
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SellHomeFragment ft = new SellHomeFragment();
+                Bundle b = new Bundle();
+                b.putString(ft.EXTRA_MY_ID,my_id);
+                ft.setArguments(b);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, new SellHomeFragment())
+                        .replace(R.id.container, ft)
                         .commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
@@ -106,6 +113,10 @@ public class SellHomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
+
+
+
+
             return true;
         }
         if(id==R.id.action_notification){
@@ -126,8 +137,12 @@ public class SellHomeActivity extends AppCompatActivity
                     .replace(R.id.container, new SalardMainFragment())
                     .commit();
         } else if (id == R.id.nav_wish_list) {
+            WishListFragment ft = new WishListFragment();
+            Bundle b = new Bundle();
+            b.putString(ft.EXTRA_MY_ID,my_id);
+            ft.setArguments(b);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new WishListFragment())
+                    .replace(R.id.container, ft)
                     .commit();
         }
 
@@ -143,8 +158,12 @@ public class SellHomeActivity extends AppCompatActivity
                     .replace(R.id.container, new AddProductFragment())
                     .commit();
         } else if (id == R.id.nav_add_list) {
+            AddListFragment ft = new AddListFragment();
+            Bundle b = new Bundle();
+            b.putString(ft.EXTRA_MY_ID,my_id);
+            ft.setArguments(b);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new AddListFragment())
+                    .replace(R.id.container, ft)
                     .commit();
         } else if (id == R.id.nav_setting) {
             getSupportFragmentManager().beginTransaction()

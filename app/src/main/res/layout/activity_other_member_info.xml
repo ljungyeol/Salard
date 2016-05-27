@@ -12,8 +12,8 @@
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        layout="@layout/view_name_card"
-        android:id="@+id/view_name_card"
+        layout="@layout/view_other_name_card"
+        android:id="@+id/view_other_name_card"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -26,7 +26,7 @@
         android:id="@+id/rv_list"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/view_name_card">
+        android:layout_below="@+id/view_other_name_card">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ghosthawk.salard.Data.Product;
+import com.ghosthawk.salard.Data.PackageProduct;
 import com.ghosthawk.salard.R;
 
 import java.util.ArrayList;
@@ -15,19 +15,19 @@ import java.util.List;
  * Created by Tacademy on 2016-05-18.
  */
 public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
-    List<Product> items = new ArrayList<>();
+    List<PackageProduct> items = new ArrayList<>();
 
     public void clear(){
         items.clear();
         notifyDataSetChanged();
     }
 
-    public void add(Product product){
-        items.add(product);
+    public void add(PackageProduct pack){
+        items.add(pack);
         notifyDataSetChanged();
     }
 
-    public void addAll(List<Product> items) {
+    public void addAll(List<PackageProduct> items) {
         this.items.addAll(items);
         notifyDataSetChanged();
     }
@@ -45,7 +45,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        holder.setProduct(items.get(position));
+        holder.setPackage(items.get(position));
         holder.setOnItemClickListener(mListener);
     }
 

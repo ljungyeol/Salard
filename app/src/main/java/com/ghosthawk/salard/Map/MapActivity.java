@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ghosthawk.salard.Data.MapResult;
+import com.ghosthawk.salard.Data.MapResultResult;
+import com.ghosthawk.salard.Data.PackageProduct;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -40,7 +44,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,30 +78,17 @@ public class MapActivity extends AppCompatActivity implements
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listView.getVisibility()== View.GONE) {
-                    listView.setVisibility(View.VISIBLE);
-                    Animation anim = AnimationUtils.loadAnimation(MapActivity.this, R.anim.slide_left_in);
-                    listView.startAnimation(anim);
-                } else {
-                    listView.setVisibility(View.GONE);
-                    Animation anim = AnimationUtils.loadAnimation(MapActivity.this, R.anim.slide_left_out);
-                    anim.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
+                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                Location location = LocationServices.FusedLocationApi.getLastLocation(mClient);
+                displayMessage(location);
+                LocationRequest request = new LocationRequest();
+                request.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                LocationServices.FusedLocationApi.requestLocationUpdates(mClient, request, mListener);
 
-                        }
+            }
 
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            listView.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
-                    listView.startAnimation(anim);
 //                ViewPropertyAnimatorCompat animator = ViewCompat.animate(listView);
 //                animator.translationX(-listView.getMeasuredWidth());
 //                animator.setListener(new ViewPropertyAnimatorListener() {
@@ -115,8 +108,8 @@ public class MapActivity extends AppCompatActivity implements
 //                    }
 //                });
 //                animator.start();
-                }
-            }
+
+
         });
         infoView = (TextView)findViewById(R.id.text_info);
         listView = (ListView)findViewById(R.id.listView);
@@ -145,6 +138,24 @@ public class MapActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sell_home, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NetworkManager.getInstance().getMap(new NetworkManager.OnResultListener<MapResult>() {
+            @Override
+            public void onSuccess(Request request,MapResult result) {
+                for(int i =0 ; i<result.packageproduct.size();i++){
+                   addMarker(result.packageproduct.get(i).getPackage_xloca(), result.packageproduct.get(i).getPackage_yloca());
+                }
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
     }
 
     @Override
@@ -287,10 +298,15 @@ public class MapActivity extends AppCompatActivity implements
         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
         options.anchor(0.5f, 1f);
         options.title("MyMarker");
-        options.snippet("marker description");
+        options.snippet("lat : "+lat +"lng : "+lng);
         options.draggable(true);
         Marker m = mMap.addMarker(options);
     }
+
+
+
+
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -314,7 +330,7 @@ public class MapActivity extends AppCompatActivity implements
 
     private void displayMessage(Location location) {
         if (location != null) {
-            // messageView.setText("lat : " + location.getLatitude() + ", lng : " + location.getLongitude());
+            //messageView.setText("lat : " + location.getLatitude() + ", lng : " + location.getLongitude());
             NetworkManager.getInstance().getTMapReverseGeocoding(this, location.getLatitude(), location.getLongitude(), new NetworkManager.OnResultListener<AddressInfo>() {
 
                 @Override

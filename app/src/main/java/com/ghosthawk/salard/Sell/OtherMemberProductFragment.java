@@ -3,23 +3,39 @@ package com.ghosthawk.salard.Sell;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.GridView;
 
+import com.ghosthawk.salard.Data.Member;
+import com.ghosthawk.salard.Data.PackageProduct;
+import com.ghosthawk.salard.Data.PackageProductResult;
 import com.ghosthawk.salard.Data.Product;
+import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Request;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class OtherMemberProductFragment extends Fragment {
+    public static final String EXTRA_PERSON_ID = "person_id";
+    String person_id;
+    //GridView gridView;
+    RecyclerView gridView;
+    GridLayoutManager mLayoutManager;
 
-    GridView gridView;
-    GridProductAdapter mAdapter;
-
+    //GridProductAdapter mAdapter;
+    OtherMemberProductAdapter mAdapter;
     public OtherMemberProductFragment() {
         // Required empty public constructor
     }
@@ -29,29 +45,46 @@ public class OtherMemberProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_other_member_product, container, false);
-        gridView = (GridView)view.findViewById(R.id.grid_product);
-        mAdapter = new GridProductAdapter();
+        Bundle b = getArguments();
+        person_id = b.getString(EXTRA_PERSON_ID);
+        gridView = (RecyclerView) view.findViewById(R.id.rv_list);
+        mAdapter = new OtherMemberProductAdapter();
         gridView.setAdapter(mAdapter);
-        initData();
+        mLayoutManager = new GridLayoutManager(getContext(),3);
+        gridView.setLayoutManager(mLayoutManager);
+        //initData();
 
+        // PackageProduct pack =(PackageProduct) getIntent().getSerializableExtra("ff");
 
 
 
         return view;
     }
 
-    private void initData() {
-        for(int i=0; i<10; i++) {
-            Product product = new Product();
-            product.product_Picture = i;
-            if(i % 2 ==0){
-                product.product_Soldout = true;
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
+    }
+
+    private void init() {
+        NetworkManager.getInstance().getProfilePackage(getContext(), person_id, new NetworkManager.OnResultListener<PackageProductResult>() {
+            @Override
+            public void onSuccess(Request request, PackageProductResult result) {
+                mAdapter.clear();
+                mAdapter.addAll(result._package);
             }
-            else
-                product.product_Soldout = false;
-            mAdapter.add(product);
-        }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+
+
 
     }
+
+
 
 }

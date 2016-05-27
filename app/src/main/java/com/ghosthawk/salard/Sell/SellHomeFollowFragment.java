@@ -53,7 +53,7 @@ public class SellHomeFollowFragment extends Fragment {
             Member member = new Member();
             member.setMem_Name("Name"+ i);
             member.setMem_StatMsg("Tired...."+i);
-            member.setMem_Picture(img[i]);
+            //member.setMem_Picture(img[i]);
             mAdapter.add(member);
         }
     }

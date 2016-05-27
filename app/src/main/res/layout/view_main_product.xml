@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frame1">
 
@@ -40,11 +42,20 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="가격"
             android:id="@+id/text_price"
-            android:layout_toRightOf="@+id/text_count"
-            android:layout_alignBottom="@+id/image_product"
-            />
+            android:layout_below="@+id/image_product"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/img_mem_pic"
+        android:layout_alignTop="@+id/text_count"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        app:riv_border_width="3dp"
+        app:riv_border_color="#333333"
+        app:riv_oval="true"/>
 
 
 </RelativeLayout>

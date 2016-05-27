@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.ghosthawk.salard.Buy.BuyHomeActivity;
 import com.ghosthawk.salard.Sell.SellHomeActivity;
 import com.ghosthawk.salard.Sell.SellHomeDialogFragment;
 
@@ -31,13 +30,6 @@ public class SelectActivity extends AppCompatActivity {
 
 
                 //startActivity(new Intent(SelectActivity.this,SellHomeActivity.class));
-            }
-        });
-
-        imageBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SelectActivity.this,BuyHomeActivity.class));
             }
         });
 

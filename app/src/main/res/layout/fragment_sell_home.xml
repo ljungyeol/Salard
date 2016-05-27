@@ -1,28 +1,101 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ghosthawk.salard.Buy.BuyHomeFragment">
+    tools:context="com.ghosthawk.salard.Sell.SellHomeFragment">
 
 
-    <android.support.v4.app.FragmentTabHost
-        android:id="@+id/tabhost"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/img_my"
+        android:src="@drawable/sample7"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-        </LinearLayout>
-    </android.support.v4.app.FragmentTabHost>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        android:id="@+id/text_name"
+        android:layout_below="@+id/img_my"
+         />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="상태 메세지"
+        android:id="@+id/text_statmsg"
+        android:layout_below="@+id/text_name"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치"
+        android:id="@+id/text_location"
+        android:layout_below="@+id/text_statmsg" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_location"
+        android:id="@+id/linear1"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팔로워"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30명"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/text_follower"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팔로윙"
+            android:layout_marginLeft="90dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30명"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/text_following"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="후기 평점"
+        android:layout_below="@+id/linear1"
+        android:id="@+id/textview"/>
+
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_below="@+id/textview" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_list"
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
