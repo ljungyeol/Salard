@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edit_name"
-        android:text="요리의 이름을 적어주세요"
+        android:hint="요리의 이름을 적어주세요"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textview"
         android:layout_alignRight="@+id/linear1"
@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="가격"
+        android:hint="가격"
         android:id="@+id/textview2"
         android:layout_below="@+id/edit_name"
         android:layout_alignLeft="@+id/linear1"
@@ -41,14 +41,18 @@
         android:layout_alignRight="@+id/linear1"
         android:layout_alignLeft="@+id/linear1">
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:id="@+id/edit_price"
-            android:text="0원"
+            android:hint="0원"
             android:layout_centerHorizontal="true"
             android:layout_alignRight="@+id/linear1"
             />
 
+        <include
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            layout="@layout/view_plus_minus" />
 
 
     </LinearLayout>
@@ -70,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edit_detail"
-        android:text="식재료의 종류와 상세정보를 적어주세여"
+        android:hint="식재료의 종류와 상세정보를 적어주세여"
         android:layout_below="@+id/textview3"
         android:layout_centerHorizontal="true"
         android:layout_alignRight="@+id/linear1"
@@ -89,27 +93,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edit_recipe"
-        android:text="식재료를 활용한 레시피를 적어주세여"
+        android:hint="식재료를 활용한 레시피를 적어주세여"
         android:layout_below="@+id/textview4"
         android:layout_centerHorizontal="true"
         android:layout_alignRight="@+id/linear1"
         android:layout_alignLeft="@+id/linear1"
        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사진"
+        android:id="@+id/textview5"
+        android:layout_below="@+id/edit_recipe"
+        android:layout_alignLeft="@+id/linear1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="요리사진과 식재료 사진 2가지를 올려주세요."
+        android:id="@+id/textview6"
+        android:layout_below="@+id/textview5"
+        android:layout_alignLeft="@+id/linear1"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linear1"
-        android:layout_below="@+id/edit_recipe"
+        android:layout_below="@+id/textview6"
         android:layout_centerHorizontal="true"
         >
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:id="@+id/image_picture"
             android:background="@drawable/back" />
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:id="@+id/image_picture2"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/image_picture"

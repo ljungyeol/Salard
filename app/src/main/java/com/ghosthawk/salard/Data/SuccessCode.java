@@ -1,9 +1,12 @@
 package com.ghosthawk.salard.Data;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Tacademy on 2016-05-27.
  */
 public class SuccessCode {
+    @SerializedName("success")
     public int success_code;
 
     public int getSuccess_code() {

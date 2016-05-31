@@ -102,6 +102,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                         @Override
                         public void onFail(Request request, IOException exception) {
+                            Toast.makeText(ProductDetailActivity.this,"불러올 수 없습니다.",Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -116,6 +117,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                         @Override
                         public void onFail(Request request, IOException exception) {
+                            Toast.makeText(ProductDetailActivity.this,"불러올 수 없습니다.",Toast.LENGTH_SHORT).show();
 
                         }
                     });

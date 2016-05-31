@@ -46,6 +46,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.JavaNetCookieJar;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -856,6 +858,140 @@ public class NetworkManager {
         });
         return request;
     }
+
+    private static final String SALARD_SOLDOUT_URL = SALARD_SERVER + "/salard_soldout/";
+
+    public Request getSoldout(Object tag, String package_num, OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_SOLDOUT_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("package_num",package_num)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String SALARD_SOLDOUTCANCEL_URL = SALARD_SERVER + "/salard_soldout/cancel";
+
+    public Request getSoldoutCancel(Object tag, String package_num, OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_SOLDOUTCANCEL_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("package_num",package_num)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+
+    private static final String SALARD_ADDFOOD_URL = SALARD_SERVER + "/salard_addfood";
+
+    public Request getAddFood(Object tag, String mem_id, String food_name, String food_detailinfo, String food_subdetailinfo, String food_recipeinfo, String food_price,
+                              String food_count, List<File> food, OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_ADDFOOD_URL);
+
+        MultipartBody.Builder myBuilder = new MultipartBody.Builder();
+        myBuilder.setType(MultipartBody.FORM)
+                .addFormDataPart("mem_id",mem_id)
+                .addFormDataPart("food_name",food_name)
+                .addFormDataPart("food_detailinfo",food_detailinfo)
+                .addFormDataPart("food_subdetailinfo",food_subdetailinfo)
+                .addFormDataPart("food_recipeinfo",food_recipeinfo)
+                .addFormDataPart("food_price",food_price)
+                .addFormDataPart("food_count",food_count);
+
+        for(int i = 0; i < food.size(); i++)
+            myBuilder.addFormDataPart("food", food.get(i).getName(),
+                    RequestBody.create(MediaType.parse("image/jpeg"),food.get(i)));
+        RequestBody body = myBuilder
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
 
 
 }

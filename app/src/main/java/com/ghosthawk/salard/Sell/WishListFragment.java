@@ -1,7 +1,9 @@
 package com.ghosthawk.salard.Sell;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.ghosthawk.salard.Data.PackageProduct;
 import com.ghosthawk.salard.Data.WishList;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
@@ -33,6 +36,24 @@ public class WishListFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAdapter = new GridListAdapter();
+        mAdapter.setOnItemClickListener(new GridListViewHolder.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, PackageProduct pack) {
+                Intent intent = new Intent(getContext(),ProductDetailActivity.class);
+
+
+                intent.putExtra(MyProductDetailActivity.EXTRA_ID,pack.get_id());
+                intent.putExtra(MyProductDetailActivity.EXTRA_MY_ID,my_id);
+                startActivity(intent);
+            }
+        });
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

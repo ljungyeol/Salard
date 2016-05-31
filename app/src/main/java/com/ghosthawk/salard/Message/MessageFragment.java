@@ -23,7 +23,7 @@ import okhttp3.Request;
  * A simple {@link Fragment} subclass.
  */
 public class MessageFragment extends Fragment {
-    public static final String EXTRA_MY_ID = "my_id";
+        public static final String EXTRA_MY_ID = "my_id";
     String my_id;
     RecyclerView listView;
     MessageAdapter mAdapter;

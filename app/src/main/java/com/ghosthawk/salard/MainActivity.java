@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.ghosthawk.salard.Login.LoginActivity;
-import com.ghosthawk.salard.Sell.HomeAdapter;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewPager = (ViewPager) findViewById(R.id.viewPager_home);
+    /*    viewPager = (ViewPager) findViewById(R.id.viewPager_home);
 
         mAdapter = new HomeAdapter(this);
         viewPager.setAdapter(mAdapter);
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+*/
 
 
 

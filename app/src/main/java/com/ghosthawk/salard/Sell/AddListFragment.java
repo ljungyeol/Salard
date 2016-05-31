@@ -47,6 +47,7 @@ public class AddListFragment extends Fragment {
             super.handleMessage(msg);
             if(msg.what==1){
                 result = (List<PackageProduct>) msg.obj;
+
 /*
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 8;
@@ -82,6 +83,8 @@ public class AddListFragment extends Fragment {
             @Override
             public void onItemClick(View view, PackageProduct pack) {
                 Intent intent = new Intent(getContext(),MyProductDetailActivity.class);
+
+
                 intent.putExtra(MyProductDetailActivity.EXTRA_ID,pack.get_id());
                 intent.putExtra(MyProductDetailActivity.EXTRA_MY_ID,my_id);
                 startActivity(intent);
@@ -112,10 +115,10 @@ public class AddListFragment extends Fragment {
         NetworkManager.getInstance().getAddList(getContext(), my_id, new NetworkManager.OnResultListener<WishList>() {
             @Override
             public void onSuccess(Request request, WishList result) {
-                mHandler.sendMessage(mHandler.obtainMessage(1, result.packageproduct));
+                //mHandler.sendMessage(mHandler.obtainMessage(1, result.packageproduct));
 
-                //mAdapter.clear();
-                //mAdapter.addAll(result.packageproduct);
+                mAdapter.clear();
+                mAdapter.addAll(result.packageproduct);
             }
 
             @Override
