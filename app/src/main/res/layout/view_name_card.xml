@@ -2,80 +2,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginLeft="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+    android:layout_width="296dp"
+    android:layout_height="187dp"
     android:id="@+id/view_name_card">
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imageView3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@android:drawable/sym_def_app_icon"
-        app:riv_border_width="3dp"
-        app:riv_border_color="#333333"
-        app:riv_oval="true"/>
+
+    <include
+        android:layout_width="70dp"
+        android:layout_height="64dp"
+        layout="@layout/view_member"
+        android:id="@+id/image_mem"
+        android:layout_marginTop="32dp" />
+
+
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_name2"
-        android:text="아이디"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"/>
+        android:text="이름"
+        android:layout_marginTop="41dp"
+        android:layout_marginLeft="83dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="상태 메세지"
-        android:id="@+id/text_statmsg"
-        android:layout_below="@+id/text_name2"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3"
-        android:layout_marginLeft="15dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="주소 주소 주소"
+        android:text="낙성대"
         android:id="@+id/text_location"
-        android:layout_below="@+id/text_statmsg"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3"
-        android:layout_marginLeft="15dp"/>
+        android:layout_marginTop="71dp"
 
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="팔로워 숫자"
-        android:id="@+id/text_follow"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="팔로워"
-        android:layout_below="@+id/text_follow"
-        android:layout_alignParentRight="true" />
+        android:layout_marginLeft="101dp"
+         />
+
+
 
     <Button
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:text="팔로우"
+        android:layout_width="144dp"
+        android:layout_height="28dp"
+        android:text="찜하기"
+        android:textSize="10sp"
         android:id="@+id/btn_follow"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="128dp"
+
+         />
 
     <Button
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:text="메세지"
+        android:layout_width="144dp"
+        android:layout_height="28dp"
+        android:text="거래신청"
+        android:textSize="10sp"
         android:id="@+id/btn_message"
-        android:layout_alignBottom="@+id/btn_follow"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="128dp"
+        android:layout_marginLeft="152dp"
+         />
+
+    <ImageView
+        android:layout_width="9dp"
+        android:layout_height="13dp"
+        android:id="@+id/img_location"
+    android:layout_marginLeft="83dp"
+        android:layout_marginTop="71dp"
+        android:src="@mipmap/ic_launcher"/>
+
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.ghosthawk.salard.Sell;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ import java.io.IOException;
 import okhttp3.Request;
 
 public class MyProductDetailActivity extends AppCompatActivity {
-    ImageView imageView,imageView2,imageView3;
+    ImageView imageView,imageView2,imageView3, imageView4;
     TextView textName,textCount,textPrice,textDetail,textDetail2,textRecipe;
     TextView textMemName,textMemStat,textMemLocation;
     Button btn;
@@ -41,9 +42,9 @@ public class MyProductDetailActivity extends AppCompatActivity {
         _id=String.valueOf(id);
         main_id = getIntent().getStringExtra(EXTRA_MY_ID);
         imageView = (ImageView)findViewById(R.id.imageView2);
-        imageView2 = (ImageView)findViewById(R.id.imageView3);
+        imageView2 = (ImageView)findViewById(R.id.img_mem);
         imageView3 = (ImageView)findViewById(R.id.img_setting);
-
+        imageView4 = (ImageView)findViewById(R.id.img_rank);
         textName = (TextView)findViewById(R.id.text_name);
         textCount = (TextView)findViewById(R.id.text_count);
         textPrice = (TextView)findViewById(R.id.text_price);
@@ -90,6 +91,16 @@ public class MyProductDetailActivity extends AppCompatActivity {
                 }
 
 
+            }
+        });
+
+
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyProductDetailActivity.this,AddProductModifyActivity.class);
+                intent.putExtra(AddProductModifyActivity.EXTRA_ID,_id);
+                startActivity(intent);
             }
         });
     }

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="com.ghosthawk.salard.Sell.SalardMainFragment">
     <LinearLayout
         android:orientation="horizontal"
@@ -13,25 +14,28 @@
         android:id="@+id/linear"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_location"
-            android:text="현재위치"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/img_location"
+            android:src="@android:drawable/ic_menu_compass"
+            />
         <TextView
-            style="?android:attr/editTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="서울시 동작구 낙성대동"
+            android:background="#8b8b8b"
+            android:layout_width="264dp"
+            android:layout_height="26dp"
+            android:text="현재 위치"
             android:id="@+id/text_location"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/rv_list"
-            android:layout_weight="2"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_map"
-            android:text="지도"/>
+            android:gravity="center_vertical"
+            android:layout_marginTop="11dp"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/img_map"
+            android:src="@android:drawable/ic_dialog_map"
+            />
 
 
 
@@ -41,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_list"
+
         android:layout_below="@id/linear"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.R;
 
 /**
@@ -32,7 +33,7 @@ public class HomeAdapter extends PagerAdapter {
 
     public HomeAdapter(Context context) {
         this.context = context;
-        options = new BitmapFactory.Options();
+//        options = new BitmapFactory.Options();
     }
 
     @Override
@@ -51,10 +52,12 @@ public class HomeAdapter extends PagerAdapter {
 //            int padding = context.getResources().getDimensionPixelSize();
 //            imageView.setPadding(padding, padding, padding, padding);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        options.inSampleSize = 4;
-        galImage = BitmapFactory.decodeResource(context.getResources(), galImages[position], options);
+        Glide.with(imageView.getContext()).load(galImages[position]).into(imageView);
 
-        imageView.setImageBitmap(galImage);
+//        options.inSampleSize = 4;
+//        galImage = BitmapFactory.decodeResource(context.getResources(), galImages[position], options);
+//
+//        imageView.setImageBitmap(galImage);
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
     }

@@ -53,7 +53,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
 
         Glide.with(imageView.getContext()).load(message.getMsg_partnerpicture()).into(imageView);
 
-        textName.setText(message.getMsg_memid());
+        textName.setText(message.getMsg_partnerid());
         textStatmsg.setText(message.getMsg_content());
 
     }

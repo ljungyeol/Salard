@@ -1,12 +1,15 @@
 package com.ghosthawk.salard.Sell;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,10 +45,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     String my_id;
     String main_id;
     String person_id;
-    ImageView imageView,imageView2;
+    boolean state=true;
+    ImageView imageProduct,imageMem,imageRank;
     TextView textName,textPrice,textCount,textDetail,textDetail2,textRecipe;
-    TextView textMemName,textMemStatmsg,textMemLocation,textMemFollow;
-    Button btn;
+    TextView textMemName,textMemLocation,textView;
+    Button btn,btn1;
     Member member = new Member();
     boolean key=true;
 
@@ -53,13 +57,20 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // PackageProduct pack =(PackageProduct) getIntent().getSerializableExtra("ff");
-
+//        ActionBar actionBar = getActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
         id = getIntent().getIntExtra(EXTRA_ID,0);
         setContentView(R.layout.activity_product_detail);
         _id=String.valueOf(id);
         main_id = getIntent().getStringExtra(EXTRA_MY_ID);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        textView = (TextView)findViewById(R.id.text_title);
+        textView.setText("식재료 정보");
+        imageProduct = (ImageView)findViewById(R.id.imageView2);
+        imageMem = (ImageView)findViewById(R.id.img_mem);
 
-        imageView = (ImageView)findViewById(R.id.imageView2);
+        imageRank = (ImageView)findViewById(R.id.img_rank);
         //int i =getIntent().getIntExtra(EXTRA_Picture, 0);
         //imageView.setImageResource(i);
        // Glide.with(imageView.getContext()).load(pack.package_mainpicture).into(imageView);
@@ -83,9 +94,7 @@ public class ProductDetailActivity extends AppCompatActivity {
      //   textRecipe.setText(pack.getPackage_recipeinfo());
 
         textMemName = (TextView)findViewById(R.id.text_name2);
-        textMemStatmsg = (TextView)findViewById(R.id.text_statmsg);
         textMemLocation = (TextView)findViewById(R.id.text_location);
-        textMemFollow = (TextView)findViewById(R.id.text_follow);
         btn = (Button)findViewById(R.id.btn_follow);
         btn.setText("찜하기");
         btn.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +137,14 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-        imageView2 = (ImageView)findViewById(R.id.imageView3);
+        btn1 = (Button)findViewById(R.id.btn_message);
+
+
+
+
+
+
+
         //init(pro);
 
 
@@ -138,7 +154,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
 
-        imageView2.setOnClickListener(new View.OnClickListener() {
+        imageMem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductDetailActivity.this, OtherMemberInfoActivity.class);
@@ -165,18 +181,19 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Request request, ProductResult result) {
                // Log.d("ddddddddddddddddddd",result._package.getPackage_mainpicture());
-                Glide.with(imageView.getContext()).load(result._package.getPackage_mainpicture()).into(imageView);
+                Glide.with(imageProduct.getContext()).load(result._package.getPackage_mainpicture()).into(imageProduct);
                 textName.setText(result._package.getPackage_name());
                 textPrice.setText(result._package.getPackage_price()+"원");
-                textCount.setText(" / "+result._package.getPackage_count()+"개");
+                textCount.setText(result._package.getPackage_count()+"개");
                 textDetail.setText(result._package.getPackage_detailinfo());
                 textDetail2.setText(result._package.getPackage_subdetailinfo());
                 textRecipe.setText(result._package.getPackage_recipeinfo());
                 textMemName.setText(result.member.getMem_Name());
-                textMemStatmsg.setText(result.member.getMem_StatMsg());
                 textMemLocation.setText(result._package.getPackage_loca());
-                textMemFollow.setText(result.member.getMem_followercount()+"");
-                Glide.with(imageView2.getContext()).load(result._package.getPackage_personpicture()).into(imageView2);
+                Log.d("state",result._package.getPackage_state()+"");
+                Log.d("ddddddddddddddd",state+"");
+
+                Glide.with(imageMem.getContext()).load(result._package.getPackage_personpicture()).into(imageMem);
                 my_id = result.member.getMem_id();
                 person_id = result._package.getPackage_personid();
                 for(int i=0;i<result.mywish.mem_wishlist.size();i++){
@@ -185,12 +202,19 @@ public class ProductDetailActivity extends AppCompatActivity {
                         break;
                     }
                 }
+                if(result._package.getPackage_state()==1){
+                    state = false;
+                }
                 if(!key){
                     //btn.setEnabled(false);
                     btn.setText("넌 이미 찜했다");
                 }
 
-
+                if (state){
+                    btn1.setText("거래신청");
+                }
+                else
+                    btn1.setText("거래불가");
 
 
             }
@@ -204,6 +228,26 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
 
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(state){
+                    NetworkManager.getInstance().getSendDeal(this, my_id, person_id, _id, new NetworkManager.OnResultListener<SuccessCode>() {
+                        @Override
+                        public void onSuccess(Request request, SuccessCode result) {
+                            Toast.makeText(ProductDetailActivity.this,"성공!!",Toast.LENGTH_SHORT).show();
+
+                            state=false;
+                        }
+
+                        @Override
+                        public void onFail(Request request, IOException exception) {
+
+                        }
+                    });
+                }
+            }
+        });
 
 
 /*
@@ -219,4 +263,10 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.product_detail,menu);
+//        return true;
+//    }
 }

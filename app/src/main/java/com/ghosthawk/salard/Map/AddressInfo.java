@@ -4,12 +4,12 @@ package com.ghosthawk.salard.Map;
  * Created by Tacademy on 2016-05-18.
  */
 public class AddressInfo {
-    String fullAddress;
+    public String fullAddress;
     String addressType;
-    String city_do;
-    String gu_gun;
-    String eup_myun;
-    String legalDong;
-    String adminDong;
+    public String city_do;
+    public String gu_gun;
+    public String eup_myun;
+    public String legalDong;
+    public String adminDong;
     String bunji;
 }

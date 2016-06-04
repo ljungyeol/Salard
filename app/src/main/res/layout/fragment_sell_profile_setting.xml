@@ -92,7 +92,13 @@
         android:id="@+id/btn_rank"
         android:background="@color/setting"
         android:gravity ="left|center"/>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="계정 삭제"
+        android:id="@+id/btn_delete"
+        android:background="@color/setting"
+        android:gravity ="left|center"/>
 
 
 </LinearLayout>

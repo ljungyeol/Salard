@@ -17,10 +17,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.MapResult;
 import com.ghosthawk.salard.Data.MapResultResult;
 import com.ghosthawk.salard.Data.PackageProduct;
@@ -63,12 +65,14 @@ public class MapActivity extends AppCompatActivity implements
 
     GoogleApiClient mClient;
     TextView messageView;
-    TextView infoView;
+   // TextView infoView;
+    TextView textName, textPrice,textLocation;
+    ImageView imageMem, imageMain;
     ListView listView;
-    ArrayAdapter<POI> mAdapter;
-    Map<Marker, POI> poiResolver = new HashMap<>();
-    Map<POI, Marker> markerResolver = new HashMap<>();
-
+    ArrayAdapter<PackageProduct> mAdapter;
+    Map<Marker, PackageProduct> poiResolver = new HashMap<>();
+    Map<PackageProduct, Marker> markerResolver = new HashMap<>();
+    //List<PackageProduct> packageproduct = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,15 +115,20 @@ public class MapActivity extends AppCompatActivity implements
 
 
         });
-        infoView = (TextView)findViewById(R.id.text_info);
+      //  infoView = (TextView)findViewById(R.id.text_info);
+        textName = (TextView)findViewById(R.id.text_name);
+        textPrice = (TextView)findViewById(R.id.text_price);
+        textLocation = (TextView)findViewById(R.id.text_location);
+        imageMain = (ImageView)findViewById(R.id.img_main);
+        imageMem = (ImageView)findViewById(R.id.img_mem);
         listView = (ListView)findViewById(R.id.listView);
-        mAdapter = new ArrayAdapter<POI>(this, android.R.layout.simple_list_item_1);
+        mAdapter = new ArrayAdapter<PackageProduct>(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                POI poi = (POI)listView.getItemAtPosition(position);
-                Marker m = markerResolver.get(poi);
+                PackageProduct packageProduct = (PackageProduct) listView.getItemAtPosition(position);
+                Marker m = markerResolver.get(packageProduct);
                 animateMap(m);
             }
         });
@@ -147,7 +156,9 @@ public class MapActivity extends AppCompatActivity implements
             @Override
             public void onSuccess(Request request,MapResult result) {
                 for(int i =0 ; i<result.packageproduct.size();i++){
-                   addMarker(result.packageproduct.get(i).getPackage_xloca(), result.packageproduct.get(i).getPackage_yloca());
+                    //packageproduct.add(result.packageproduct.get(i));
+                    addMarker(result.packageproduct.get(i));
+                   // addMarker(packageproduct.get(i).getPackage_xloca(), packageproduct.get(i).getPackage_yloca());
                 }
             }
 
@@ -168,12 +179,12 @@ public class MapActivity extends AppCompatActivity implements
                 public void onPoiSearchResult(SearchPOIInfo info) {
                     boolean isFirst = true;
                     clearAll();
-                    for (POI poi : info.pois.poiList) {
+                    for (PackageProduct packageProduct : info.pois.packageProducts) {
                         if (isFirst) {
-                            moveMap(poi.getLatitude(), poi.getLongitude(), 15f);
+                            moveMap(packageProduct.getPackage_xloca(), packageProduct.getPackage_yloca(), 15f);
                             isFirst = false;
                         }
-                        addMarker(poi);
+                        addMarker(packageProduct);
                     }
                 }
             });
@@ -239,18 +250,18 @@ public class MapActivity extends AppCompatActivity implements
         markerResolver.clear();
     }
 
-    public void addMarker(POI poi) {
+    public void addMarker(PackageProduct packageProduct) {
         MarkerOptions options = new MarkerOptions();
-        options.position(new LatLng(poi.getLatitude(), poi.getLongitude()));
+        options.position(new LatLng(packageProduct.getPackage_xloca(), packageProduct.getPackage_yloca()));
         options.icon(BitmapDescriptorFactory.defaultMarker());
         options.anchor(0.5f, 1);
-        options.title(poi.name);
-        options.snippet(poi.getAddress());
+        options.title(packageProduct.getPackage_name());
+        options.snippet(packageProduct.getPackage_price()+"원");
         Marker marker = mMap.addMarker(options);
-        mAdapter.add(poi);
+        mAdapter.add(packageProduct);
 
-        markerResolver.put(poi, marker);
-        poiResolver.put(marker, poi);
+        markerResolver.put(packageProduct, marker);
+        poiResolver.put(marker, packageProduct);
     }
 
     GoogleMap mMap;
@@ -268,6 +279,7 @@ public class MapActivity extends AppCompatActivity implements
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
         mMap.setOnCameraChangeListener(this);
+        //mMap.setInfoWindowAdapter(new MyInfoWindowAdapter(this, poiResolver));
 
     }
     @Override
@@ -276,13 +288,49 @@ public class MapActivity extends AppCompatActivity implements
     }
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, "marker : " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, marker.getTitle() + "   "+marker.getSnippet(), Toast.LENGTH_SHORT).show();
+        animateMap(marker);
         marker.hideInfoWindow();
     }
 
+
     @Override
     public boolean onMarkerClick(Marker marker) {
-        infoView.setText(marker.getTitle() + "\n\r" + marker.getSnippet());
+//        textName.setText(marker.getTitle());
+        PackageProduct p = poiResolver.get(marker);
+        textName.setText(p.getPackage_name());
+        textPrice.setText(p.getPackage_price()+"원");
+        Glide.with(imageMain.getContext()).load(p.getPackage_mainpicture()).into(imageMain);
+        Glide.with(imageMem.getContext()).load(p.getPackage_personpicture()).into(imageMem);
+        NetworkManager.getInstance().getTMapReverseGeocoding(this, p.getPackage_xloca(),p.getPackage_yloca(), new NetworkManager.OnResultListener<AddressInfo>() {
+            @Override
+            public void onSuccess(Request request, AddressInfo result) {
+                textLocation.setText(result.legalDong);
+
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+//        for(int i =0; i<packageproduct.size();i++){
+//            if(marker.getTitle().equals(packageproduct.get(i).getPackage_name())){
+//                Glide.with(imageMain.getContext()).load(packageproduct.get(i).getPackage_mainpicture()).into(imageMain);
+//                Glide.with(imageMem.getContext()).load(packageproduct.get(i).getPackage_personpicture()).into(imageMem);
+//                NetworkManager.getInstance().getTMapReverseGeocoding(this, packageproduct.get(i).getPackage_xloca(), packageproduct.get(i).getPackage_yloca(), new NetworkManager.OnResultListener<AddressInfo>() {
+//                    @Override
+//                    public void onSuccess(Request request, AddressInfo result) {
+//                        textLocation.setText(result.legalDong);
+//                    }
+//
+//                    @Override
+//                    public void onFail(Request request, IOException exception) {
+//
+//                    }
+//                });
+//            }
+//        }
         marker.showInfoWindow();
         return true;
     }
@@ -303,7 +351,17 @@ public class MapActivity extends AppCompatActivity implements
         Marker m = mMap.addMarker(options);
     }
 
-
+//    private void addMarker(PackageProduct packageproduct){
+//        MarkerOptions options = new MarkerOptions();
+//        options.position(new LatLng(packageproduct.getPackage_xloca(),packageproduct.getPackage_yloca()));
+//        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+//        options.anchor(0.5f, 1f);
+//        options.title(packageproduct.getPackage_name());
+//        options.snippet(packageproduct.getPackage_price()+"원");
+//        options.draggable(true);
+//        Marker m = mMap.addMarker(options);
+//
+//    }
 
 
 
@@ -390,6 +448,9 @@ public class MapActivity extends AppCompatActivity implements
             mMap.moveCamera(update);
         }
     }
+
+
+
 
     @Override
     public void onConnectionSuspended(int i) {

@@ -6,12 +6,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission
+        android:name="com.ghosthawk.salard.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="com.ghosthawk.salard.permission.C2D_MESSAGE" />
 
     <application
+
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +25,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".IntroActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,17 +34,17 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoStatusBar" />
         <activity android:name=".SelectActivity" />
         <activity
             android:name=".Login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoStatusBar" />
         <activity
             android:name=".Login.MembershipActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoStatusBar" />
         <activity
             android:name=".Sell.SellHomeActivity"
-            android:label="@string/title_activity_sell_home"
+            android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Map.MapActivity" />
         <activity android:name=".Sell.SellProductDetailActivity" />
@@ -48,17 +53,47 @@
         <activity android:name=".Common.VersionActivity" />
         <activity android:name=".Common.RuleActivity" />
         <activity android:name=".Common.RankActivity" />
-        <activity android:name=".Common.ReIntroActivity" />
-        <activity android:name=".Sell.ProductDetailActivity" />
+        <activity
+            android:name=".Sell.ProductDetailActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.ghosthawk.salard" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".GCM.MyGcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".GCM.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".GCM.RegistrationIntentService"
+            android:exported="false">
+        </service>
         <activity android:name=".Sell.OtherMemberInfoActivity" />
         <activity android:name=".Sell.HomeFollowingActivity" />
         <activity android:name=".Sell.HomeFollowerActivity" />
-        <activity android:name=".Sell.MyProductDetailActivity"></activity>
+        <activity android:name=".Sell.MyProductDetailActivity" />
+        <activity android:name=".Sell.AddProductModifyActivity" />
+        <activity android:name=".Sell.SellHomeModifyActivity"></activity>
     </application>
 
 </manifest>

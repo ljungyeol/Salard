@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.ghosthawk.salard.MainActivity;
 import com.ghosthawk.salard.R;
 import com.ghosthawk.salard.Sell.SellHomeActivity;
 
@@ -21,7 +22,8 @@ public class LoginActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, SellHomeActivity.class);
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                i.putExtra(MainActivity.EXTRA_INDEX,"main");
                 startActivity(i);
             }
         });

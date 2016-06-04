@@ -1,5 +1,6 @@
 package com.ghosthawk.salard.Map;
 
+import com.ghosthawk.salard.Data.PackageProduct;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
  */
 public class POIS {
     @SerializedName("poi")
-    List<POI> poiList;
+    List<PackageProduct> packageProducts;
 }

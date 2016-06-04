@@ -44,7 +44,7 @@ public class OtherMemberProductAdapter extends RecyclerView.Adapter<OtherMemberP
 
     @Override
     public OtherMemberProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_product_item,null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_other_product_item, parent, false);
         return new OtherMemberProductViewHolder(view);
     }
 

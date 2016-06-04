@@ -2,31 +2,28 @@ package com.ghosthawk.salard.Sell;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.SuccessCode;
+import com.ghosthawk.salard.Data.UpdateProductResult;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
 
@@ -37,53 +34,37 @@ import java.util.List;
 
 import okhttp3.Request;
 
-/**
- * A simple {@link Fragment} subclass.
-
- */
-public class AddProductFragment extends Fragment {
-    ImageView imageView,imageView2;
+public class AddProductModifyActivity extends AppCompatActivity {
+    public static final String EXTRA_ID="_id";
+    ImageView imageView, imageView2;
     TextView textNumber,textSub;
     EditText editName,editDetail,editRecipe,editPrice,editSubDetail;
     Button btnPlus,btnMinus,btnRegist;
-    String mem_id = "test";
-    String food_name, food_detailinfo,food_subdetailinfo,food_recipeinfo,food_price,food_count;
-    int i=0;
-    Intent intent1,intent2;
-    boolean a = true;
-
-    public AddProductFragment() {
-        // Required empty public constructor
-    }
-
     String[] items = {"카메라로 촬영","앨범에서 선택"};
+    Intent intent1,intent2;
+    String food_name, food_detailinfo,food_subdetailinfo,food_recipeinfo,food_price,food_count;
+    int i ;
+    int id;
+    String _id;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_product, container, false);
-        textNumber =(TextView)view.findViewById(R.id.text_number) ;
-        btnPlus = (Button)view.findViewById(R.id.btn_plus);
-        btnMinus = (Button)view.findViewById(R.id.btn_minus);
-        btnRegist = (Button)view.findViewById(R.id.btn_regist);
-        imageView = (ImageView)view.findViewById(R.id.image_picture);
-        imageView2 = (ImageView)view.findViewById(R.id.image_picture2);
-        editName=(EditText)view.findViewById(R.id.edit_name);
-        editDetail = (EditText)view.findViewById(R.id.edit_detail);
-        editRecipe=(EditText)view.findViewById(R.id.edit_recipe);
-        editPrice =(EditText)view.findViewById(R.id.edit_price);
-        textSub=(TextView)view.findViewById(R.id.text_subbutton);
-        editSubDetail = (EditText)view.findViewById(R.id.edit_subdetail);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_product_modify);
 
-        textSub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(editSubDetail.getVisibility()==v.GONE)
-                    editSubDetail.setVisibility(View.VISIBLE);
-                else
-                    editSubDetail.setVisibility(View.GONE);
-            }
-        });
+        textNumber =(TextView)findViewById(R.id.text_number) ;
+        textSub = (TextView)findViewById(R.id.text_subbutton) ;
+        btnPlus = (Button)findViewById(R.id.btn_plus);
+        btnMinus = (Button)findViewById(R.id.btn_minus);
+        btnRegist = (Button)findViewById(R.id.btn_regist);
+        imageView = (ImageView)findViewById(R.id.image_picture);
+        imageView2 = (ImageView)findViewById(R.id.image_picture2);
+        editName=(EditText)findViewById(R.id.edit_name);
+        editDetail = (EditText)findViewById(R.id.edit_detail);
+        editRecipe=(EditText)findViewById(R.id.edit_recipe);
+        editPrice =(EditText)findViewById(R.id.edit_price);
+        editSubDetail=(EditText)findViewById(R.id.edit_subdetail);
+
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,11 +83,46 @@ public class AddProductFragment extends Fragment {
             }
         });
 
+        textSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editSubDetail.getVisibility()==v.GONE)
+                    editSubDetail.setVisibility(View.VISIBLE);
+                else
+                    editSubDetail.setVisibility(View.GONE);
+            }
+        });
+
+
+        _id=getIntent().getStringExtra(EXTRA_ID);
+        //id = getIntent().getIntExtra(EXTRA_ID,0);
+        //_id=String.valueOf(id);
+
+        NetworkManager.getInstance().getPackageUpdate(this, _id, new NetworkManager.OnResultListener<UpdateProductResult>() {
+            @Override
+            public void onSuccess(Request request, UpdateProductResult result) {
+                editName.setText(result.food.getPackage_name());
+                editPrice.setText(result.food.getPackage_price()+"");
+                editDetail.setText(result.food.getPackage_detailinfo());
+                editRecipe.setText(result.food.getPackage_recipeinfo());
+                textNumber.setText(result.food.getPackage_count()+"");
+                editSubDetail.setText(result.food.getPackage_subdetailinfo());
+                i = result.food.getPackage_count();
+                Glide.with(imageView.getContext()).load(result.food.getPackage_mainpicture()).into(imageView);
+                Glide.with(imageView2.getContext()).load(result.food.getPackage_subpicture()).into(imageView2);
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+
+            }
+        });
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddProductModifyActivity.this);
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -132,7 +148,7 @@ public class AddProductFragment extends Fragment {
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(AddProductModifyActivity.this);
                 builder1.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -153,32 +169,25 @@ public class AddProductFragment extends Fragment {
             }
         });
 
+
+
         btnRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("식재료 등록을 완료하시겠습니까?");
-                builder.setPositiveButton("완료", new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddProductModifyActivity.this);
+                builder.setMessage("식재료를 삭제하시겠습니까?");
+                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        food_name = editName.getText().toString();
-                        food_count = textNumber.getText().toString();
-                        food_detailinfo = editDetail.getText().toString();
-                        food_subdetailinfo = editSubDetail.getText().toString();
-                        food_recipeinfo = editRecipe.getText().toString();
-                        food_price = editPrice.getText().toString();
-
-
-
-                        NetworkManager.getInstance().getAddFood(getContext(), mem_id, food_name, food_detailinfo, food_subdetailinfo, food_recipeinfo, food_price,  food_count,mUploadFile, new NetworkManager.OnResultListener<SuccessCode>() {
+                        NetworkManager.getInstance().getFoodRemove(this, _id, new NetworkManager.OnResultListener<SuccessCode>() {
                             @Override
                             public void onSuccess(Request request, SuccessCode result) {
-                                Toast.makeText(getContext(),"완료되었습니다.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddProductModifyActivity.this,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                finish();
                             }
 
                             @Override
                             public void onFail(Request request, IOException exception) {
-                                Toast.makeText(getContext(),"등록을 실패하였습니다.",Toast.LENGTH_SHORT).show();
 
                             }
                         });
@@ -188,37 +197,63 @@ public class AddProductFragment extends Fragment {
                 builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(),"취소되었습니다.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddProductModifyActivity.this,"취소되었습니다.",Toast.LENGTH_SHORT).show();
 
                     }
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
             }
         });
-
-
-
-
-
-        return view;
-
-
-
-
 
 
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.modify_product, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+            food_name = editName.getText().toString();
+            food_count = textNumber.getText().toString();
+            food_detailinfo = editDetail.getText().toString();
+            food_recipeinfo = editRecipe.getText().toString();
+            food_subdetailinfo = editSubDetail.getText().toString();
+            food_price = editPrice.getText().toString();
+            NetworkManager.getInstance().getPackageUpdateComplete(this, _id, food_name, mUploadFile, food_price, food_recipeinfo, food_detailinfo, food_subdetailinfo, food_count, new NetworkManager.OnResultListener<SuccessCode>() {
+                @Override
+                public void onSuccess(Request request, SuccessCode result) {
+                    Toast.makeText(AddProductModifyActivity.this, "수정완료됏당", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(AddProductModifyActivity.this,"수정안됏다",Toast.LENGTH_SHORT).show();
+
+                }
+            });
 
 
 
+            return true;
+        }
 
 
-
-
+        return super.onOptionsItemSelected(item);
+    }
 
 
 
@@ -238,7 +273,7 @@ public class AddProductFragment extends Fragment {
     }
     File mCameraCaptureFile;
     private Uri getCameraCaptureFile() {
-        File dir = getContext().getExternalFilesDir("Salard");
+        File dir = this.getExternalFilesDir("Salard");
         if (!dir.exists()) { //폴더가 없을때 폴더 생성
             dir.mkdirs();
         }
@@ -271,16 +306,14 @@ public class AddProductFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = data.getData();
                 String[] projection = {MediaStore.Images.Media.DATA};
-                Cursor c = getContext().getContentResolver().query(uri, projection, null, null, null);
+                Cursor c = this.getContentResolver().query(uri, projection, null, null, null);
                 if (c.moveToNext()) {
                     String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
                     mUploadFile.add(0,new File(path));
-                    Glide.with(imageView.getContext()).load(path).into(imageView);
-/*
                     BitmapFactory.Options opts = new BitmapFactory.Options();
                     opts.inSampleSize = 2;
                     Bitmap bm = BitmapFactory.decodeFile(path, opts);
-                    imageView.setImageBitmap(bm);*/
+                    imageView.setImageBitmap(bm);
                 }
             }
             return;
@@ -289,16 +322,14 @@ public class AddProductFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = data.getData();
                 String[] projection = {MediaStore.Images.Media.DATA};
-                Cursor c = getContext().getContentResolver().query(uri, projection, null, null, null);
+                Cursor c = this.getContentResolver().query(uri, projection, null, null, null);
                 if (c.moveToNext()) {
                     String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
                     mUploadFile.add(1,new File(path));
-                    Glide.with(imageView2.getContext()).load(path).into(imageView2);
-/*
                     BitmapFactory.Options opts = new BitmapFactory.Options();
                     opts.inSampleSize = 2;
                     Bitmap bm = BitmapFactory.decodeFile(path, opts);
-                    imageView2.setImageBitmap(bm);*/
+                    imageView2.setImageBitmap(bm);
                 }
             }
             return;
@@ -334,7 +365,7 @@ public class AddProductFragment extends Fragment {
             return;
         }
 
-       onActivityResult(requestCode, resultCode, data);
+        onActivityResult(requestCode, resultCode, data);
     }
 
 

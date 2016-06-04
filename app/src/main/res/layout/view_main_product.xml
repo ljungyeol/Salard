@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="168dp"
     android:id="@+id/frame1">
 
     <ImageView
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="168dp"
         android:id="@+id/image_product"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@mipmap/ic_launcher"/>
@@ -18,54 +19,64 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:background="#ffffff"
+        android:id="@+id/namebar"
+        android:alpha="0.8"
         android:layout_alignBottom="@+id/image_product">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="음식 이름"
-            android:layout_marginLeft="16dp"
-            android:id="@+id/text_name"
-            android:layout_marginBottom="32dp"
-            android:singleLine="true"
-            android:ellipsize="end" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="음식 개수"
-            android:id="@+id/text_count"
-            android:layout_toRightOf="@+id/text_name"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="가격"
-            android:id="@+id/text_price"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="47dp"
-
-             />
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/img_mem_pic"
-            android:layout_alignTop="@+id/text_count"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            app:riv_border_width="3dp"
-            app:riv_border_color="#333333"
-            app:riv_oval="true"/>
-
-
-
-
-
-
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="음식 이름"
+        android:textColor="@color/SalardColor"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/namebar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="11dp"
+        android:id="@+id/text_name"
+        android:gravity="center_vertical"
+        android:textSize="16sp" />
+    <TextView
+        android:layout_width="70dp"
+        android:layout_height="16dp"
+        android:text="가격"
+        android:id="@+id/text_price"
+        android:layout_below="@+id/text_name"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="16dp"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:textColor="@color/SalardColor"
+        />
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="13dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="음식 개수 / 거리"
+        android:id="@+id/text_count"
+        android:layout_alignBottom="@+id/namebar"
+        android:layout_marginBottom="6dp"
+        android:layout_toRightOf="@+id/text_price"
+        android:layout_marginLeft="1dp"
+        android:gravity="center_vertical"
+        android:textSize="13sp"
+        android:textColor="@color/SalardWeakColor"
+        />
+
+
+
+    <include
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        layout="@layout/view_member_small"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/namebar"
+        android:layout_marginBottom="5dp"
+         />
+
 
 
 </RelativeLayout>

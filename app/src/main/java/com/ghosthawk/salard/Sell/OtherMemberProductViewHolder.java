@@ -14,7 +14,7 @@ import com.ghosthawk.salard.R;
  */
 public class OtherMemberProductViewHolder extends RecyclerView.ViewHolder {
     ImageView itemView;
-    TextView soldView,textName,textCount,textPrice,textLoca;
+    TextView soldView;
     PackageProduct packageProduct;
     public interface OnItemClickListener {
         public void onItemClick(View view, PackageProduct pack);
@@ -32,14 +32,7 @@ public class OtherMemberProductViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.itemView = (ImageView)itemView.findViewById(R.id.img_item);
         soldView = (TextView)itemView.findViewById(R.id.img_sold_out);
-        textName = (TextView)itemView.findViewById(R.id.text_name);
-        textCount = (TextView)itemView.findViewById(R.id.text_count);
-        textPrice = (TextView)itemView.findViewById(R.id.text_price);
-        textLoca=(TextView)itemView.findViewById(R.id.text_loca);
-        textName.setVisibility(View.GONE);
-        textPrice.setVisibility(View.GONE);
-        textCount.setVisibility(View.GONE);
-        textLoca.setVisibility(View.GONE);
+
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

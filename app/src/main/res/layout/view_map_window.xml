@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:id="@+id/view_map_window">
 
     <ImageView
         android:layout_width="100dp"
@@ -27,8 +29,14 @@
         android:id="@+id/img_mem"
         android:layout_alignParentRight="true"/>
 
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치"
+        android:id="@+id/text_location"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/img_mem"
+        android:layout_toStartOf="@+id/img_mem" />
 
 
 </RelativeLayout>

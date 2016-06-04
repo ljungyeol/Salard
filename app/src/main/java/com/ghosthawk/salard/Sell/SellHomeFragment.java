@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.ghosthawk.salard.Data.Member;
 import com.ghosthawk.salard.Data.MyPageResult;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
@@ -34,7 +35,7 @@ public class SellHomeFragment extends Fragment {
 
     LinearLayoutManager mLayoutManager;
     TextView textFollowing, textFollower,textName,textStat,textLoca;
-    ImageView imageView;
+    ImageView imageView,imageView2;
     public SellHomeFragment() {
         // Required empty public constructor
     }
@@ -46,7 +47,7 @@ public class SellHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sell_home, container, false);
         Bundle b = getArguments();
         my_id = b.getString(EXTRA_MY_ID);
-
+        imageView2=(ImageView)view.findViewById(R.id.img_modify) ;
         imageView = (ImageView)view.findViewById(R.id.img_my);
         textName = (TextView)view.findViewById(R.id.text_name);
         textStat = (TextView)view.findViewById(R.id.text_statmsg);
@@ -72,6 +73,18 @@ public class SellHomeFragment extends Fragment {
 
             }
         });
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SellHomeModifyActivity.class);
+                intent.putExtra(SellHomeModifyActivity.EXTRA_MY_ID,my_id);
+                startActivity(intent);
+            }
+        });
+
+
+
 
         listView = (RecyclerView)view.findViewById(R.id.rv_list);
         mAdapter = new CommentsAdapter();

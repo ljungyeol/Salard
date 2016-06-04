@@ -60,19 +60,19 @@ public class PropertyManager {
         return isLogin;
     }
 
-    //private User user = null;
-    //public void setUser(User user) {
-       // this.user = user;
-  //  }
-
-
-
-
-
-/*
-    public User getUser() {
-        return user;
-    }
+//    private User user = null;
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+//
+//
+//
+//
+//
+//
+//    public User getUser() {
+//        return user;
+//    }
     private static final String FIELD_REGISTRATION_ID = "regid";
     public void setRegistrationToken(String token) {
         mEditor.putString(FIELD_REGISTRATION_ID, token);
@@ -80,6 +80,21 @@ public class PropertyManager {
     }
     public String getRegistrationToken(){
         return mPrefs.getString(FIELD_REGISTRATION_ID, "");
-    }*/
+    }
 
+    double mem_xloca,mem_yloca;
+
+    public void setMyPosition(double mem_xloca, double mem_yloca){
+        this.mem_xloca = mem_xloca;
+        this.mem_yloca = mem_yloca;
+    }
+
+
+    public double getMem_xloca(){
+        return mem_xloca;
+    }
+
+    public double getMem_yloca() {
+        return mem_yloca;
+    }
 }

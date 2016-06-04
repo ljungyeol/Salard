@@ -12,26 +12,15 @@
         android:layout_alignParentStart="true"
         android:src="@mipmap/ic_launcher"/>
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop ="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/text1"
-        android:visibility ="invisible"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="이름"
         android:id="@+id/text_name"
-        android:layout_below="@+id/text1"
         android:layout_toRightOf="@+id/image_thumb"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:singleLine="true"
-        android:ellipsize="end" />
+         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,5 +31,6 @@
         android:layout_below="@+id/text_name"
         android:layout_toRightOf="@+id/image_thumb"
         />
+
 
 </RelativeLayout>

@@ -70,4 +70,5 @@
         android:layout_alignRight="@+id/img_mem"
         android:layout_alignEnd="@+id/img_mem" />
 
+
 </RelativeLayout>

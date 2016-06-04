@@ -38,7 +38,7 @@ public class OtherMemberInfoActivity extends AppCompatActivity {
     public static final String EXTRA_MY_ID = "my_id";
     public static final String EXTRA_PERSON_ID = "person_id";
     TextView textMemName,textMemStatmsg,textMemLocation,textMemFollow;
-    ImageView imageView2;
+    ImageView imageView2,imageRank;
     String my_id, person_id;
     FragmentTabHost tabHost;
     boolean key = true;
@@ -79,9 +79,10 @@ public class OtherMemberInfoActivity extends AppCompatActivity {
         //textMemLocation.setText(getIntent().getStringExtra(EXTRA_Location));
         textMemFollow = (TextView)findViewById(R.id.text_follow);
         //textMemFollow.setText(getIntent().getIntExtra(EXTRA_Follow,0));
-        imageView2 = (ImageView)findViewById(R.id.imageView3);
+        imageView2 = (ImageView)findViewById(R.id.img_mem);
        // int i = getIntent().getIntExtra(EXTRA_Picture, 0);
         //imageView2.setImageResource(i);
+        imageRank = (ImageView)findViewById(R.id.img_rank) ;
 
         btn = (Button)findViewById(R.id.btn_follow);
         btn.setOnClickListener(new View.OnClickListener() {

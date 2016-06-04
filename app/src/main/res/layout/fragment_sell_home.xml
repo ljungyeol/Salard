@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ghosthawk.salard.Sell.SellHomeFragment">
+    tools:context="com.ghosthawk.salard.Sell.SellHomeFragment"
+    android:id="@+id/container"
+    >
 
 
     <ImageView
@@ -98,4 +100,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_modify"
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignTop="@+id/text_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -11,7 +11,9 @@ public class POI {
     String frontLon;
     String noorLat;
     String noorLon;
-
+    String mem_picture;
+    String package_mainpicture;
+    String Price;
     String upperAddrName;
     String middleAddrName;
     String lowerAddrName;
