@@ -88,7 +88,9 @@
             android:name=".GCM.RegistrationIntentService"
             android:exported="false">
         </service>
-        <activity android:name=".Sell.OtherMemberInfoActivity" />
+        <activity android:name=".Other.OtherMemberInfoActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Sell.HomeFollowingActivity" />
         <activity android:name=".Sell.HomeFollowerActivity" />
         <activity android:name=".Sell.MyProductDetailActivity" />

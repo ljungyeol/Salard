@@ -1,26 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="328dp"
+    android:layout_height="72dp"
+    android:layout_marginTop="16dp"
+    >
+    <!--TODO 메세지 0606 새로 추가 시간(text_date) 알림(text_noti)-->
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/img_pic"
-        android:src="@mipmap/ic_launcher"/>
+    <include
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:id="@+id/view_member_small"
+        layout="@layout/view_member_small"
+        android:layout_marginTop="16dp"
+        />
+
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="144dp"
+        android:layout_height="14dp"
         android:id="@+id/text_name"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="이름"
-        android:layout_toRightOf="@+id/img_pic"/>
+        android:textSize="14sp"
+        android:textColor="@color/SalardColor"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="19dp"
+        android:layout_toRightOf="@+id/view_member_small"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="13dp"
         android:id="@+id/text_statmsg"
         android:text="최근 메세지"
+        android:textSize="13sp"
+        android:textColor="@color/SalardWeakColor"
         android:layout_below="@+id/text_name"
-        android:layout_toRightOf="@+id/img_pic"/>
-
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@+id/view_member_small"/>
+    <View
+        android:layout_width="288dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_toRightOf="@+id/view_member_small"
+        android:layout_marginLeft="11dp"
+        android:layout_below="@id/text_statmsg"
+        android:layout_marginTop="18dp"/>
+    <!--TODO 선이 안보인다-->
+    <TextView
+        android:layout_width="42dp"
+        android:layout_height="10dp"
+        android:text="오후4:00"
+        android:textSize="10sp"
+        android:id="@+id/text_date"
+        android:textColor="@color/SalardWeakColor"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"/>
+    <TextView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:background="#ff0000"
+        android:text="1"
+        android:id="@+id/text_noti"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="32dp"
+        android:textSize="12sp"/>
 </RelativeLayout>

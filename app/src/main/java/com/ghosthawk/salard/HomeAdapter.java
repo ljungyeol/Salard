@@ -22,8 +22,7 @@ public class HomeAdapter extends PagerAdapter {
 //    List<View> scrapped = new ArrayList<View>();
 
     Context context;
-    Bitmap galImage;
-    BitmapFactory.Options options;
+
     private final int[] galImages = new int[] {
             R.drawable.introsample,
             R.drawable.tutorialsample,
@@ -48,6 +47,7 @@ public class HomeAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
         ImageView imageView = new ImageView(context);
 //            int padding = context.getResources().getDimensionPixelSize();
 //            imageView.setPadding(padding, padding, padding, padding);
@@ -59,7 +59,13 @@ public class HomeAdapter extends PagerAdapter {
 //
 //        imageView.setImageBitmap(galImage);
         ((ViewPager) container).addView(imageView, 0);
+
         return imageView;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return super.getItemPosition(object);
     }
 
     @Override

@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/image_thumb"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:layout_width="328dp"
+    android:layout_height="56dp"
+    android:layout_marginTop="16dp">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="이름"
-        android:id="@+id/text_name"
-        android:layout_toRightOf="@+id/image_thumb"
-         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="상태메세지"
-        android:layout_marginTop="10dp"
-        android:id="@+id/text_state"
-        android:layout_below="@+id/text_name"
-        android:layout_toRightOf="@+id/image_thumb"
+    <!--TODO thumb-> mem + rank추가-->
+
+    <include
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        layout="@layout/view_member_small"
+        android:id="@+id/view_member_small"
+        android:layout_marginTop="8dp"
         />
+
+    <TextView
+        android:layout_width="144dp"
+        android:layout_height="14dp"
+        android:text="이름"
+        android:textSize="14sp"
+        android:textColor="@color/SalardColor"
+        android:layout_marginTop="21dp"
+        android:layout_marginLeft="11dp"
+        android:id="@+id/text_name"
+        android:layout_toRightOf="@+id/view_member_small"
+         />
+
+    <View
+        android:layout_width="288dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_toRightOf="@+id/view_member_small"
+        android:layout_marginLeft="11dp"
+        android:layout_below="@id/text_name"
+        android:layout_marginTop="21dp"/>
 
 
 </RelativeLayout>

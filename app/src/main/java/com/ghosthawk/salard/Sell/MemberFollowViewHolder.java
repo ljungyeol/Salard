@@ -15,8 +15,8 @@ import org.w3c.dom.Text;
  * Created by Tacademy on 2016-05-16.
  */
 public class MemberFollowViewHolder extends RecyclerView.ViewHolder {
-    ImageView thumbView;
-    TextView nameView, stateView;
+    ImageView imageMem,imageRank;
+    TextView nameView;
     Member member;
     public interface OnItemClickListener{
         public void onItemClick(View view, Member member);
@@ -28,13 +28,13 @@ public class MemberFollowViewHolder extends RecyclerView.ViewHolder {
         mListener = listener;
     }
 
-
-
+    //--TODO 랭크 받아서 해야된다.
+    //-TODO 받는곳에서 상태메세지 없애고 아이디 대신에 이름 받아야한다
     public MemberFollowViewHolder(View itemView) {
         super(itemView);
-        thumbView = (ImageView)itemView.findViewById(R.id.image_thumb);
+        imageMem = (ImageView)itemView.findViewById(R.id.img_mem);
+        imageRank = (ImageView)itemView.findViewById(R.id.img_rank);
         nameView = (TextView)itemView.findViewById(R.id.text_name);
-        stateView = (TextView)itemView.findViewById(R.id.text_state);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,8 +50,7 @@ public class MemberFollowViewHolder extends RecyclerView.ViewHolder {
     public void setMember(Member member) {
         this.member = member;
 
-        Glide.with(thumbView.getContext()).load(member.getMem_Picture()).into(thumbView);
+        Glide.with(imageMem.getContext()).load(member.getMem_Picture()).into(imageMem);
         nameView.setText(member.getMem_Name());
-        stateView.setText(member.getMem_StatMsg());
     }
 }

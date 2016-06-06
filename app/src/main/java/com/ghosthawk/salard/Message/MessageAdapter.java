@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ghosthawk.salard.Data.Comments;
 import com.ghosthawk.salard.Data.Message;
 import com.ghosthawk.salard.R;
-import com.ghosthawk.salard.Sell.CommentsViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="336dp"
+    android:layout_height="640dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
     tools:context="com.ghosthawk.salard.Sell.AddListFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -13,4 +15,4 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 
-</FrameLayout>
+</RelativeLayout>

@@ -30,7 +30,7 @@ public class WishListFragment extends Fragment {
     String my_id;
 
     RecyclerView gridView;
-    GridListAdapter mAdapter;
+    GridWishListAdapter mAdapter;
     GridLayoutManager mLayoutManager;
     public WishListFragment() {
         // Required empty public constructor
@@ -39,8 +39,8 @@ public class WishListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new GridListAdapter();
-        mAdapter.setOnItemClickListener(new GridListViewHolder.OnItemClickListener() {
+        mAdapter = new GridWishListAdapter();
+        mAdapter.setOnItemClickListener(new GridWishListViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, PackageProduct pack) {
                 Intent intent = new Intent(getContext(),ProductDetailActivity.class);

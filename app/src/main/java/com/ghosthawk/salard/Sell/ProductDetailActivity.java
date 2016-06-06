@@ -1,15 +1,10 @@
 package com.ghosthawk.salard.Sell;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,25 +13,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.Member;
-import com.ghosthawk.salard.Data.PackageProduct;
 import com.ghosthawk.salard.Data.ProductResult;
 import com.ghosthawk.salard.Data.SuccessCode;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Other.OtherMemberInfoActivity;
 import com.ghosthawk.salard.R;
 
 import java.io.IOException;
-import java.util.zip.Inflater;
 
 import okhttp3.Request;
 
 public class ProductDetailActivity extends AppCompatActivity {
-    public static final String EXTRA_Name = "name";
-    public static final String EXTRA_Price = "price";
-    public static final String EXTRA_Count = "count";
-    public static final String EXTRA_Picture = "Pirture";
-    public static final String EXTRA_Detail = "detail1";
-    public static final String EXTRA_Detail2 = "detail2";
-    public static final String EXTRA_Recipe="recipe";
+
     public static final String EXTRA_ID="_id";
     public static final String EXTRA_MY_ID="my_id";
 
@@ -57,19 +45,20 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // PackageProduct pack =(PackageProduct) getIntent().getSerializableExtra("ff");
-//        ActionBar actionBar = getActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         id = getIntent().getIntExtra(EXTRA_ID,0);
         setContentView(R.layout.activity_product_detail);
         _id=String.valueOf(id);
         main_id = getIntent().getStringExtra(EXTRA_MY_ID);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         textView = (TextView)findViewById(R.id.text_title);
         textView.setText("식재료 정보");
         imageProduct = (ImageView)findViewById(R.id.imageView2);
         imageMem = (ImageView)findViewById(R.id.img_mem);
-
         imageRank = (ImageView)findViewById(R.id.img_rank);
         //int i =getIntent().getIntExtra(EXTRA_Picture, 0);
         //imageView.setImageResource(i);
@@ -176,11 +165,20 @@ public class ProductDetailActivity extends AppCompatActivity {
         init();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void init() {
         NetworkManager.getInstance().getProductDetail(this,_id, main_id, new NetworkManager.OnResultListener<ProductResult>() {
             @Override
             public void onSuccess(Request request, ProductResult result) {
-               // Log.d("ddddddddddddddddddd",result._package.getPackage_mainpicture());
+
                 Glide.with(imageProduct.getContext()).load(result._package.getPackage_mainpicture()).into(imageProduct);
                 textName.setText(result._package.getPackage_name());
                 textPrice.setText(result._package.getPackage_price()+"원");
@@ -190,8 +188,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 textRecipe.setText(result._package.getPackage_recipeinfo());
                 textMemName.setText(result.member.getMem_Name());
                 textMemLocation.setText(result._package.getPackage_loca());
-                Log.d("state",result._package.getPackage_state()+"");
-                Log.d("ddddddddddddddd",state+"");
+
 
                 Glide.with(imageMem.getContext()).load(result._package.getPackage_personpicture()).into(imageMem);
                 my_id = result.member.getMem_id();

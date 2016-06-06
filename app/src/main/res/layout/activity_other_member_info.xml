@@ -5,16 +5,35 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    tools:context="com.ghosthawk.salard.Sell.OtherMemberInfoActivity">
+    tools:context=".Other.OtherMemberInfoActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:id="@+id/toolbar"
+            app:popupTheme="@style/AppTheme.PopupOverlay"             >
+            <TextView
+                android:layout_width="81dp"
+                android:layout_height="16dp"
+                android:text="제목"
+                android:textSize="17sp"
+                android:id="@+id/text_title"
+                android:textColor="@color/SalardColor"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="24dp"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         layout="@layout/view_other_name_card"
         android:id="@+id/view_other_name_card"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"/>
 

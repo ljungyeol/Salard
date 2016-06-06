@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:id="@+id/toolbar"
-            app:popupTheme="@style/AppTheme.PopupOverlay"             >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
                 android:layout_width="81dp"
                 android:layout_height="16dp"
@@ -24,7 +24,7 @@
                 android:textColor="@color/SalardColor"
                 android:gravity="center_vertical"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="72dp"/>
+                android:layout_marginLeft="24dp"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <ScrollView
@@ -39,14 +39,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
+            <android.support.v4.view.ViewPager
+                android:layout_width="360dp"
+                android:layout_height="360dp"
+                android:id="@+id/viewPager_detail"
+                android:layout_centerHorizontal="true"></android.support.v4.view.ViewPager>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
                 android:id="@+id/imageView2"
                 android:background="#ffffff"
+                android:scaleType="centerCrop"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />'
+                 />
             <TextView
                 android:layout_width="260dp"
                 android:layout_height="23dp"

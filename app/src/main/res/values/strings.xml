@@ -14,7 +14,6 @@
     <string name="other_tab_product_title">등록한 식재료</string>
     <string name="other_tab_rating_title">후기 별점</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

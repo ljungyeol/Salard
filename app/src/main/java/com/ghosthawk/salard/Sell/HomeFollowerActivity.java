@@ -35,11 +35,7 @@ public class HomeFollowerActivity extends AppCompatActivity {
         my_id = getIntent().getStringExtra(EXTRA_MY_ID);
         init();
     }
-    int img[] = {
-            R.drawable.sample1, R.drawable.sample2, R.drawable.sample3,
-            R.drawable.sample4, R.drawable.sample5, R.drawable.sample6,
-            R.drawable.sample7, R.drawable.sample8, R.drawable.sample9,
-            R.drawable.sample10};
+
     private void init() {
         NetworkManager.getInstance().getFollowerList(this, my_id, new NetworkManager.OnResultListener<FollowerResult>() {
             @Override
@@ -51,7 +47,6 @@ public class HomeFollowerActivity extends AppCompatActivity {
             @Override
             public void onFail(Request request, IOException exception) {
                 Toast.makeText(HomeFollowerActivity.this,"불러올 수 없습니다.",Toast.LENGTH_SHORT).show();
-
             }
         });
 

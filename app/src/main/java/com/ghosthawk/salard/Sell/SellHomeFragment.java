@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
-import com.ghosthawk.salard.Data.Member;
 import com.ghosthawk.salard.Data.MyPageResult;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Other.CommentsAdapter;
 import com.ghosthawk.salard.R;
 
 import java.io.IOException;

@@ -1,5 +1,7 @@
 package com.ghosthawk.salard.Sell;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -7,6 +9,7 @@ import android.widget.BaseAdapter;
 import com.ghosthawk.salard.Data.PackageProduct;
 import com.ghosthawk.salard.Data.Product;
 import com.ghosthawk.salard.Message.MessageViewHolder;
+import com.ghosthawk.salard.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.List;
 /**
  * Created by Tacademy on 2016-05-20.
  */
-public class GridWishListAdapter extends BaseAdapter {
+public class GridWishListAdapter extends RecyclerView.Adapter<GridWishListViewHolder> {
     List<PackageProduct> items = new ArrayList<>();
 
     public void clear(){
@@ -33,44 +36,27 @@ public class GridWishListAdapter extends BaseAdapter {
 
     }
 
-    GridWishListItemView.OnItemClickListener mListener;
-    public void setOnItemClickListener(GridWishListItemView.OnItemClickListener listener){
+    GridWishListViewHolder.OnItemClickListener mListener;
+    public void setOnItemClickListener(GridWishListViewHolder.OnItemClickListener listener){
         mListener = listener;
     }
 
 
-    public void onBindView(GridWishListItemView holder, int position) {
+
+    @Override
+    public GridWishListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_wish_item,null);
+        return new GridWishListViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(GridWishListViewHolder holder, int position) {
         holder.setImageData(items.get(position));
         holder.setOnItemClickListener(mListener);
     }
 
-
-
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return items.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return items.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        GridWishListItemView view;
-
-        if(convertView==null){
-            view = new GridWishListItemView(parent.getContext());
-        } else {
-            view = (GridWishListItemView)convertView;
-        }
-        view.setImageData(items.get(position));
-        return view;
     }
 }

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.ghosthawk.salard.Data.MessageResult;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
-import com.ghosthawk.salard.Sell.CommentsAdapter;
 
 import java.io.IOException;
 

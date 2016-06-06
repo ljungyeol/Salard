@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class MessageViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
-    TextView textName,textStatmsg;
+    TextView textName,textStatmsg,textDate,textNoti;
 
     Message message;
     public interface OnItemClickListener{
@@ -34,9 +34,11 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
 
     public MessageViewHolder(View itemView) {
         super(itemView);
-        imageView = (ImageView)itemView.findViewById(R.id.img_pic);
+        imageView = (ImageView)itemView.findViewById(R.id.img_mem);
         textName = (TextView)itemView.findViewById(R.id.text_name);
         textStatmsg = (TextView)itemView.findViewById(R.id.text_statmsg);
+        textDate = (TextView)itemView.findViewById(R.id.text_date);
+        textNoti = (TextView)itemView.findViewById(R.id.text_noti);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

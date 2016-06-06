@@ -8,6 +8,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="이름"
+        android:textColor="@color/SalardWeakColor"
+        android:layout_marginTop="16dp"
         android:id="@+id/text_name" />
 
     <TextView
@@ -15,13 +17,17 @@
         android:layout_height="wrap_content"
         android:text="내상태는해롱해롱해롱"
         android:id="@+id/text_msg"
+        android:textColor="@color/SalardWeakColor"
+        android:layout_marginTop="13dp"
         android:layout_below="@+id/text_name" />
 
     <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_width="128dp"
+        android:layout_height="16dp"
+        android:id="@+id/ratingBar3"
+        android:layout_below="@+id/text_msg"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="12dp"
+         />
 
 </RelativeLayout>

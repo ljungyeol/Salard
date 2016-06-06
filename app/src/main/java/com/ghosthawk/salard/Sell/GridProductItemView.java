@@ -17,11 +17,6 @@ import org.w3c.dom.Text;
  * Created by Tacademy on 2016-05-20.
  */
 public class GridProductItemView extends FrameLayout {
-    int img[] = {
-            R.drawable.sample1, R.drawable.sample2, R.drawable.sample3,
-            R.drawable.sample4, R.drawable.sample5, R.drawable.sample6,
-            R.drawable.sample7, R.drawable.sample8, R.drawable.sample9,
-            R.drawable.sample10};
 
     public interface OnItemClickListener {
         public void onItemClick(View view, PackageProduct pack);
@@ -47,7 +42,6 @@ public class GridProductItemView extends FrameLayout {
         textName = (TextView)findViewById(R.id.text_name);
         textCount = (TextView)findViewById(R.id.text_count);
         textPrice = (TextView)findViewById(R.id.text_price);
-        textLoca=(TextView)findViewById(R.id.text_loca);
         textName.setVisibility(GONE);
         textCount.setVisibility(GONE);
         textPrice.setVisibility(GONE);
