@@ -24,9 +24,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.Member;
 import com.ghosthawk.salard.Data.PackageProduct;
+import com.ghosthawk.salard.Data.PackageProductResult;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.Map.AddressInfo;
 import com.ghosthawk.salard.Map.MapActivity;
 import com.ghosthawk.salard.R;
@@ -50,35 +53,34 @@ public class SalardMainFragment extends Fragment  implements
     ImageView imageLocation,imageMap;
     private List<PackageProduct> result;
     Location location;
-    Handler mHandler= new Handler(Looper.getMainLooper()){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if(msg.what==1){
-                result = (List<PackageProduct>) msg.obj;
-/*
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
-
-                String uri = "full addr"+ .package_mainpicture;
-
-                try {
-                    result.bm = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, options);
-
-                } catch (Exception e) {
-                }*/
-
-
-                mAdapter.clear();
-                mAdapter.addAll(result);
-                mAdapter.notifyDataSetChanged();
-
-
-            }
-
-
-        }
-    };
+//    Handler mHandler= new Handler(Looper.getMainLooper()){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            if(msg.what==1){
+//                result = (List<PackageProduct>) msg.obj;
+///*
+//                BitmapFactory.Options options = new BitmapFactory.Options();
+//                options.inSampleSize = 8;
+//
+//                String uri = "full addr"+ .package_mainpicture;
+//
+//                try {
+//                    result.bm = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, options);
+//
+//                } catch (Exception e) {
+//                }*/
+//
+//
+//
+//                mAdapter.notifyDataSetChanged();
+//
+//
+//            }
+//
+//
+//        }
+//    };
 
     public SalardMainFragment() {
         // Required empty public constructor
@@ -189,10 +191,14 @@ public class SalardMainFragment extends Fragment  implements
 //       String yloca =  Double.toString(location.getLongitude());
         String xloca = "100";
         String yloca = "200";
-        NetworkManager.getInstance().getHomeProductList(getContext(), xloca, yloca, my_id, new NetworkManager.OnResultListener<List<PackageProduct>>() {
+        NetworkManager.getInstance().getHomeProductList(getContext(), xloca, yloca, my_id, new NetworkManager.OnResultListener<PackageProductResult>() {
                     @Override
-                    public void onSuccess(Request request, List<PackageProduct> result) {
-                        mHandler.sendMessage(mHandler.obtainMessage(1, result));
+                    public void onSuccess(Request request,PackageProductResult result) {
+//                        mHandler.sendMessage(mHandler.obtainMessage(1, result));
+                        mAdapter.clear();
+                        mAdapter.addAll(result._package);
+//                        member = result.member;
+                        PropertyManager.getInstance().setMember(result.member);
                         //mAdapter.clear();
                         //mAdapter.addAll(result);
 
@@ -236,4 +242,7 @@ public class SalardMainFragment extends Fragment  implements
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
+
+
+
 }

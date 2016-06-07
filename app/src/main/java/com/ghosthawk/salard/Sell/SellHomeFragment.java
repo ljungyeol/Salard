@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +35,13 @@ public class SellHomeFragment extends Fragment {
     String my_id;
 
     LinearLayoutManager mLayoutManager;
-    TextView textFollowing, textFollower,textName,textStat,textLoca;
-    ImageView imageView,imageView2;
+    TextView textFollowing, textFollower,textName,textStat,textLoca,textComment;
+    ImageView imageView,imageView2,imageRank;
+    Button btnRating;
     public SellHomeFragment() {
         // Required empty public constructor
     }
-
+    //!--TODO 랭크 설정해야된다
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,10 +51,12 @@ public class SellHomeFragment extends Fragment {
         my_id = b.getString(EXTRA_MY_ID);
         imageView2=(ImageView)view.findViewById(R.id.img_modify) ;
         imageView = (ImageView)view.findViewById(R.id.img_my);
+        imageRank = (ImageView)view.findViewById(R.id.img_rank);
         textName = (TextView)view.findViewById(R.id.text_name);
         textStat = (TextView)view.findViewById(R.id.text_statmsg);
         textLoca = (TextView)view.findViewById(R.id.text_location);
-
+        textComment = (TextView)view.findViewById(R.id.text_comment) ;
+        btnRating = (Button)view.findViewById(R.id.btn_rating);
         textFollower = (TextView)view.findViewById(R.id.text_follower);
         textFollower.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +87,19 @@ public class SellHomeFragment extends Fragment {
             }
         });
 
-
+        btnRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listView.getVisibility()==View.GONE){
+                    listView.setVisibility(View.VISIBLE);
+                    textComment.setText("후기 접기");
+                }
+                else{
+                    listView.setVisibility(View.GONE);
+                    textComment.setText("후기 더보기");
+                }
+            }
+        });
 
 
         listView = (RecyclerView)view.findViewById(R.id.rv_list);

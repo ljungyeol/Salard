@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -232,6 +233,18 @@ public class AddProductModifyActivity extends AppCompatActivity {
             food_recipeinfo = editRecipe.getText().toString();
             food_subdetailinfo = editSubDetail.getText().toString();
             food_price = editPrice.getText().toString();
+            if (TextUtils.isEmpty(food_subdetailinfo)){
+                food_subdetailinfo = "";
+            }
+            if(TextUtils.isEmpty(food_name) || food_count.equals("0") || TextUtils.isEmpty(food_detailinfo)
+                    || TextUtils.isEmpty(food_recipeinfo) || TextUtils.isEmpty(food_price) || mUploadFile.get(0)==null || mUploadFile.get(1)==null){
+                Toast.makeText(AddProductModifyActivity.this,"빈 곳이 있습니다.",Toast.LENGTH_SHORT).show();
+                return false;
+                //리턴값은 어떻게하나
+            }
+
+
+
             NetworkManager.getInstance().getPackageUpdateComplete(this, _id, food_name, mUploadFile, food_price, food_recipeinfo, food_detailinfo, food_subdetailinfo, food_count, new NetworkManager.OnResultListener<SuccessCode>() {
                 @Override
                 public void onSuccess(Request request, SuccessCode result) {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="48dp" android:layout_height="48dp">
+
+    <Button
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="메세지"
+        android:id="@+id/btn_message"
+        android:background="#11dd22"
+        />
+    <!--TODO 나중에 알림을 text_noti에 추가해야된다-->
+    <TextView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:background="#ed1c24"
+        android:text="1"
+        android:textColor="#ffffff"
+        android:id="@+id/text_noti"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="27dp"
+        android:elevation="4dp"
+
+        />
+
+</RelativeLayout>

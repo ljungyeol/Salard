@@ -1,112 +1,220 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ghosthawk.salard.Sell.SellHomeFragment"
-    android:id="@+id/container"
+
     >
-
-
-    <ImageView
+    <!--TODO 0607 랭크 사진ㅇ ㅙ 동그라미가 안돼냐!-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/img_my"
-        android:src="@drawable/sample7"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="640dp"
+        android:id="@+id/container">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:id="@+id/img_my"
+            android:background="#000000"
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이름"
-        android:id="@+id/text_name"
-        android:layout_below="@+id/img_my"
-         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="상태 메세지"
-        android:id="@+id/text_statmsg"
-        android:layout_below="@+id/text_name"
-         />
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/rank0"
+            android:id="@+id/img_rank"
+            android:layout_alignRight="@+id/img_my"
+            android:layout_marginRight="16dp"
+            android:background="#FFFFFF"
+            android:layout_alignBottom="@+id/img_my"
+            android:layout_marginBottom="20dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="위치"
-        android:id="@+id/text_location"
-        android:layout_below="@+id/text_statmsg" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_location"
-        android:id="@+id/linear1"
-        >
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="140dp"
+            android:layout_height="18dp"
+            android:text="고독한 미식가"
+            android:textColor="@color/SalardColor"
+            android:textSize="18sp"
+            android:id="@+id/text_name"
+            android:layout_below="@+id/img_my"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+             />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="13dp"
+            android:text="외로운 혼자녀의 고독한 식사"
+            android:textSize="13sp"
+            android:textColor="@color/SalardWeakColor"
+            android:id="@+id/text_statmsg"
+            android:layout_below="@+id/text_name"
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="16dp"
+             />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="13dp"
+            android:text="상수동"
+            android:textSize="13sp"
+            android:textColor="@color/SalardWeakColor"
+            android:id="@+id/text_location"
+            android:layout_below="@+id/text_statmsg"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="22dp"/>
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:id="@+id/lineF"
+            android:layout_marginLeft="16dp"
+            android:background="@color/SalardLine"
+            android:layout_below="@+id/text_location"
+            android:layout_marginTop="22dp"
+            />
+
+        <TextView
+            android:layout_width="35dp"
+            android:layout_height="13dp"
             android:text="팔로워"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:textSize="13sp"
+            android:id="@+id/text1"
+            android:textColor="@color/SalardWeakColor"
+            android:layout_below="@+id/lineF"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="16dp"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30명"
-            android:layout_marginLeft="10dp"
+            android:layout_width="35dp"
+            android:layout_height="13dp"
+            android:text="30"
+            android:textSize="13sp"
+            android:textColor="@color/SalardColor"
+            android:layout_marginLeft="9dp"
             android:id="@+id/text_follower"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            />
+            android:layout_below="@+id/lineF"
+            android:layout_marginTop="22dp"
+            android:layout_toRightOf="@+id/text1"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="13dp"
             android:text="팔로윙"
-            android:layout_marginLeft="90dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:textSize="13sp"
+            android:id="@+id/text2"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/SalardWeakColor"
+            android:layout_toRightOf="@+id/text_follower"
+            android:layout_below="@+id/lineF"
+            android:layout_marginTop="22dp"
             />
         <TextView
+            android:layout_width="35dp"
+            android:layout_height="13dp"
+            android:text="30"
+            android:textSize="13sp"
+            android:textColor="@color/SalardColor"
+            android:layout_marginLeft="9dp"
+            android:layout_below="@id/lineF"
+            android:layout_marginTop="22dp"
+            android:id="@+id/text_following"
+            android:layout_toRightOf="@+id/text2"
+
+            />
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:id="@+id/lineG"
+            android:layout_marginLeft="16dp"
+            android:background="@color/SalardLine"
+            android:layout_below="@+id/text_follower"
+            android:layout_marginTop="22dp"
+            />
+
+
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="13dp"
+            android:text="후기 평점"
+            android:textSize="13sp"
+            android:textColor="@color/SalardWeakColor"
+            android:layout_below="@+id/lineG"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/textview"/>
+
+
+        <RatingBar
+            android:layout_width="128dp"
+            android:layout_height="16dp"
+            android:id="@+id/ratingBar"
+            android:layout_below="@+id/textview"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="16dp"
+            />
+
+        <TextView
+            android:layout_width="35dp"
+            android:layout_height="13dp"
+            android:text="0.0"
+            android:textSize="13sp"
+            android:textColor="@color/SalardWeakColor"
+            android:layout_toRightOf="@id/ratingBar"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/textview"
+            android:layout_marginBottom="22dp"
+            android:layout_marginTop="22dp"
+            android:id="@+id/textView4" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_list"
+            android:layout_below="@+id/btn_rating"
+            android:visibility="gone"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+             />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30명"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/text_following"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            />
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="후기 평점"
-        android:layout_below="@+id/linear1"
-        android:id="@+id/textview"/>
+            android:id="@+id/img_modify"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/img_my"
+            android:layout_alignRight="@+id/img_my"/>
+
+        <TextView
+            android:layout_width="63dp"
+            android:layout_height="13dp"
+            android:text="후기 더 보기"
+            android:id="@+id/text_comment"
+            android:textSize="13sp"
+            android:textColor="@color/SalardWeakColor"
+            android:layout_toLeftOf="@+id/btn_rating"
+            android:layout_below="@+id/ratingBar"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="38dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="임시"
+            android:id="@+id/btn_rating"
+            android:layout_below="@id/ratingBar"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentRight="true"/>
+
+        <!--TODO 후기 아래 선은 후기더보기 눌렀을때만 visible-->
 
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_below="@+id/textview" />
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_list"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/img_modify"
-        android:src="@mipmap/ic_launcher"
-        android:layout_alignTop="@+id/text_name"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

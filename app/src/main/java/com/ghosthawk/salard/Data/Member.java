@@ -22,7 +22,15 @@ public class Member implements Serializable {
     public int mem_followercount;
     public int mem_followingcount;
     public String mem_loca;
-    public int mem_sell_count;
+    public int mem_sellcount;
+
+    public int getMem_sellcount() {
+        return mem_sellcount;
+    }
+
+    public void setMem_sellcount(int mem_sellcount) {
+        this.mem_sellcount = mem_sellcount;
+    }
 
     public String getMem_id() {
         return mem_id;

@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_main"
         android:id="@+id/edit_id"
-        android:text="ID"
+        android:hint="ID"
         android:layout_marginTop="20dp"
         android:layout_alignLeft="@+id/img_main"
         android:layout_alignRight="@+id/img_main"/>
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_id"
         android:id="@+id/edit_pw"
-        android:text="PW"
+        android:hint="PW"
         android:layout_alignLeft="@+id/img_main"
         android:layout_alignRight="@+id/img_main"/>
 

@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,8 @@ import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.SuccessCode;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -165,10 +169,17 @@ public class AddProductFragment extends Fragment {
                         food_count = textNumber.getText().toString();
                         food_detailinfo = editDetail.getText().toString();
                         food_subdetailinfo = editSubDetail.getText().toString();
+                        if (TextUtils.isEmpty(food_subdetailinfo)){
+                            food_subdetailinfo = "";
+                        }
                         food_recipeinfo = editRecipe.getText().toString();
                         food_price = editPrice.getText().toString();
 
-
+                        if(TextUtils.isEmpty(food_name) || food_count.equals("0") || TextUtils.isEmpty(food_detailinfo)
+                                || TextUtils.isEmpty(food_recipeinfo) || TextUtils.isEmpty(food_price) || mUploadFile.get(0)==null || mUploadFile.get(1)==null){
+                            Toast.makeText(getContext(),"빈 곳이 있습니다.",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         NetworkManager.getInstance().getAddFood(getContext(), mem_id, food_name, food_detailinfo, food_subdetailinfo, food_recipeinfo, food_price,  food_count,mUploadFile, new NetworkManager.OnResultListener<SuccessCode>() {
                             @Override
@@ -313,10 +324,12 @@ public class AddProductFragment extends Fragment {
         if (requestCode == RC_CAMERA1) {
             if (resultCode == Activity.RESULT_OK) {
                 File file = mCameraCaptureFile;
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inSampleSize = 2;
-                Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
-                imageView.setImageBitmap(bm);
+                Glide.with(imageView.getContext()).load(file.getAbsolutePath()).into(imageView);
+
+//                BitmapFactory.Options opts = new BitmapFactory.Options();
+//                opts.inSampleSize = 2;
+//                Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+//                imageView.setImageBitmap(bm);
                 mUploadFile.add(0,file);
             }
             return;
@@ -325,10 +338,12 @@ public class AddProductFragment extends Fragment {
         if (requestCode == RC_CAMERA2) {
             if (resultCode == Activity.RESULT_OK) {
                 File file = mCameraCaptureFile;
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inSampleSize = 2;
-                Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
-                imageView2.setImageBitmap(bm);
+                Glide.with(imageView2.getContext()).load(file.getAbsolutePath()).into(imageView2);
+
+//                BitmapFactory.Options opts = new BitmapFactory.Options();
+//                opts.inSampleSize = 2;
+//                Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+//                imageView2.setImageBitmap(bm);
                 mUploadFile.add(1,file);
             }
             return;

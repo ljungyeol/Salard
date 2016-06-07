@@ -314,23 +314,7 @@ public class MapActivity extends AppCompatActivity implements
 
             }
         });
-//        for(int i =0; i<packageproduct.size();i++){
-//            if(marker.getTitle().equals(packageproduct.get(i).getPackage_name())){
-//                Glide.with(imageMain.getContext()).load(packageproduct.get(i).getPackage_mainpicture()).into(imageMain);
-//                Glide.with(imageMem.getContext()).load(packageproduct.get(i).getPackage_personpicture()).into(imageMem);
-//                NetworkManager.getInstance().getTMapReverseGeocoding(this, packageproduct.get(i).getPackage_xloca(), packageproduct.get(i).getPackage_yloca(), new NetworkManager.OnResultListener<AddressInfo>() {
-//                    @Override
-//                    public void onSuccess(Request request, AddressInfo result) {
-//                        textLocation.setText(result.legalDong);
-//                    }
-//
-//                    @Override
-//                    public void onFail(Request request, IOException exception) {
-//
-//                    }
-//                });
-//            }
-//        }
+
         marker.showInfoWindow();
         return true;
     }

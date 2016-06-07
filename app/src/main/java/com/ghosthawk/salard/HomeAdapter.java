@@ -24,10 +24,10 @@ public class HomeAdapter extends PagerAdapter {
     Context context;
 
     private final int[] galImages = new int[] {
-            R.drawable.introsample,
-            R.drawable.tutorialsample,
-            R.drawable.sample9,
-            R.drawable.sample8,
+            R.drawable.tutorial1,
+            R.drawable.tutorial2,
+            R.drawable.tutorial3,
+            R.drawable.tutorial4    ,
     };
 
     public HomeAdapter(Context context) {

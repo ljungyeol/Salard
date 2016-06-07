@@ -12,4 +12,5 @@ public class PackageProductResult {
     @SerializedName("package")
     public List<PackageProduct> _package;
 
+    public Member member;
 }

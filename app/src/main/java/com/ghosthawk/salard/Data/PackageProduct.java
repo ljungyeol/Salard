@@ -25,10 +25,15 @@ public class PackageProduct implements Serializable {
     public double package_yloca;
     public int package_count;
     public String package_loca;
+    public int person_sellcount;
 
+    public int getPerson_sellcount() {
+        return person_sellcount;
+    }
 
-
-
+    public void setPerson_sellcount(int person_sellcount) {
+        this.person_sellcount = person_sellcount;
+    }
 
     public Bitmap bm;
 

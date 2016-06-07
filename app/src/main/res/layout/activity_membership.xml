@@ -14,99 +14,69 @@
         android:layout_height="150dp"
         android:background="@drawable/sample6"
         android:id="@+id/img_pic"
+        android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/edit_name"
-        android:text="이름"
+        android:hint="닉네임"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/img_pic"
         android:layout_alignLeft="@+id/img_pic"
         android:layout_alignRight="@+id/img_pic"/>
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/edit_phone"
-        android:text="핸드폰 번호"
+        android:hint="핸드폰 번호"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/edit_name"
         android:layout_alignLeft="@+id/img_pic"
         android:layout_alignRight="@+id/img_pic"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear1"
-        android:layout_below="@+id/edit_phone"
-        android:layout_alignLeft="@+id/img_pic"
-        android:layout_alignRight="@+id/img_pic"
-        android:layout_centerHorizontal="true">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_email"
-            android:text="이메일"
-            android:layout_below="@+id/edit_phone"
-            android:layout_weight="3"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="인증번호받기"
-            android:id="@+id/btn_send"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear2"
-        android:layout_below="@+id/linear1"
-        android:layout_alignLeft="@+id/img_pic"
-        android:layout_alignRight="@+id/img_pic"
-        android:layout_centerHorizontal="true">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_certnum"
-            android:layout_below="@+id/edit_phone"
-            android:layout_weight="4" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="인증"
 
-            android:id="@+id/btn_certok"/>
-    </LinearLayout>
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_email"
+        android:hint="이메일"
+        android:layout_weight="3"
+        android:layout_below="@+id/edit_phone"
+        android:layout_alignLeft="@+id/edit_phone"
+        android:layout_alignStart="@+id/edit_phone" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_statemsg"
+        android:hint="상태메세지"
+        android:layout_below="@+id/edit_email"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/edit_id"
-        android:text="ID"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/linear2"
-        android:layout_alignLeft="@+id/img_pic"
-        android:layout_alignRight="@+id/img_pic"/>
+        android:hint="ID"
+        android:layout_below="@+id/edit_statemsg"
+        android:layout_centerHorizontal="true" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/edit_pw"
-        android:text="PW"
-        android:layout_centerHorizontal="true"
+        android:hint="PW"
         android:layout_below="@+id/edit_id"
-        android:layout_alignLeft="@+id/img_pic"
-        android:layout_alignRight="@+id/img_pic"/>
+        android:layout_centerHorizontal="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_membership"
         android:text="가입하기"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/edit_pw"
-        android:layout_alignLeft="@+id/img_pic"
-        android:layout_alignRight="@+id/img_pic"/>
+        android:layout_centerHorizontal="true" />
 
 
 

@@ -12,7 +12,10 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,7 +38,7 @@ import okhttp3.Request;
 public class SellHomeModifyActivity extends AppCompatActivity {
     public static final String EXTRA_MY_ID = "my_id";
     EditText editName,editStatmsg;
-    ImageView imageMy, imageOk;
+    ImageView imageMy;
     String my_id;
     String[] items = {"카메라로 촬영","앨범에서 선택"};
     String mem_name, mem_statemsg;
@@ -47,7 +50,7 @@ public class SellHomeModifyActivity extends AppCompatActivity {
         editName = (EditText)findViewById(R.id.edit_name);
         editStatmsg = (EditText)findViewById(R.id.edit_statmsg);
         imageMy = (ImageView)findViewById(R.id.img_my);
-        imageOk = (ImageView)findViewById(R.id.img_modify);
+        Button btnModify = (Button)findViewById(R.id.btn_modify);
 
         NetworkManager.getInstance().getMyPageUpdate(this, my_id, new NetworkManager.OnResultListener<MyPageModifyResult>() {
             @Override
@@ -90,7 +93,7 @@ public class SellHomeModifyActivity extends AppCompatActivity {
         });
 
 
-        imageOk.setOnClickListener(new View.OnClickListener() {
+        btnModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SellHomeModifyActivity.this);
@@ -100,15 +103,16 @@ public class SellHomeModifyActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         mem_name = editName.getText().toString();
                         mem_statemsg = editStatmsg.getText().toString();
-
+                        if( mUploadFile==null || TextUtils.isEmpty(mem_name) || TextUtils.isEmpty(mem_statemsg)){
+                            Toast.makeText(SellHomeModifyActivity.this,"잘못 입력하거나 빈 곳이 있습니다.",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         NetworkManager.getInstance().getMyPageUpdateComplete(this, mem_name,mem_statemsg,mUploadFile,my_id, new NetworkManager.OnResultListener<SuccessCode>() {
                             @Override
                             public void onSuccess(Request request, SuccessCode result) {
                                 Toast.makeText(SellHomeModifyActivity.this,"수정되었습니다.",Toast.LENGTH_SHORT).show();
                                 finish();
                             }
-
-                            Intent intent;
 
 
                             @Override
@@ -193,11 +197,13 @@ public class SellHomeModifyActivity extends AppCompatActivity {
                 Cursor c = this.getContentResolver().query(uri, projection, null, null, null);
                 if (c.moveToNext()) {
                     String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
+                    Glide.with(imageMy.getContext()).load(path).into(imageMy);
+
                     mUploadFile=new File(path);
-                    BitmapFactory.Options opts = new BitmapFactory.Options();
-                    opts.inSampleSize = 2;
-                    Bitmap bm = BitmapFactory.decodeFile(path, opts);
-                    imageMy.setImageBitmap(bm);
+//                    BitmapFactory.Options opts = new BitmapFactory.Options();
+//                    opts.inSampleSize = 2;
+//                    Bitmap bm = BitmapFactory.decodeFile(path, opts);
+//                    imageMy.setImageBitmap(bm);
                 }
             }
             return;
@@ -207,10 +213,12 @@ public class SellHomeModifyActivity extends AppCompatActivity {
         if (requestCode == RC_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
                 File file = mCameraCaptureFile;
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inSampleSize = 2;
-                Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
-                imageMy.setImageBitmap(bm);
+                Glide.with(imageMy.getContext()).load(file.getAbsolutePath()).into(imageMy);
+
+//                BitmapFactory.Options opts = new BitmapFactory.Options();
+//                opts.inSampleSize = 2;
+//                Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+//                imageMy.setImageBitmap(bm);
                 mUploadFile = file;
             }
             return;

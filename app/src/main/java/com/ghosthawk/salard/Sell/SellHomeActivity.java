@@ -18,14 +18,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.ghosthawk.salard.Data.Member;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.Message.MessageFragment;
 import com.ghosthawk.salard.R;
 public class SellHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public String my_id = "test";
-
-    ImageView imageView;
-    TextView textView;
+    int img[]={
+            R.drawable.rank0, R.drawable.rank1, R.drawable.rank2,
+            R.drawable.rank3,R.drawable.rank4,R.drawable.rank5
+    };
+    ImageView imageMem,imageRank;
+    TextView textView,textName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +40,7 @@ public class SellHomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         textView.setText("마이 샐러드");
-
+        Member member = PropertyManager.getInstance().getMember();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -42,9 +48,22 @@ public class SellHomeActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemTextAppearance(R.style.SalardNavi);
+//        navigationView.setItemTextColor(R.color.colorPrimary);
+
+        Menu menu = navigationView.getMenu();
+        MenuItem item =menu.getItem(0);
+
         View headerView = navigationView.getHeaderView(0);
-        imageView = (ImageView)headerView.findViewById(R.id.imageView);
-        imageView.setImageResource(R.drawable.sample10);
+        imageMem = (ImageView)headerView.findViewById(R.id.img_mem);
+        imageRank = (ImageView)headerView.findViewById(R.id.img_rank) ;
+        textName = (TextView)headerView.findViewById(R.id.text_name);
+        //--TODO 나중에 랭크 작업
+        Glide.with(imageMem.getContext()).load(member.getMem_Picture()).into(imageMem);
+        textName.setText(member.getMem_Name());
+        SetRank(member);
+
+
         Button btn = (Button)headerView.findViewById(R.id.btn_message);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,5 +204,28 @@ public class SellHomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void SetRank(Member member){
+        int i = member.getMem_sellcount();
+        if(i>0 && i<10){
+            Glide.with(imageRank.getContext()).load(img[0]).into(imageRank);
+        }
+        else if(i<30){
+            Glide.with(imageRank.getContext()).load(img[1]).into(imageRank);
+        }
+        else if(i<50){
+            Glide.with(imageRank.getContext()).load(img[2]).into(imageRank);
+        }
+        else if(i<80){
+            Glide.with(imageRank.getContext()).load(img[3]).into(imageRank);
+        }
+        else if(i<100){
+            Glide.with(imageRank.getContext()).load(img[4]).into(imageRank);
+        }
+        else
+            Glide.with(imageRank.getContext()).load(img[5]).into(imageRank);
+
+    }
+
 
 }
