@@ -38,6 +38,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
+import java.security.ProtectionDomain;
 import java.util.List;
 
 import okhttp3.Request;
@@ -47,10 +48,11 @@ import okhttp3.Request;
  */
 public class SalardMainFragment extends Fragment  implements
         GoogleApiClient.OnConnectionFailedListener{
-    String my_id ="test";
+    String my_id;
     Member member;
     TextView textView;
     ImageView imageLocation,imageMap;
+    String xloca, yloca;
     private List<PackageProduct> result;
     Location location;
 //    Handler mHandler= new Handler(Looper.getMainLooper()){
@@ -109,7 +111,8 @@ public class SalardMainFragment extends Fragment  implements
                 Intent intent = new Intent(getContext(), ProductDetailActivity.class);
                 //intent.putExtra("ff",pack);
                 intent.putExtra(ProductDetailActivity.EXTRA_ID,pack.get_id());
-                intent.putExtra(ProductDetailActivity.EXTRA_MY_ID,my_id);
+                //--TODO property하면서 지움
+//                intent.putExtra(ProductDetailActivity.EXTRA_MY_ID,my_id);
                 /*intent.putExtra(ProductDetailActivity.EXTRA_Name, product.getProduct_Name());
                 intent.putExtra(ProductDetailActivity.EXTRA_Count, product.getProduct_Count());
                 intent.putExtra(ProductDetailActivity.EXTRA_Price, product.getProduct_Price());
@@ -135,6 +138,7 @@ public class SalardMainFragment extends Fragment  implements
         listView.setLayoutManager(mLayoutManager);
         imageLocation = (ImageView)view.findViewById(R.id.img_location);
         imageMap =(ImageView)view.findViewById(R.id.img_map);
+        my_id = PropertyManager.getInstance().getId();
         imageMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +157,8 @@ public class SalardMainFragment extends Fragment  implements
                     return;
                 }
                 location = LocationServices.FusedLocationApi.getLastLocation(mClient);
+                PropertyManager.getInstance().getMember().setMem_xloca(location.getLatitude());
+                PropertyManager.getInstance().getMember().setMem_yloca(location.getLongitude());
                 NetworkManager.getInstance().getTMapReverseGeocoding(this, location.getLatitude(),location.getLongitude(), new NetworkManager.OnResultListener<AddressInfo>() {
                     @Override
                     public void onSuccess(Request request, AddressInfo result) {
@@ -176,11 +182,6 @@ public class SalardMainFragment extends Fragment  implements
         super.onResume();
         init();
     }
-    int img[] = {
-            R.drawable.sample1, R.drawable.sample2, R.drawable.sample3,
-            R.drawable.sample4, R.drawable.sample5, R.drawable.sample6,
-            R.drawable.sample7, R.drawable.sample8, R.drawable.sample9,
-            R.drawable.sample10};
 
     private void init() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -189,8 +190,14 @@ public class SalardMainFragment extends Fragment  implements
         location = LocationServices.FusedLocationApi.getLastLocation(mClient);
 //       String xloca = Double.toString(location.getLatitude());
 //       String yloca =  Double.toString(location.getLongitude());
-        String xloca = "100";
-        String yloca = "200";
+//        String xloca = "100";
+//        String yloca = "200";
+
+        if(Double.toString(PropertyManager.getInstance().getMember().getMem_xloca())!=null) {
+            xloca = Double.toString(PropertyManager.getInstance().getMember().getMem_xloca());
+            yloca = Double.toString(PropertyManager.getInstance().getMember().getMem_yloca());
+        }
+
         NetworkManager.getInstance().getHomeProductList(getContext(), xloca, yloca, my_id, new NetworkManager.OnResultListener<PackageProductResult>() {
                     @Override
                     public void onSuccess(Request request,PackageProductResult result) {
@@ -198,7 +205,7 @@ public class SalardMainFragment extends Fragment  implements
                         mAdapter.clear();
                         mAdapter.addAll(result._package);
 //                        member = result.member;
-                        PropertyManager.getInstance().setMember(result.member);
+                        //PropertyManager.getInstance().setMember(result.member);
                         //mAdapter.clear();
                         //mAdapter.addAll(result);
 

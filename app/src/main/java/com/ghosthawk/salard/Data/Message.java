@@ -1,19 +1,57 @@
 package com.ghosthawk.salard.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Tacademy on 2016-05-25.
  */
-public class Message {
-    public int msg_state;
+public class Message implements Serializable {
+
     public String msg_content;
-    public String msg_partnerid;
-    public String msg_partnerpicture;
-    public String msg_memid;
-    public Date msg_date;
+    //    public String msg_partnername;
+//    public String msg_partnerid;
+//    public String msg_partnerpicture;
+//    public int msg_partner_sellcount;
+    //member로 통일
+    public Member member= new Member();
+    public String msg_date;
     public int msg_read;
-    public String msg_picture;
+    public int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getMsg_date() {
+        return msg_date;
+    }
+
+    public void setMsg_date(String msg_date) {
+        this.msg_date = msg_date;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+
+
+    public int getMsg_read() {
+        return msg_read;
+    }
+
+    public void setMsg_read(int msg_read) {
+        this.msg_read = msg_read;
+    }
 
 
     public String getMsg_content() {
@@ -24,35 +62,4 @@ public class Message {
         this.msg_content = msg_content;
     }
 
-    public String getMsg_memid() {
-        return msg_memid;
-    }
-
-    public void setMsg_memid(String msg_memid) {
-        this.msg_memid = msg_memid;
-    }
-
-    public String getMsg_partnerid() {
-        return msg_partnerid;
-    }
-
-    public void setMsg_partnerid(String msg_partnerid) {
-        this.msg_partnerid = msg_partnerid;
-    }
-
-    public String getMsg_picture() {
-        return msg_picture;
-    }
-
-    public void setMsg_picture(String msg_picture) {
-        this.msg_picture = msg_picture;
-    }
-
-    public String getMsg_partnerpicture() {
-        return msg_partnerpicture;
-    }
-
-    public void setMsg_partnerpicture(String msg_partnerpicture) {
-        this.msg_partnerpicture = msg_partnerpicture;
-    }
 }

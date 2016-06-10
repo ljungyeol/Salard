@@ -17,6 +17,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.ghosthawk.salard.Data.Member;
 import com.ghosthawk.salard.Data.MyResult;
 import com.ghosthawk.salard.Data.SuccessCode;
@@ -24,6 +27,7 @@ import com.ghosthawk.salard.GCM.RegistrationIntentService;
 import com.ghosthawk.salard.Login.LoginActivity;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.Manager.PropertyManager;
+import com.ghosthawk.salard.Sell.SellHomeActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -38,6 +42,7 @@ public class IntroActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
@@ -110,49 +115,84 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void startSplash() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+                String pwd = PropertyManager.getInstance().getPassword();
                 String id = PropertyManager.getInstance().getId();
-                if(!TextUtils.isEmpty(id)){
-                    String pwd = PropertyManager.getInstance().getPassword();
-                    NetworkManager.getInstance().getLogin(this, id, pwd, new NetworkManager.OnResultListener<MyResult>() {
+                if(!TextUtils.isEmpty(pwd)){
+
+                    NetworkManager.getInstance().getLogin(this, id, pwd, PropertyManager.getInstance().getRegistrationToken(),new NetworkManager.OnResultListener<MyResult>() {
                         @Override
                         public void onSuccess(Request request, MyResult result) {
-                            if(result.getSuccess_code()==1){
-                                Toast.makeText(IntroActivity.this,"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                                //--TODO 나중에는 putExtra없애면된다.
+                            if(result.getSuccess_code()==1) {
+                                Toast.makeText(IntroActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                                 PropertyManager.getInstance().setLogin(true);
                                 PropertyManager.getInstance().setMember(result.member);
-                                Toast.makeText(IntroActivity.this,result.member.getMem_Name(),Toast.LENGTH_SHORT).show();
-
-                                Intent i = new Intent(IntroActivity.this, MainActivity.class);
-                                i.putExtra(MainActivity.EXTRA_INDEX,"main");
-                                startActivity(i);
-                                finish();}
-                            else
-                                Toast.makeText(IntroActivity.this,"아이디 또는 비밀번호가 틀렸습니다.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(IntroActivity.this, result.member.getMem_Name(), Toast.LENGTH_SHORT).show();
+                                goMain();
+                            }
+                            else {
+                                Toast.makeText(IntroActivity.this, "아이디 또는 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                                goLogin();
+                            }
                         }
 
                         @Override
                         public void onFail(Request request, IOException exception) {
                             Toast.makeText(IntroActivity.this,"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                            goLogin();
                         }
                     });
                 }
-                else {
-                    startActivity(new Intent(IntroActivity.this, LoginActivity.class));
-                    finish();
+
+                else{
+                    AccessToken token = AccessToken.getCurrentAccessToken();
+                    if (token==null){
+                        goLogin();
+                    }
+                    else {
+                        Log.d("fkfkfkfkfk","Aaa");
+                        NetworkManager.getInstance().getFbLogin(this, token.getToken(), PropertyManager.getInstance().getRegistrationToken(),new NetworkManager.OnResultListener<MyResult>() {
+                            @Override
+                            public void onSuccess(Request request, MyResult result) {
+                                PropertyManager.getInstance().setLogin(true);
+                                PropertyManager.getInstance().setMember(result.member);
+                                PropertyManager.getInstance().setId(result.member.getMem_id());
+                                Toast.makeText(IntroActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                goMain();
+                            }
+
+                            @Override
+                            public void onFail(Request request, IOException exception) {
+                                Toast.makeText(IntroActivity.this, "error : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                PropertyManager.getInstance().setId("");
+                                LoginManager.getInstance().logOut();
+                                goLogin();
+                            }
+                        });
+                    }
+//                    else {
+//                        PropertyManager.getInstance().setId("");
+//                        LoginManager.getInstance().logOut();
+//                        goLogin();
+//                    }
+                    goLogin();
                 }
+                goLogin();
             }
-        }, 2000);
+
+
+    private void goMain(){
+        Intent i = new Intent(IntroActivity.this, SellHomeActivity.class);
+        startActivity(i);
+        finish();
     }
-
-
+    private void goLogin(){
+        Intent i = new Intent(IntroActivity.this,LoginActivity.class);
+        startActivity(i);
+        finish();
+    }
 
     @Override
     public SharedPreferences getSharedPreferences(String name, int mode) {
-        Log.d(super.getSharedPreferences(name, mode).toString(),"ddddddddddddddddddddd");
         return super.getSharedPreferences(name, mode);
     }
 }

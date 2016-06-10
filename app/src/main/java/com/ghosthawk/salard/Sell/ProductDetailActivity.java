@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +14,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.Member;
+import com.ghosthawk.salard.Data.MessageDeal;
 import com.ghosthawk.salard.Data.ProductResult;
 import com.ghosthawk.salard.Data.SuccessCode;
+import com.ghosthawk.salard.Manager.DataConstant;
+import com.ghosthawk.salard.Manager.DataManager;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.Other.OtherMemberInfoActivity;
 import com.ghosthawk.salard.R;
 
@@ -50,7 +55,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         id = getIntent().getIntExtra(EXTRA_ID,0);
         setContentView(R.layout.activity_product_detail);
         _id=String.valueOf(id);
-        main_id = getIntent().getStringExtra(EXTRA_MY_ID);
+        main_id = PropertyManager.getInstance().getId();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -204,14 +210,17 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
                 if(!key){
                     //btn.setEnabled(false);
-                    btn.setText("넌 이미 찜했다");
+                    btn.setText("찜했습니다.");
                 }
 
                 if (state){
                     btn1.setText("거래신청");
                 }
-                else
+                else {
                     btn1.setText("거래불가");
+                    btn1.setClickable(false);
+                }
+
 
 
             }
@@ -224,17 +233,20 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
 
-
+//--TODO 이거 거래신청 이제 GCM으로 해야된다.
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(state){
-                    NetworkManager.getInstance().getSendDeal(this, my_id, person_id, _id, new NetworkManager.OnResultListener<SuccessCode>() {
+                    NetworkManager.getInstance().getSendDeal(this, main_id, person_id, _id, new NetworkManager.OnResultListener<MessageDeal>() {
                         @Override
-                        public void onSuccess(Request request, SuccessCode result) {
-                            Toast.makeText(ProductDetailActivity.this,"성공!!",Toast.LENGTH_SHORT).show();
+                        public void onSuccess(Request request,MessageDeal result) {
+                            Toast.makeText(ProductDetailActivity.this,"식재료를 신청했습니다.",Toast.LENGTH_SHORT).show();
 
-                            state=false;
+                            String id = DataManager.getInstance().getUserTableId(result.message);
+                            DataManager.getInstance().addChatMessage(id,result.message.member, DataConstant.ChatTable.TYPE_SEND,result.message.msg_content,result.message.msg_date);
+
+
                         }
 
                         @Override
@@ -247,16 +259,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
 
 
-/*
-            member.mem_follow = product.getProduct_Mem_Id()+1000;
-            member.mem_Name = "이정열";
-            member.mem_StatMsg = "개발 어렵다 집에 가고 싶어";
-
-            imageView2.setImageResource(product.getProduct_Picture());
-            textMemName.setText(member.getMem_Name());
-            textMemStatmsg.setText(member.getMem_StatMsg());
-            textMemLocation.setText("지옥같은 서울대 연구공원 티아카데미");
-            textMemFollow.setText(member.getMem_follow()+"");*/
 
 
     }

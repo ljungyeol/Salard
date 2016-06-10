@@ -43,6 +43,7 @@ public class PropertyManager {
         return mPrefs.getString(FIELD_PASSWORD, "");
     }
 
+
     private static final String FIELD_ID="id";
     public void setId(String id){
         mEditor.putString(FIELD_ID,id);
@@ -52,6 +53,7 @@ public class PropertyManager {
     public String getId() {
         return mPrefs.getString(FIELD_ID,"");
     }
+
 
     public static final String FIELD_FACEBOOK_ID = "facebookid";
     public void setFacebookId(String facebookId) {
@@ -71,6 +73,8 @@ public class PropertyManager {
         return isLogin;
     }
 
+
+
     private Member member = null;
     public void setUser(Member member) {
         this.member = member;
@@ -83,6 +87,8 @@ public class PropertyManager {
     public Member getMember() {
         return member;
     }
+
+
     private static final String FIELD_REGISTRATION_ID = "regid";
     public void setRegistrationToken(String token) {
         mEditor.putString(FIELD_REGISTRATION_ID, token);

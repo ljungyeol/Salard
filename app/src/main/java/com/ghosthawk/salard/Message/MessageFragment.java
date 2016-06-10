@@ -1,19 +1,30 @@
 package com.ghosthawk.salard.Message;
 
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ghosthawk.salard.Data.Message;
 import com.ghosthawk.salard.Data.MessageResult;
+import com.ghosthawk.salard.Manager.DataConstant;
+import com.ghosthawk.salard.Manager.DataManager;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Request;
 
@@ -26,11 +37,18 @@ public class MessageFragment extends Fragment {
     String my_id;
     RecyclerView listView;
     MessageAdapter mAdapter;
+    List<Message> messages = new ArrayList<>();
+//    SimpleCursorAdapter mAdapter;
     LinearLayoutManager mLayoutManager;
     public MessageFragment() {
         // Required empty public constructor
     }
+    int img = R.drawable.rank1;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +62,15 @@ public class MessageFragment extends Fragment {
         listView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(getContext());
         listView.setLayoutManager(mLayoutManager);
+        mAdapter.setOnItemClickListener(new MessageViewHolder.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Message message) {
+                Intent intent = new Intent(getContext(), ChattingActivity.class);
+                intent.putExtra(ChattingActivity.EXTRA_MESSAGE, message);
+                startActivity(intent);
 
+            }
+        });
         return view;
     }
 
@@ -52,7 +78,11 @@ public class MessageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        init();
+
+        messages = DataManager.getInstance().getChatUserList();
+        mAdapter.clear();
+        mAdapter.addAll(messages);
+//        init();
         //NetworkManager.getInstance().getMessage(getContext(),my_id,)
     }
 

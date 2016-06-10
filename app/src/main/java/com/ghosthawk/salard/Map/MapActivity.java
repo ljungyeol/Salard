@@ -60,16 +60,14 @@ public class MapActivity extends AppCompatActivity implements
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
-        GoogleMap.OnCameraChangeListener,
-        GoogleMap.OnMapLongClickListener{
+        GoogleMap.OnCameraChangeListener{
 
     GoogleApiClient mClient;
     TextView messageView;
    // TextView infoView;
     TextView textName, textPrice,textLocation;
     ImageView imageMem, imageMain;
-    ListView listView;
-    ArrayAdapter<PackageProduct> mAdapter;
+
     Map<Marker, PackageProduct> poiResolver = new HashMap<>();
     Map<PackageProduct, Marker> markerResolver = new HashMap<>();
     //List<PackageProduct> packageproduct = new ArrayList<>();
@@ -121,17 +119,7 @@ public class MapActivity extends AppCompatActivity implements
         textLocation = (TextView)findViewById(R.id.text_location);
         imageMain = (ImageView)findViewById(R.id.img_main);
         imageMem = (ImageView)findViewById(R.id.img_mem);
-        listView = (ListView)findViewById(R.id.listView);
-        mAdapter = new ArrayAdapter<PackageProduct>(this, android.R.layout.simple_list_item_1);
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PackageProduct packageProduct = (PackageProduct) listView.getItemAtPosition(position);
-                Marker m = markerResolver.get(packageProduct);
-                animateMap(m);
-            }
-        });
+
         mClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .enableAutoManage(this, this)
@@ -191,52 +179,6 @@ public class MapActivity extends AppCompatActivity implements
             f.show(getSupportFragmentManager(), "searchdialog");
             return true;
         }
-        if (id == android.R.id.home) {
-            if (listView.getVisibility()== View.GONE) {
-                listView.setVisibility(View.VISIBLE);
-                Animation anim = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
-                listView.startAnimation(anim);
-            } else {
-                listView.setVisibility(View.GONE);
-                Animation anim = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
-                anim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        listView.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                listView.startAnimation(anim);
-//                ViewPropertyAnimatorCompat animator = ViewCompat.animate(listView);
-//                animator.translationX(-listView.getMeasuredWidth());
-//                animator.setListener(new ViewPropertyAnimatorListener() {
-//                    @Override
-//                    public void onAnimationStart(View view) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(View view) {
-//                        listView.setVisibility(View.GONE);
-//                    }
-//
-//                    @Override
-//                    public void onAnimationCancel(View view) {
-//
-//                    }
-//                });
-//                animator.start();
-            }
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -245,7 +187,6 @@ public class MapActivity extends AppCompatActivity implements
         for (Marker m : marker) {
             m.remove();
         }
-        mAdapter.clear();
         poiResolver.clear();
         markerResolver.clear();
     }
@@ -258,8 +199,6 @@ public class MapActivity extends AppCompatActivity implements
         options.title(packageProduct.getPackage_name());
         options.snippet(packageProduct.getPackage_price()+"원");
         Marker marker = mMap.addMarker(options);
-        mAdapter.add(packageProduct);
-
         markerResolver.put(packageProduct, marker);
         poiResolver.put(marker, packageProduct);
     }
@@ -275,7 +214,6 @@ public class MapActivity extends AppCompatActivity implements
 //            return;
 //        }
 //        mMap.setMyLocationEnabled(true);
-        mMap.setOnMapLongClickListener(this);
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
         mMap.setOnCameraChangeListener(this);
@@ -319,10 +257,10 @@ public class MapActivity extends AppCompatActivity implements
         return true;
     }
 
-    @Override
-    public void onMapLongClick(LatLng latLng) {
-        addMarker(latLng.latitude, latLng.longitude);
-    }
+//    @Override
+//    public void onMapLongClick(LatLng latLng) {
+//        addMarker(latLng.latitude, latLng.longitude);
+//    }
 
     private void addMarker(double lat, double lng) {
         MarkerOptions options = new MarkerOptions();
@@ -372,8 +310,8 @@ public class MapActivity extends AppCompatActivity implements
 
     private void displayMessage(Location location) {
         if (location != null) {
-            //messageView.setText("lat : " + location.getLatitude() + ", lng : " + location.getLongitude());
-            NetworkManager.getInstance().getTMapReverseGeocoding(this, location.getLatitude(), location.getLongitude(), new NetworkManager.OnResultListener<AddressInfo>() {
+                    //messageView.setText("lat : " + location.getLatitude() + ", lng : " + location.getLongitude());
+                    NetworkManager.getInstance().getTMapReverseGeocoding(this, location.getLatitude(), location.getLongitude(), new NetworkManager.OnResultListener<AddressInfo>() {
 
                 @Override
                 public void onSuccess(Request request, AddressInfo result) {

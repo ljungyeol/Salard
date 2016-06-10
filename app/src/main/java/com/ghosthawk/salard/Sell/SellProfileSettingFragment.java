@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.ghosthawk.salard.Common.NoticeActivity;
 import com.ghosthawk.salard.Common.RankActivity;
 import com.ghosthawk.salard.Common.RuleActivity;
@@ -19,6 +22,7 @@ import com.ghosthawk.salard.Data.SuccessCode;
 import com.ghosthawk.salard.Login.LoginActivity;
 import com.ghosthawk.salard.MainActivity;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.R;
 
 import java.io.IOException;
@@ -120,6 +124,61 @@ public class SellProfileSettingFragment extends Fragment {
                 dialog.show();
             }
         });
+
+        btn = (Button)view.findViewById(R.id.btn_logout);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("로그아웃하시겠습니까");
+                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        NetworkManager.getInstance().getLogout(new NetworkManager.OnResultListener<SuccessCode>() {
+                            @Override
+                            public void onSuccess(Request request, SuccessCode result) {
+
+                                PropertyManager.getInstance().setId("");
+                                PropertyManager.getInstance().setPassword("");
+                                PropertyManager.getInstance().setLogin(false);
+                                PropertyManager.getInstance().setUser(null);
+                                //--TODO 로그인이랑 인트로 등 페북 필요한곳 삭제 -> myapplication에 설치
+//                                FacebookSdk.sdkInitialize(getContext());
+
+                                AccessToken token = AccessToken.getCurrentAccessToken();
+                                if(token!=null){
+                                    LoginManager loginManager = LoginManager.getInstance();
+                                    loginManager.logOut();
+                                }
+                                Toast.makeText(getContext(),"로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getContext(), LoginActivity.class));
+                            }
+
+                            @Override
+                            public void onFail(Request request, IOException exception) {
+
+                            }
+                        });
+
+                    }
+                });
+
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(),"취소되었습니다.",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
+
+
         return view;
 
 

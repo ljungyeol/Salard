@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +39,7 @@ import okhttp3.Request;
 public class AddProductModifyActivity extends AppCompatActivity {
     public static final String EXTRA_ID="_id";
     ImageView imageView, imageView2;
-    TextView textNumber,textSub;
+    TextView textNumber,textSub,textView;
     EditText editName,editDetail,editRecipe,editPrice,editSubDetail;
     Button btnPlus,btnMinus,btnRegist;
     String[] items = {"카메라로 촬영","앨범에서 선택"};
@@ -52,7 +53,11 @@ public class AddProductModifyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_modify);
-
+        textView = (TextView)findViewById(R.id.text_title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        textView.setText("식재료 등록");
         textNumber =(TextView)findViewById(R.id.text_number) ;
         textSub = (TextView)findViewById(R.id.text_subbutton) ;
         btnPlus = (Button)findViewById(R.id.btn_plus);

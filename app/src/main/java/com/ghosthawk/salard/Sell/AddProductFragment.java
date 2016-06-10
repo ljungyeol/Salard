@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.SuccessCode;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.R;
 
 import org.w3c.dom.Text;
@@ -50,12 +52,12 @@ public class AddProductFragment extends Fragment {
     TextView textNumber,textSub;
     EditText editName,editDetail,editRecipe,editPrice,editSubDetail;
     Button btnPlus,btnMinus,btnRegist;
-    String mem_id = "test";
     String food_name, food_detailinfo,food_subdetailinfo,food_recipeinfo,food_price,food_count;
     int i=0;
+    String xloca,yloca;
     Intent intent1,intent2;
     boolean a = true;
-
+    String mem_id;
     public AddProductFragment() {
         // Required empty public constructor
     }
@@ -78,6 +80,12 @@ public class AddProductFragment extends Fragment {
         editPrice =(EditText)view.findViewById(R.id.edit_price);
         textSub=(TextView)view.findViewById(R.id.text_subbutton);
         editSubDetail = (EditText)view.findViewById(R.id.edit_subdetail);
+        mem_id = PropertyManager.getInstance().getId();
+        xloca = Double.toString(PropertyManager.getInstance().getMember().getMem_xloca());
+        yloca = Double.toString(PropertyManager.getInstance().getMember().getMem_yloca());
+        Log.d("aaaaaaaaaa",xloca);
+        Log.d("bbbbbbbbbbbb",yloca);
+
 
         textSub.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +173,7 @@ public class AddProductFragment extends Fragment {
                 builder.setPositiveButton("완료", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         food_name = editName.getText().toString();
                         food_count = textNumber.getText().toString();
                         food_detailinfo = editDetail.getText().toString();
@@ -181,7 +190,8 @@ public class AddProductFragment extends Fragment {
                             return;
                         }
 
-                        NetworkManager.getInstance().getAddFood(getContext(), mem_id, food_name, food_detailinfo, food_subdetailinfo, food_recipeinfo, food_price,  food_count,mUploadFile, new NetworkManager.OnResultListener<SuccessCode>() {
+                        NetworkManager.getInstance().getAddFood(getContext(), mem_id, food_name, food_detailinfo, food_subdetailinfo, food_recipeinfo, food_price,  food_count,mUploadFile,
+                               xloca,yloca ,new NetworkManager.OnResultListener<SuccessCode>() {
                             @Override
                             public void onSuccess(Request request, SuccessCode result) {
                                 Toast.makeText(getContext(),"완료되었습니다.",Toast.LENGTH_SHORT).show();

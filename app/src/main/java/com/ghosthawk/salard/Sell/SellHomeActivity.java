@@ -25,16 +25,23 @@ import com.ghosthawk.salard.Message.MessageFragment;
 import com.ghosthawk.salard.R;
 public class SellHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public String my_id = "test";
+    public String my_id;
     int img[]={
             R.drawable.rank0, R.drawable.rank1, R.drawable.rank2,
             R.drawable.rank3,R.drawable.rank4,R.drawable.rank5
     };
+
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long   backPressedTime = 0;
+
+
+
     ImageView imageMem,imageRank;
     TextView textView,textName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        my_id = PropertyManager.getInstance().getId();
         setContentView(R.layout.activity_sell_home);
         textView = (TextView)findViewById(R.id.text_title);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -58,7 +65,7 @@ public class SellHomeActivity extends AppCompatActivity
         imageMem = (ImageView)headerView.findViewById(R.id.img_mem);
         imageRank = (ImageView)headerView.findViewById(R.id.img_rank) ;
         textName = (TextView)headerView.findViewById(R.id.text_name);
-        //--TODO 나중에 랭크 작업
+        //--TODO 나중에 랭크 작업 완료 0608
         Glide.with(imageMem.getContext()).load(member.getMem_Picture()).into(imageMem);
         textName.setText(member.getMem_Name());
         SetRank(member);
@@ -207,7 +214,10 @@ public class SellHomeActivity extends AppCompatActivity
 
     public void SetRank(Member member){
         int i = member.getMem_sellcount();
-        if(i>0 && i<10){
+        if(i==0){
+
+        }
+        else if(i>0 && i<10){
             Glide.with(imageRank.getContext()).load(img[0]).into(imageRank);
         }
         else if(i<30){

@@ -12,20 +12,33 @@
         android:id="@+id/viewPager_home" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="건너뛰기"
+        android:layout_width="52dp"
+        android:layout_height="16dp"
         android:id="@+id/btn_skip"
-        android:layout_alignParentTop="true"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/skip"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="16dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/start"
+        android:visibility="invisible"
+        android:id="@+id/btn_start"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"/>
+
     <com.matthewtamlin.sliding_intro_screen_library.DotIndicator
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dot"
         android:layout_gravity="bottom|center_horizontal"
-        android:paddingBottom="70dp"
-        android:layout_marginBottom="97dp"
+        android:layout_marginBottom="21dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
     </com.matthewtamlin.sliding_intro_screen_library.DotIndicator>

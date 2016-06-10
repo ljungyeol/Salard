@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     HomeAdapter mAdapter;
     String index;
+    Button btn, btn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 infoIndicator.setSelectedItem(viewPager.getCurrentItem(), true);
+                if(viewPager.getCurrentItem() ==3){
+                    btn1.setVisibility(View.VISIBLE);
+                    btn.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    btn1.setVisibility(View.INVISIBLE);
+                    btn.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -47,13 +56,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn1 = (Button)findViewById(R.id.btn_start);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SellHomeActivity.class));
+                finish();
+            }
+        });
 
-        Button btn = (Button)findViewById(R.id.btn_skip);
+        btn = (Button)findViewById(R.id.btn_skip);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(index.equals("main")) {
                     startActivity(new Intent(MainActivity.this, SellHomeActivity.class));
+                    finish();
                 }
                 else
                     finish();
@@ -61,14 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        infoIndicator.setSelectedDotColor(Color.parseColor("#013ADF"));
-        infoIndicator.setUnselectedDotColor(Color.parseColor("#CFCFCF"));
-
-
+        infoIndicator.setSelectedDotColor(Color.parseColor("#ffffff"));
+        infoIndicator.setUnselectedDotColor(Color.parseColor("#444400"));
     }
-
-
-
-
-
 }

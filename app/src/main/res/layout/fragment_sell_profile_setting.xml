@@ -1,104 +1,319 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ghosthawk.salard.Sell.SellProfileSettingFragment"
-    android:orientation="vertical"
-    android:weightSum="1"
+    android:background="@color/setting">
 
-    android:background="@color/settingback">
-
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="알림설정" />
+        android:layout_width="73dp"
+        android:layout_height="10dp"
+        android:textSize="10sp"
+        android:id="@+id/textnoti"
+        android:textColor="@color/SalardWeakColor"
+        android:text="알림설정"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="23dp"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/textnoti"
+        android:id="@+id/lineA"
+        android:elevation="1dp"
+
+        android:layout_marginTop="7dp"/>
 
     <Switch
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="메시지 알림"
+        android:textSize="16sp"
         android:id="@+id/switch_message"
-        android:layout_weight="0.07"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@color/setting"
+        android:layout_below="@+id/lineA"
         />
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:id="@+id/lineB"
+        android:elevation="1dp"
 
-
-    <TextView
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/switch_message"
+        />
+    <Switch
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="공지사항" />
+        android:layout_height="56dp"
+        android:text="팔로워 소식 알림"
+        android:textSize="16sp"
+        android:id="@+id/switch_follower"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/setting"
+        android:layout_below="@+id/lineB"
+        />
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:id="@+id/lineC"
+        android:elevation="1dp"
 
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/switch_follower"
+        />
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="팔로잉 소식 알림"
+        android:textSize="16sp"
+        android:id="@+id/switch_following"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/setting"
+        android:layout_below="@+id/lineC"
+        />
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:id="@+id/lineD"
+        android:elevation="1dp"
+
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/switch_following"
+        />
+    <TextView
+        android:layout_width="73dp"
+        android:layout_height="10dp"
+        android:textSize="10sp"
+        android:id="@+id/textnotice"
+        android:textColor="@color/SalardWeakColor"
+        android:text="공지사항"
+        android:layout_below="@+id/lineD"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="23dp"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/textnotice"
+        android:id="@+id/lineE"
+        android:elevation="1dp"
+
+        android:layout_marginTop="7dp"
+        />
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="공지사항"
+        android:textSize="16sp"
         android:id="@+id/btn_notice"
+        android:paddingLeft="16dp"
+
+        android:layout_below="@id/lineE"
         android:background="@color/setting"
         android:gravity ="left|center" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="서비스"
-        android:id="@+id/textView14" />
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/btn_notice"
+        android:id="@+id/linec"
+        android:elevation="1dp"
 
+        />
+    <TextView
+        android:layout_width="73dp"
+        android:layout_height="10dp"
+        android:textSize="10sp"
+
+        android:layout_below="@id/linec"
+        android:text="서비스 소개"
+        android:textColor="@color/SalardWeakColor"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/textView14" />
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/textView14"
+        android:id="@+id/lined"
+        android:layout_marginTop="7dp"
+        android:elevation="1dp"
+
+        />
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="INTRO"
+        android:layout_height="56dp"
+        android:text="서비스 소개"
         android:id="@+id/btn_intro"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/textView14"
+        android:layout_marginTop="7dp"
         android:background="@color/setting"
         android:gravity ="left|center"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/btn_intro"
+        android:id="@+id/linea"
+        android:elevation="1dp"
 
+        />
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="버전정보"
         android:id="@+id/btn_version"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/linea"
         android:background="@color/setting"
         android:gravity ="left|center"        />
-    <TextView
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/btn_version"
+        android:id="@+id/lineb"
+        android:elevation="1dp"
+
+        />
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:text="등급 및 포인트"
+        android:id="@+id/btn_rank"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/lineb"
+
+        android:background="@color/setting"
+        android:gravity ="left|center"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/btn_rank"
+        android:id="@+id/linee"
+        android:elevation="1dp"
+
         />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="이용약관"
         android:id="@+id/btn_rule"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/linee"
+
         android:background="@color/setting"
         android:gravity ="left|center"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/btn_rule"
+        android:id="@+id/linef"
+        android:elevation="1dp"
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="등급혜택"
-        android:id="@+id/btn_rank"
+        android:layout_height="56dp"
+        android:text="개인정보 취급방침"
+        android:id="@+id/btn_out"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/linef"
+
         android:background="@color/setting"
         android:gravity ="left|center"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/btn_out"
+        android:id="@+id/lineg"
+        android:elevation="1dp"
+
+        />
+
+    <TextView
+        android:layout_width="73dp"
+        android:layout_height="10dp"
+        android:text="로그인/로그아웃"
+        android:textSize="10sp"
+        android:layout_below="@id/lineg"
+        android:id="@+id/text111"
+        android:textColor="@color/SalardWeakColor"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="16dp"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/text111"
+        android:id="@+id/lineh"
+        android:elevation="1dp"
+        android:layout_marginTop="7dp"
+
+        />
+
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:text="로그아웃"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/text111"
+        android:id="@+id/btn_logout"
+        android:background="@color/setting"
+        android:layout_marginTop="7dp"
+        android:gravity ="left|center"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_below="@+id/btn_logout"
+        android:id="@+id/linei"
+        android:elevation="1dp"
+
+
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
         android:text="계정 삭제"
         android:id="@+id/btn_delete"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/linei"
         android:background="@color/setting"
+        android:layout_marginBottom="40dp"
         android:gravity ="left|center"/>
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:background="@color/SalardLine"
+        android:layout_alignBottom="@+id/btn_delete"
+        android:id="@+id/linej"
+        android:elevation="1dp"
 
 
-</LinearLayout>
+        />
+
+</RelativeLayout>
+</ScrollView>

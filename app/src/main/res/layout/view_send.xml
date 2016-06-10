@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/my_dialog"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textSize="14sp"
+        android:textColor="@color/SalardColor"
+        android:layout_toLeftOf="@+id/img_member"
+        android:id="@+id/text_message"
+        android:layout_marginLeft="50dp" />
+    <TextView
+        android:layout_width="36dp"
+        android:layout_height="6dp"
+        android:text="오후 24:00"
+        android:textSize="6sp"
+        android:id="@+id/text_time"
+        android:textColor="@color/SalardWeakColor"
+        android:layout_toLeftOf="@+id/text_message"
+        android:layout_alignBottom="@+id/text_message"
+        android:layout_marginRight="6dp"/>
+</RelativeLayout>

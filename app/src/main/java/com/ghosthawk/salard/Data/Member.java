@@ -14,8 +14,8 @@ public class Member implements Serializable {
     public Number mem_PicutureNum;
     public Number mem_NotifyNewCount;
     public Number mem_Phone;
-    public Double mem_xloca;
-    public Double mem_yloca;
+    public double mem_xloca;
+    public double mem_yloca;
     public String mem_statemsg; //상태메세지
     public String mem_RecentLoca; //최근 위치
     public String mem_Email;
@@ -88,19 +88,19 @@ public class Member implements Serializable {
         this.mem_followercount = mem_followercount;
     }
 
-    public Double getMem_xloca() {
+    public double getMem_xloca() {
         return mem_xloca;
     }
 
-    public void setMem_xloca(Double mem_xloca) {
+    public void setMem_xloca(double mem_xloca) {
         this.mem_xloca = mem_xloca;
     }
 
-    public Double getMem_yloca() {
+    public double getMem_yloca() {
         return mem_yloca;
     }
 
-    public void setMem_yloca(Double mem_yloca) {
+    public void setMem_yloca(double mem_yloca) {
         this.mem_yloca = mem_yloca;
     }
 }

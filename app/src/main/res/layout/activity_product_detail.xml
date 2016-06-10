@@ -15,16 +15,12 @@
             android:layout_height="56dp"
             android:id="@+id/toolbar"
             app:popupTheme="@style/AppTheme.PopupOverlay">
-            <TextView
-                android:layout_width="81dp"
-                android:layout_height="16dp"
-                android:text="제목"
-                android:textSize="17sp"
-                android:id="@+id/text_title"
-                android:textColor="@color/SalardColor"
-                android:gravity="center_vertical"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="24dp"/>
+            <include
+                layout="@layout/view_title"
+                android:layout_width="160dp"
+                android:layout_height="51dp" />
+
+
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <ScrollView

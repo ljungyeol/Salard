@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.WorkerThread;
+import android.text.TextUtils;
 
 import com.ghosthawk.salard.Data.CommentResult;
 import com.ghosthawk.salard.Data.FollowerResult;
@@ -11,6 +13,7 @@ import com.ghosthawk.salard.Data.FollowingResult;
 import com.ghosthawk.salard.Data.MapResult;
 import com.ghosthawk.salard.Data.MapResultResult;
 import com.ghosthawk.salard.Data.Member;
+import com.ghosthawk.salard.Data.MessageDeal;
 import com.ghosthawk.salard.Data.MessageResult;
 import com.ghosthawk.salard.Data.MyPageModifyResult;
 import com.ghosthawk.salard.Data.MyPageModifyResultResult;
@@ -36,10 +39,12 @@ import com.ghosthawk.salard.Map.PoiSearchResult;
 import com.ghosthawk.salard.Map.SearchPOIInfo;
 import com.ghosthawk.salard.MyApplication;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.URLEncoder;
@@ -50,6 +55,7 @@ import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.JavaNetCookieJar;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -948,7 +954,7 @@ public class NetworkManager {
     private static final String SALARD_ADDFOOD_URL = SALARD_SERVER + "/salard_addfood";
 
     public Request getAddFood(Object tag, String mem_id, String food_name, String food_detailinfo, String food_subdetailinfo, String food_recipeinfo, String food_price,
-                              String food_count, List<File> food, OnResultListener<SuccessCode> listener) {
+                              String food_count, List<File> food, String food_xloca, String food_yloca, OnResultListener<SuccessCode> listener) {
         String url = String.format(SALARD_ADDFOOD_URL);
 
         MultipartBody.Builder myBuilder = new MultipartBody.Builder();
@@ -964,6 +970,8 @@ public class NetworkManager {
         for(int i = 0; i < food.size(); i++)
             myBuilder.addFormDataPart("food", food.get(i).getName(),
                     RequestBody.create(MediaType.parse("image/jpeg"),food.get(i)));
+        myBuilder.addFormDataPart("food_xloca",food_xloca)
+                .addFormDataPart("food_yloca",food_yloca);
         RequestBody body = myBuilder
                 .build();
 
@@ -1227,7 +1235,7 @@ public class NetworkManager {
 
     private static final String SALARD_SEND_DEAL_URL = SALARD_SERVER + "/send_deal";
 
-    public Request getSendDeal(Object tag, String my_id, String partner_id, String package_num, OnResultListener<SuccessCode> listener) {
+    public Request getSendDeal(Object tag, String my_id, String partner_id, String package_num, OnResultListener<MessageDeal> listener) {
         String url = String.format(SALARD_SEND_DEAL_URL);
 
         RequestBody body = new FormBody.Builder()
@@ -1241,7 +1249,7 @@ public class NetworkManager {
                 .post(body)
                 .build();
 
-        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        final NetworkResult<MessageDeal> result = new NetworkResult<>();
         result.request = request;
         result.listener = listener;
         mClient.newCall(request).enqueue(new Callback() {
@@ -1254,7 +1262,7 @@ public class NetworkManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    MessageDeal data = gson.fromJson(response.body().charStream(), MessageDeal.class);
                     result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
@@ -1317,13 +1325,14 @@ public class NetworkManager {
 
     private static final String SALARD_LOGIN_URL = SALARD_SERVER + "/email_login";
 
-    public Request getLogin(Object tag, String my_id, String my_pwd, OnResultListener<MyResult> listener) {
+    public Request getLogin(Object tag, String my_id, String my_pwd, String mem_token, OnResultListener<MyResult> listener) {
         String url = String.format(SALARD_LOGIN_URL);
 
         MultipartBody.Builder myBuilder = new MultipartBody.Builder();
         RequestBody body = new FormBody.Builder()
                 .add("mem_id",my_id)
                 .add("mem_pwd",my_pwd)
+                .add("mem_token",mem_token)
                 .build();
 
         Request request = new Request.Builder()
@@ -1345,6 +1354,162 @@ public class NetworkManager {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     MyResult data = gson.fromJson(response.body().charStream(), MyResult.class);
+                    result.result = data;
+
+
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String SALARD_LOGOUT_URL = SALARD_SERVER + "/logout";
+
+    public Request getLogout(OnResultListener<SuccessCode> listener) {
+        String url = String.format(SALARD_LOGOUT_URL);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Accept","application/json")
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String URL_FACEBOOK_LOGIN = SALARD_SERVER + "/fb_login";
+
+    public Request getFbLogin(Object tag,
+                                  String accessToken, String mem_token,
+                                  OnResultListener<MyResult> listener) {
+        RequestBody body = new FormBody.Builder()
+                .add("token", accessToken)
+                .add("mem_token",mem_token)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(URL_FACEBOOK_LOGIN)
+                .post(body)
+                .build();
+
+        final NetworkResult<MyResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    MyResult data = gson.fromJson(response.body().charStream(), MyResult.class);
+                    result.result = data;
+
+
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String URL_MESSAGE_LIST = SALARD_SERVER + "/show_message?date=%s";
+
+    @WorkerThread
+    public MessageResult getMessageSync(String lastDate) throws IOException {
+//        String url = URL_MESSAGE_LIST;
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme("http")
+                .host("52.79.156.18")
+                .port(3000)
+                .addPathSegment("show_message")
+                .addQueryParameter("date", lastDate)
+                .build();
+//        if (!TextUtils.isEmpty(lastDate)) {
+//            url += lastDate;
+//        }
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = mClient.newCall(request).execute();
+
+        if (response.isSuccessful()) {
+            String text = response.body().string();
+            MessageResult data = gson.fromJson(text, MessageResult.class);
+
+            return data;
+
+
+        } else {
+            throw new IOException(response.message());
+        }
+    }
+
+    private static final String URL_SEND_MESSAGE = SALARD_SERVER + "/send_message";
+
+    public Request getSendMessage(Object tag,
+                              String my_id, String mem_id, String msg_content,
+                              OnResultListener<com.ghosthawk.salard.Data.Message> listener) {
+        RequestBody body = new FormBody.Builder()
+                .add("my_id", my_id)
+                .add("mem_id",mem_id)
+                .add("msg_content",msg_content)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(URL_SEND_MESSAGE)
+                .post(body)
+                .build();
+
+        final NetworkResult<com.ghosthawk.salard.Data.Message> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    com.ghosthawk.salard.Data.Message data = gson.fromJson(response.body().charStream(), com.ghosthawk.salard.Data.Message.class);
                     result.result = data;
 
 

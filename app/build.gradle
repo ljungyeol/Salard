@@ -42,5 +42,5 @@ dependencies {
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.matthew-tamlin:sliding-intro-screen:2.1.2'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-
+    compile 'joda-time:joda-time:2.9.4'
 }

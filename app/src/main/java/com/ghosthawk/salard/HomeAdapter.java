@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -24,10 +25,10 @@ public class HomeAdapter extends PagerAdapter {
     Context context;
 
     private final int[] galImages = new int[] {
-            R.drawable.tutorial1,
-            R.drawable.tutorial2,
-            R.drawable.tutorial3,
-            R.drawable.tutorial4    ,
+            R.drawable.service_image_1,
+            R.drawable.service_image_2,
+            R.drawable.service_image_3,
+            R.drawable.service_image_4,
     };
 
     public HomeAdapter(Context context) {
