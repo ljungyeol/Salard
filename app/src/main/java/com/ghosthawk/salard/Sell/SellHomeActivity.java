@@ -48,11 +48,14 @@ public class SellHomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         textView.setText("마이 샐러드");
         Member member = PropertyManager.getInstance().getMember();
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        toggle.setHomeAsUpIndicator(R.drawable.selector_action_menu);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemTextAppearance(R.style.SalardNavi);
@@ -121,6 +124,7 @@ public class SellHomeActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.sell_home, menu);
+
         return true;
     }
 

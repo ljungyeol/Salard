@@ -4,49 +4,45 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     tools:context="com.ghosthawk.salard.Sell.SalardMainFragment">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linear"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:id="@+id/img_location"
-            android:src="@android:drawable/ic_menu_compass"
-            />
-        <TextView
-            android:background="#8b8b8b"
-            android:layout_width="264dp"
-            android:layout_height="26dp"
-            android:text="현재 위치"
-            android:id="@+id/text_location"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/rv_list"
-            android:gravity="center_vertical"
-            android:layout_marginTop="11dp"/>
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:id="@+id/img_map"
-            android:src="@android:drawable/ic_dialog_map"
+
+    <Button
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/img_location"
+        android:background="@drawable/selector_06_btn_location"            />
+    <TextView
+        android:background="@drawable/search_bar"
+        android:layout_width="264dp"
+        android:layout_height="26dp"
+        android:id="@+id/text_location1"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@id/img_location"
+        android:layout_marginTop="11dp"/>
+    <Button
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/img_map"
+        android:layout_toRightOf="@+id/text_location1"
+        android:background="@drawable/selector_06_btn_map"
             />
 
+    <TextView
+        android:layout_width="240dp"
+        android:layout_height="24dp"
+        android:id="@+id/text_location"
+        android:layout_marginTop="11dp"
+        android:gravity="center_vertical"
+        android:textSize="13sp"
+        android:layout_alignLeft="@+id/text_location1"
+        android:layout_marginLeft="11dp"/>
 
-
-    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_list"
 
-        android:layout_below="@id/linear"
+        android:layout_below="@id/img_location"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />

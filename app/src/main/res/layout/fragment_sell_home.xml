@@ -149,12 +149,13 @@
 
 
         <RatingBar
-            android:layout_width="128dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/ratingBar"
             android:layout_below="@+id/textview"
             android:layout_marginTop="22dp"
             android:layout_marginLeft="16dp"
+            style="@style/salardRatingBar"
             />
 
         <TextView
@@ -182,12 +183,10 @@
              />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:id="@+id/img_modify"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:background="@drawable/edit"
             android:layout_below="@+id/img_my"
             android:layout_alignRight="@+id/img_my"/>
 
@@ -202,10 +201,10 @@
             android:layout_below="@+id/ratingBar"
             android:layout_marginTop="22dp"
             android:layout_marginBottom="38dp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="임시"
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/selector_12_btn_rating"
             android:id="@+id/btn_rating"
             android:layout_below="@id/ratingBar"
             android:layout_marginBottom="20dp"

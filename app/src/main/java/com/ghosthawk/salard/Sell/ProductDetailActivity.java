@@ -1,6 +1,7 @@
 package com.ghosthawk.salard.Sell;
 
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,8 @@ import com.ghosthawk.salard.Other.OtherMemberInfoActivity;
 import com.ghosthawk.salard.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Request;
 
@@ -39,13 +42,14 @@ public class ProductDetailActivity extends AppCompatActivity {
     String main_id;
     String person_id;
     boolean state=true;
+    ProductDetailPagerAdapter mAdapter;
     ImageView imageProduct,imageMem,imageRank;
     TextView textName,textPrice,textCount,textDetail,textDetail2,textRecipe;
     TextView textMemName,textMemLocation,textView;
     Button btn,btn1;
     Member member = new Member();
     boolean key=true;
-
+    ViewPager viewpager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +64,33 @@ public class ProductDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_action_back);
+        viewpager = (ViewPager)findViewById(R.id.viewPager_detail);
+        mAdapter = new ProductDetailPagerAdapter(this);
+        viewpager.setAdapter(mAdapter);
 
-        textView = (TextView)findViewById(R.id.text_title);
-        textView.setText("식재료 정보");
-        imageProduct = (ImageView)findViewById(R.id.imageView2);
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+//        textView = (TextView)findViewById(R.id.text_title);
+//        textView.setText("식재료 정보");
+        toolbar.setTitle("식재료 정보");
+        toolbar.setTitleTextAppearance(this,R.style.AppTheme_toolbar);
+//        imageProduct = (ImageView)findViewById(R.id.imageView2);
         imageMem = (ImageView)findViewById(R.id.img_mem);
         imageRank = (ImageView)findViewById(R.id.img_rank);
         //int i =getIntent().getIntExtra(EXTRA_Picture, 0);
@@ -90,8 +117,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         textMemName = (TextView)findViewById(R.id.text_name2);
         textMemLocation = (TextView)findViewById(R.id.text_location);
+        btn1 = (Button)findViewById(R.id.btn_message);
+
         btn = (Button)findViewById(R.id.btn_follow);
-        btn.setText("찜하기");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +127,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     NetworkManager.getInstance().getLike(this, _id, main_id, new NetworkManager.OnResultListener<SuccessCode>() {
                         @Override
                         public void onSuccess(Request request, SuccessCode result) {
-                            btn.setText("넌 이미 찜해있다");
+                            btn.setPressed(true);
                             key=false;
 
                         }
@@ -115,7 +143,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     NetworkManager.getInstance().getDisLike(this, _id, main_id, new NetworkManager.OnResultListener<SuccessCode>() {
                         @Override
                         public void onSuccess(Request request, SuccessCode result) {
-                            btn.setText("찜하기");
+                            btn.setPressed(false);
                             key=true;
                         }
 
@@ -132,7 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-        btn1 = (Button)findViewById(R.id.btn_message);
+
 
 
 
@@ -185,7 +213,8 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Request request, ProductResult result) {
 
-                Glide.with(imageProduct.getContext()).load(result._package.getPackage_mainpicture()).into(imageProduct);
+                mAdapter.add(result._package);
+//                Glide.with(imageProduct.getContext()).load(result._package.getPackage_mainpicture()).into(imageProduct);
                 textName.setText(result._package.getPackage_name());
                 textPrice.setText(result._package.getPackage_price()+"원");
                 textCount.setText(result._package.getPackage_count()+"개");
@@ -210,15 +239,16 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
                 if(!key){
                     //btn.setEnabled(false);
-                    btn.setText("찜했습니다.");
+                    btn.setPressed(false);
                 }
 
                 if (state){
-                    btn1.setText("거래신청");
+                    btn1.setPressed(true);
                 }
                 else {
-                    btn1.setText("거래불가");
+
                     btn1.setClickable(false);
+                    btn1.setPressed(false);
                 }
 
 

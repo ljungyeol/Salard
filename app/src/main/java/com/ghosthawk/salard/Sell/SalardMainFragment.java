@@ -51,7 +51,7 @@ public class SalardMainFragment extends Fragment  implements
     String my_id;
     Member member;
     TextView textView;
-    ImageView imageLocation,imageMap;
+    Button imageLocation,imageMap;
     String xloca, yloca;
     private List<PackageProduct> result;
     Location location;
@@ -98,7 +98,8 @@ public class SalardMainFragment extends Fragment  implements
         super.onCreate(savedInstanceState);
         mClient = new GoogleApiClient.Builder(getContext())
                 .addApi(LocationServices.API)
-                .enableAutoManage(getActivity(), this)
+//                .enableAutoManage(getActivity(), this)
+                .addOnConnectionFailedListener(this)
                 .build();
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -128,6 +129,18 @@ public class SalardMainFragment extends Fragment  implements
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mClient.disconnect();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_salard_main, container, false);
@@ -136,8 +149,8 @@ public class SalardMainFragment extends Fragment  implements
         textView = (TextView)view.findViewById(R.id.text_location);
         mLayoutManager = new LinearLayoutManager(getContext());
         listView.setLayoutManager(mLayoutManager);
-        imageLocation = (ImageView)view.findViewById(R.id.img_location);
-        imageMap =(ImageView)view.findViewById(R.id.img_map);
+        imageLocation = (Button)view.findViewById(R.id.img_location);
+        imageMap =(Button)view.findViewById(R.id.img_map);
         my_id = PropertyManager.getInstance().getId();
         imageMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +255,6 @@ public class SalardMainFragment extends Fragment  implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mClient.stopAutoManage(getActivity());
         mClient.disconnect();
     }
     @Override

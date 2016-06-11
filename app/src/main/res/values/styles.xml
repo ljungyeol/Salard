@@ -33,6 +33,11 @@
         <item name ="android:color">@color/setting</item>
 
     </style>
+    <style name="AppTheme.toolbar">
+        <item name="android:text">식재료 정보</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/SalardColor</item>
+    </style>
 
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

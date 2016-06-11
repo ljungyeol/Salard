@@ -1,6 +1,7 @@
 package com.ghosthawk.salard.Map;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.ghosthawk.salard.Data.MapResultResult;
 import com.ghosthawk.salard.Data.PackageProduct;
 import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.R;
+import com.ghosthawk.salard.Sell.ProductDetailActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -66,8 +68,10 @@ public class MapActivity extends AppCompatActivity implements
     TextView messageView;
    // TextView infoView;
     TextView textName, textPrice,textLocation;
-    ImageView imageMem, imageMain;
-
+    ImageView imageMem, imageMain, imageRank;
+    Location location;
+    View view;
+    int packid;
     Map<Marker, PackageProduct> poiResolver = new HashMap<>();
     Map<PackageProduct, Marker> markerResolver = new HashMap<>();
     //List<PackageProduct> packageproduct = new ArrayList<>();
@@ -83,7 +87,8 @@ public class MapActivity extends AppCompatActivity implements
                 if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                Location location = LocationServices.FusedLocationApi.getLastLocation(mClient);
+                location = LocationServices.FusedLocationApi.getLastLocation(mClient);
+
                 displayMessage(location);
                 LocationRequest request = new LocationRequest();
                 request.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
@@ -119,24 +124,37 @@ public class MapActivity extends AppCompatActivity implements
         textLocation = (TextView)findViewById(R.id.text_location);
         imageMain = (ImageView)findViewById(R.id.img_main);
         imageMem = (ImageView)findViewById(R.id.img_mem);
-
+        imageRank = (ImageView)findViewById(R.id.img_rank);
+        view = (View)findViewById(R.id.view_map_window);
+        view.setVisibility(View.INVISIBLE);
         mClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
-                .enableAutoManage(this, this)
+//                .enableAutoManage(this, this)
                 .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
                 .build();
         SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         fragment.getMapAsync(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(android.R.drawable.ic_dialog_map);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_action_back);//--TODO 아이콘
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sell_home, menu);
         return true;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mClient.connect();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        mClient.disconnect();
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -196,8 +214,8 @@ public class MapActivity extends AppCompatActivity implements
         options.position(new LatLng(packageProduct.getPackage_xloca(), packageProduct.getPackage_yloca()));
         options.icon(BitmapDescriptorFactory.defaultMarker());
         options.anchor(0.5f, 1);
-        options.title(packageProduct.getPackage_name());
-        options.snippet(packageProduct.getPackage_price()+"원");
+//        options.title(packageProduct.getPackage_name());
+//        options.snippet(packageProduct.getPackage_price()+"원");
         Marker marker = mMap.addMarker(options);
         markerResolver.put(packageProduct, marker);
         poiResolver.put(marker, packageProduct);
@@ -209,7 +227,7 @@ public class MapActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         // mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+//        mMap.getUiSettings().setZoomControlsEnabled(true);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            return;
 //        }
@@ -226,32 +244,82 @@ public class MapActivity extends AppCompatActivity implements
     }
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, marker.getTitle() + "   "+marker.getSnippet(), Toast.LENGTH_SHORT).show();
-        animateMap(marker);
-        marker.hideInfoWindow();
+//        Toast.makeText(this, marker.getTitle() + "   "+marker.getSnippet(), Toast.LENGTH_SHORT).show();
+//        animateMap(marker);
+//        marker.hideInfoWindow();
     }
 
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-//        textName.setText(marker.getTitle());
         PackageProduct p = poiResolver.get(marker);
+        packid = p.get_id();
+        view.setVisibility(View.VISIBLE);
         textName.setText(p.getPackage_name());
         textPrice.setText(p.getPackage_price()+"원");
         Glide.with(imageMain.getContext()).load(p.getPackage_mainpicture()).into(imageMain);
         Glide.with(imageMem.getContext()).load(p.getPackage_personpicture()).into(imageMem);
-        NetworkManager.getInstance().getTMapReverseGeocoding(this, p.getPackage_xloca(),p.getPackage_yloca(), new NetworkManager.OnResultListener<AddressInfo>() {
+        int img[]={
+                R.drawable.rank0, R.drawable.rank1, R.drawable.rank2,
+                R.drawable.rank3,R.drawable.rank4,R.drawable.rank5
+        };
+        int i = p.getPerson_sellcount();
+        Location foodloca = new Location("a");
+
+        foodloca.setLatitude(p.package_xloca);
+        foodloca.setLongitude(p.package_yloca);
+
+        textLocation.setText(p.getPackage_count()+"개 / "+foodloca.distanceTo(location)+"km");
+
+        if(i>0 && i<10){
+            Glide.with(imageRank.getContext()).load(img[0]).into(imageRank);
+        }
+        else if(i<30){
+            Glide.with(imageRank.getContext()).load(img[1]).into(imageRank);
+        }
+        else if(i<50){
+            Glide.with(imageRank.getContext()).load(img[2]).into(imageRank);
+        }
+        else if(i<80){
+            Glide.with(imageRank.getContext()).load(img[3]).into(imageRank);
+        }
+        else if(i<100){
+            Glide.with(imageRank.getContext()).load(img[4]).into(imageRank);
+        }
+        else
+            Glide.with(imageRank.getContext()).load(img[5]).into(imageRank);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(Request request, AddressInfo result) {
-                textLocation.setText(result.legalDong);
-
-            }
-
-            @Override
-            public void onFail(Request request, IOException exception) {
-
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, ProductDetailActivity.class);
+                //intent.putExtra("ff",pack);
+                intent.putExtra(ProductDetailActivity.EXTRA_ID,packid);
+                startActivity(intent);
             }
         });
+//        imageMain.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("aabbbbbbbbaaaaa","aaaaaaaaaa");
+//                Intent intent = new Intent(MapActivity.this, ProductDetailActivity.class);
+//                //intent.putExtra("ff",pack);
+//                intent.putExtra(ProductDetailActivity.EXTRA_ID,packid);
+//
+//            }
+//        });
+
+//        NetworkManager.getInstance().getTMapReverseGeocoding(this, p.getPackage_xloca(),p.getPackage_yloca(), new NetworkManager.OnResultListener<AddressInfo>() {
+//            @Override
+//            public void onSuccess(Request request, AddressInfo result) {
+//                textLocation.setText(result.legalDong);
+//
+//            }
+//
+//            @Override
+//            public void onFail(Request request, IOException exception) {
+//
+//            }
+//        });
 
         marker.showInfoWindow();
         return true;
@@ -292,7 +360,7 @@ public class MapActivity extends AppCompatActivity implements
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mClient);
+        location = LocationServices.FusedLocationApi.getLastLocation(mClient);
         displayMessage(location);
         LocationRequest request = new LocationRequest();
         //request.setInterval(10000); 위치 업데이트 되는 주기

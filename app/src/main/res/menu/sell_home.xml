@@ -4,14 +4,14 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <item
     android:id="@+id/action_notification"
-    android:icon="@android:drawable/sym_action_email"
+    android:icon="@drawable/selector_action_alarm"
     android:title="@string/action_notification"
     android:orderInCategory="100"
     app:showAsAction="always"/>
 
 <item
     android:id="@+id/action_search"
-    android:icon="@android:drawable/ic_menu_search"
+    android:icon="@drawable/search2"
     android:orderInCategory="101"
     android:title="@string/action_search"
     app:showAsAction="always" />

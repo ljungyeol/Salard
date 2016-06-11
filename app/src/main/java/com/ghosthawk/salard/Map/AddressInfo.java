@@ -11,5 +11,5 @@ public class AddressInfo {
     public String eup_myun;
     public String legalDong;
     public String adminDong;
-    String bunji;
+    public String bunji;
 }

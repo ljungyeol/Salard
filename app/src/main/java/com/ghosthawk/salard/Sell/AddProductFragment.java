@@ -83,9 +83,6 @@ public class AddProductFragment extends Fragment {
         mem_id = PropertyManager.getInstance().getId();
         xloca = Double.toString(PropertyManager.getInstance().getMember().getMem_xloca());
         yloca = Double.toString(PropertyManager.getInstance().getMember().getMem_yloca());
-        Log.d("aaaaaaaaaa",xloca);
-        Log.d("bbbbbbbbbbbb",yloca);
-
 
         textSub.setOnClickListener(new View.OnClickListener() {
             @Override

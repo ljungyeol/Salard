@@ -3,49 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/setting"
     tools:context="com.ghosthawk.salard.Map.MapActivity">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linear"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:id="@+id/btn_location"
-        android:layout_above="@+id/map_fragment"
-        android:text="현재위치"/>
+        android:background="@drawable/selector_06_btn_location"
+        />
     <TextView
-        style="?android:attr/editTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="서울시 동작구 낙성대동"
+        android:layout_width="254dp"
+        android:layout_height="24dp"
         android:layout_toRightOf="@+id/btn_location"
+        android:layout_marginTop="11dp"
+        android:id="@+id/text_message1"
+        android:textColor="@color/SalardColor"
+        android:background="@drawable/search_bar"
+
+        />
+    <TextView
+        android:layout_width="240dp"
+        android:layout_height="24dp"
         android:id="@+id/text_message"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/map_fragment"
-        android:layout_weight="2"/>
+        android:layout_marginTop="11dp"
+        android:gravity="center_vertical"
+        android:textSize="13sp"
+        android:layout_alignLeft="@+id/text_message1"
+        android:layout_marginLeft="11dp"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_toRightOf="@+id/text_message"
         android:layout_above="@+id/map_fragment"
         android:id="@+id/btn_map"
-        android:text="지도"/>
-    </LinearLayout>
+        android:background="@drawable/selector_08_btn_okay"
+        />
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map_fragment"
-        android:layout_below="@+id/linear"
+        android:layout_below="@+id/btn_location"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -59,9 +59,11 @@
         android:visibility="gone" />
 
     <include
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         layout="@layout/view_map_window"
+        android:id="@+id/view_map_window"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

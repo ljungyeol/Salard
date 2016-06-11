@@ -103,8 +103,10 @@ public class LoginMapActivity extends AppCompatActivity implements
         });
         mClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
-                .enableAutoManage(this, this)
+//                .enableAutoManage(this, this)
                 .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+
                 .build();
         SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         fragment.getMapAsync(this);
@@ -133,7 +135,17 @@ public class LoginMapActivity extends AppCompatActivity implements
     public void onConnectionSuspended(int i) {
 
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mClient.connect();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        mClient.disconnect();
+    }
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
         VisibleRegion region = mMap.getProjection().getVisibleRegion();
@@ -167,7 +179,7 @@ public class LoginMapActivity extends AppCompatActivity implements
 
                 @Override
                 public void onSuccess(Request request, AddressInfo result) {
-                    messageView.setText(result.fullAddress);
+                    messageView.setText(result.legalDong + " "+result.bunji);
 
                 }
 

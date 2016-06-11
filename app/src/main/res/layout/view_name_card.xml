@@ -17,17 +17,15 @@
 
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="138dp"
+        android:layout_height="18dp"
         android:id="@+id/text_name2"
-        android:text="이름"
         android:layout_marginTop="41dp"
         android:layout_marginLeft="83dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="낙성대"
+        android:layout_width="119dp"
+        android:layout_height="13dp"
         android:id="@+id/text_location"
         android:layout_marginTop="71dp"
 
@@ -39,30 +37,30 @@
     <Button
         android:layout_width="144dp"
         android:layout_height="28dp"
-        android:text="찜하기"
         android:textSize="10sp"
         android:id="@+id/btn_follow"
         android:layout_marginTop="128dp"
+        android:background="@drawable/selector_10_btn_like"
 
          />
 
     <Button
         android:layout_width="144dp"
         android:layout_height="28dp"
-        android:text="거래신청"
         android:textSize="10sp"
         android:id="@+id/btn_message"
         android:layout_marginTop="128dp"
         android:layout_marginLeft="152dp"
-         />
+        android:background="@drawable/selector_10_btn_deal"
+        />
 
     <ImageView
         android:layout_width="9dp"
         android:layout_height="13dp"
         android:id="@+id/img_location"
-    android:layout_marginLeft="83dp"
+         android:layout_marginLeft="83dp"
         android:layout_marginTop="71dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:background="@drawable/location"/>
 
 
 </RelativeLayout>

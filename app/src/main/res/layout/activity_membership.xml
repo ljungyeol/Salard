@@ -4,17 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/statusbar"
+    android:background="@drawable/join_image"
     tools:context="com.ghosthawk.salard.Login.MembershipActivity">
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/sample6"
+        android:background="@drawable/camera_180"
         android:id="@+id/img_pic"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp" />
+        android:layout_marginTop="170dp"
+        app:civ_border="true"
+        app:civ_border_color="#ffffff"
+        app:civ_border_width="1dp"/>
 
 
 
@@ -143,9 +146,8 @@
         android:layout_width="200dp"
         android:layout_height="28dp"
         android:id="@+id/btn_membership"
-        android:text="가입하기"
-        android:background="#FFFFFF"
         android:layout_below="@+id/edit_pw"
+        android:background="@drawable/selector_03_btn_login"
         android:layout_marginTop="18dp"
         android:layout_centerHorizontal="true" />
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,16 +9,13 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/app"
         android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:id="@+id/toolbar"
             app:popupTheme="@style/AppTheme.PopupOverlay">
-            <include
-                layout="@layout/view_title"
-                android:layout_width="160dp"
-                android:layout_height="51dp" />
 
 
         </android.support.v7.widget.Toolbar>
@@ -26,10 +23,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/app"
         android:fillViewport="false">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,15 +35,10 @@
                 android:layout_width="360dp"
                 android:layout_height="360dp"
                 android:id="@+id/viewPager_detail"
-                android:layout_centerHorizontal="true"></android.support.v4.view.ViewPager>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:id="@+id/imageView2"
-                android:background="#ffffff"
-                android:scaleType="centerCrop"
-                android:layout_alignParentTop="true"
-                 />
+
+                android:layout_centerHorizontal="true"/>
+
+
             <TextView
                 android:layout_width="260dp"
                 android:layout_height="23dp"
@@ -83,7 +74,7 @@
                 android:layout_height="187dp"
                 layout="@layout/view_name_card"
                 android:id="@+id/layout_name_card"
-                android:layout_below="@+id/imageView2"
+                android:layout_below="@+id/viewPager_detail"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                  />
@@ -107,6 +98,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="16dp"
                 android:textSize="15sp"
+                android:lineSpacingExtra="18dp"
                 android:textColor="@color/SalardColor"
                 android:text = "식재료 패키지 상세 설명 내용"
                 android:id="@+id/text_detail"/>
@@ -125,6 +117,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_detail2name"
                 android:text = "추가 식재료 내용"
+                android:textSize="15sp"
+                android:lineSpacingExtra="18dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/SalardWeakColor"
@@ -135,7 +129,7 @@
                 android:layout_below="@+id/text_detail2name"
                 android:layout_marginTop="87dp"
                 android:layout_marginLeft="16dp"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:id="@+id/text_recipename"
                 android:text = "레시피"
                 />
@@ -145,7 +139,9 @@
                 android:layout_below="@+id/text_recipename"
                 android:layout_marginTop="14dp"
                 android:layout_marginLeft="16dp"
+
                 android:text = "레시피 내용"
+                android:lineSpacingExtra="18dp"
                 android:textColor="@color/SalardColor"
                 android:textSize="13sp"
                 android:id="@+id/text_recipe"/>
@@ -155,7 +151,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="16dp"
                 android:id="@+id/imageView4"
-                android:background="#000000"
+                android:background="@color/SalardLine"
                 android:layout_below="@+id/layout_name_card"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -163,4 +159,4 @@
 
         </RelativeLayout>
     </ScrollView>
-</FrameLayout>
+</RelativeLayout>

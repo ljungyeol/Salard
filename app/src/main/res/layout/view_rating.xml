@@ -12,8 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="이름"
         android:textColor="@color/SalardColor"
+        android:textSize="14sp"
+
         android:layout_below="@id/lineF"
         android:layout_marginTop="16dp"
         android:id="@+id/text_name" />
@@ -21,19 +22,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="내상태는해롱해롱해롱"
         android:id="@+id/text_msg"
         android:textColor="@color/SalardWeakColor"
+        android:textSize="14sp"
         android:layout_marginTop="13dp"
         android:layout_below="@+id/text_name" />
 
     <RatingBar
-        android:layout_width="128dp"
+        android:layout_width="80dp"
         android:layout_height="16dp"
+        android:paddingTop="2dp"
         android:id="@+id/ratingBar3"
+        style="@style/salardRatingBar"
+        android:isIndicator="true"
+        android:stepSize="0.5"
         android:layout_below="@+id/text_msg"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="12dp"
-         />
+        android:layout_marginTop="16dp" />
+
 
 </RelativeLayout>

@@ -8,7 +8,6 @@
     android:paddingTop="@dimen/statusbar"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
-    <!--TODO기존은 104dp -->
 
     <include
         android:layout_width="70dp"

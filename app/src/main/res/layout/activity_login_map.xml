@@ -15,36 +15,53 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:background="@color/statusbar"
+        android:alpha="0.7"
+
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:id="@+id/btn_location"
-            android:text="현재위치"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="4dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="@drawable/my_location_white"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:id="@+id/btn_ok"
-            android:text="진행"
-            android:layout_alignBottom="@+id/btn_location"
+            android:background="@drawable/okay_white"
+            android:layout_marginTop="4dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+             />
 
         <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_message"
+            android:layout_width="240dp"
+            android:layout_height="24dp"
+            android:id="@+id/text_message1"
             android:gravity="center"
-            android:layout_alignBottom="@+id/btn_location"
+            android:textSize="13sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/search_white"
             android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/btn_location" />
+            android:layout_marginTop="15dp"
+             />
+
+        <TextView
+            android:layout_width="240dp"
+            android:layout_height="24dp"
+            android:id="@+id/text_message"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:textSize="13sp"
+            android:layout_alignLeft="@+id/text_message1"
+            android:layout_marginLeft="11dp"/>
+
     </RelativeLayout>
 </RelativeLayout>
