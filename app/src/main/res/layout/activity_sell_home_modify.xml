@@ -3,16 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ghosthawk.salard.Sell.SellHomeModifyActivity"
-    android:id="@+id/container"
-    >
+    android:id="@+id/container">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/aa"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="225dp"
         android:id="@+id/img_my"
-        android:src="@drawable/sample7"
         android:scaleType="centerCrop"
+        android:layout_below="@+id/aa"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -74,7 +87,7 @@
         android:layout_width="144dp"
         android:layout_height="28dp"
         android:id="@+id/btn_modify"
-        android:src="@mipmap/ic_launcher"
+        android:background="@drawable/selector_12_btn_edit"
         android:layout_marginLeft="108dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="23dp"/>

@@ -58,5 +58,6 @@ public class GridListViewHolder extends RecyclerView.ViewHolder {
         if(packageProduct.package_state==1){
             soldView.setVisibility(View.VISIBLE);
         }
+
     }
 }

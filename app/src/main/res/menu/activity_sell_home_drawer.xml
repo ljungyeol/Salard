@@ -5,50 +5,43 @@
         <item
             android:id="@+id/buy"
 
-            android:title="구매자">
+            android:title="구매하기">
             <menu>
                 <item
                     android:id="@+id/nav_home"
 
-                    android:title="리스트" />
+                    android:title="리스트 보기" />
                 <item
                     android:id="@+id/nav_wish_list"
-                    android:title="위시 리스트" />
-
+                    android:title="위시리스트" />
+                <item
+                    android:title=""/>
             </menu>
         </item>
     </group>
-    <item
-        android:title="">
-
-        <menu>
-            <item
-                android:title=""
-                >
-
-            </item>
-        </menu>
-
-    </item>
-
 
     <item
         android:id="@+id/sell"
-        android:title="판매자">
+        android:title="판매하기">
+
         <menu>
             <item
                 android:id="@+id/nav_add"
 
-                android:title="식재료 등록하기" />
+                android:title="식재료 등록 하기" />
             <item
                 android:id="@+id/nav_add_list"
                 android:title="등록 리스트"/>
             <item
-                android:id="@+id/nav_setting"
-                android:title="설 정" />
+                android:title=""
+                />
 
         </menu>
     </item>
+
+    <item
+        android:id="@+id/nav_setting"
+        android:title="설 정" />
 
 
 </menu>

@@ -48,7 +48,7 @@
     <Button
         android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:text="판매완료"
+        android:background="@drawable/selector_15_btn_sellover"
         android:id="@+id/btn_sell"
         android:layout_below="@+id/text_statmsg"
         android:layout_alignParentLeft="true"
@@ -57,8 +57,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="메세지"
-        android:src="@android:drawable/sym_def_app_icon"
+        android:background="@drawable/edit"
         android:id="@+id/img_setting"
         android:layout_alignBottom="@+id/btn_follow"
         android:layout_alignParentRight="true"

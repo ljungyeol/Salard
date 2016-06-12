@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@color/setting"
     tools:context="com.ghosthawk.salard.Sell.AddProductFragment">
     <RelativeLayout
         android:id="@+id/container"
@@ -26,8 +27,8 @@
         android:id="@+id/edit_name"
         android:background="@null"
         android:textColor="@color/SalardColor"
-
-        android:hint="요리의 이름을 적어"
+        android:singleLine="true"
+        android:hint="요리의 이름을 적어주세요"
         android:textSize="14sp"
         android:layout_below="@+id/textview"
         android:layout_marginTop="3dp"
@@ -43,6 +44,7 @@
         android:layout_height="10dp"
         android:text="가격"
         android:textSize="10sp"
+
         android:textColor="@color/SalardWeakColor"
 
         android:id="@+id/textview2"
@@ -55,6 +57,8 @@
         android:id="@+id/edit_price"
         android:background="@null"
         android:textColor="@color/SalardColor"
+        android:singleLine="true"
+        android:inputType="number"
         android:hint="0원"
         android:layout_marginTop="3dp"
         android:layout_below="@+id/textview2" />
@@ -101,7 +105,9 @@
         android:layout_width="wrap_content"
         android:layout_height="29dp"
         android:id="@+id/edit_detail"
-        android:hint="식재료의 종류와 상세정보를 적어주세여"
+        android:hint="식재료의 종류와 상세정보를 적어주세요"
+        android:inputType="textImeMultiLine"
+
         android:textColor="@color/SalardColor"
         android:textSize="12sp"
         android:background="@null"
@@ -113,6 +119,7 @@
         android:layout_height="10dp"
         android:id="@+id/text_subbutton"
         android:textSize="10sp"
+        android:textColor="@color/SalardWeakColor"
         android:text="+부가 식재료 설명"
         android:layout_below="@id/edit_detail"
         android:layout_marginTop="10dp"
@@ -122,20 +129,24 @@
         android:layout_height="1dp"
         android:id="@+id/lineD"
         android:background="@color/SalardLine"
-        android:layout_below="@id/text_subbutton"
+        android:layout_below="@id/edit_subdetail"
         android:layout_marginTop="10dp"/>
 
 <!--TODO 나중에하자-->
 
 
-        <EditText
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:hint="부가 식재료를 적어주세여"
-         android:id="@+id/edit_subdetail"
-         android:layout_below="@id/text_subbutton"
-
-         android:visibility="gone"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="부가 식재료를 적어주세요"
+        android:inputType="textImeMultiLine"
+        android:id="@+id/edit_subdetail"
+        android:background="@null"
+        android:textSize="15sp"
+        android:textColor="@color/SalardWeakColor"
+        android:nextFocusDown="@+id/edit_recipe"
+        android:layout_below="@id/text_subbutton"
+        android:visibility="gone"/>
 
 
 
@@ -156,7 +167,9 @@
         android:layout_height="29dp"
         android:id="@+id/edit_recipe"
         android:background="@null"
-        android:hint="식재료를 활용한 레시피를 적어주세여"
+        android:inputType="textImeMultiLine"
+        android:nextFocusDown="@null"
+        android:hint="식재료를 활용한 레시피를 적어주세요"
         android:textSize="12sp"
         android:textColor="@color/SalardColor"
         android:layout_below="@+id/textview4"

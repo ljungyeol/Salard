@@ -230,14 +230,16 @@ public class ProductDetailActivity extends AppCompatActivity {
                 person_id = result._package.getPackage_personid();
                 for(int i=0;i<result.mywish.mem_wishlist.size();i++){
                     if (result._package._id==result.mywish.mem_wishlist.get(i)){
+                        //위시리스트에 있으면 false
                         key=false;
                         break;
                     }
                 }
                 if(result._package.getPackage_state()==1){
+                    //1이면 판매 완료
                     state = false;
                 }
-                if(!key){
+                if(key){
                     //btn.setEnabled(false);
                     btn.setPressed(false);
                 }

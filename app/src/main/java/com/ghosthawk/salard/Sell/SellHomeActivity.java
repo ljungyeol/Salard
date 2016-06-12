@@ -43,19 +43,21 @@ public class SellHomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         my_id = PropertyManager.getInstance().getId();
         setContentView(R.layout.activity_sell_home);
-        textView = (TextView)findViewById(R.id.text_title);
+//        textView = (TextView)findViewById(R.id.text_title);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        textView.setText("마이 샐러드");
+        getSupportActionBar().setTitle("마이 샐러드");
+        toolbar.setTitleTextColor(Color.BLACK);
+//        textView.setText("마이 샐러드");
         Member member = PropertyManager.getInstance().getMember();
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        toggle.setHomeAsUpIndicator(R.drawable.selector_action_menu);
+
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemTextAppearance(R.style.SalardNavi);

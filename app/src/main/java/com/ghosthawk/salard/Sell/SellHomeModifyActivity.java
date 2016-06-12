@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -51,6 +53,13 @@ public class SellHomeModifyActivity extends AppCompatActivity {
         editStatmsg = (EditText)findViewById(R.id.edit_statmsg);
         imageMy = (ImageView)findViewById(R.id.img_my);
         Button btnModify = (Button)findViewById(R.id.btn_modify);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("마이 샐러드");
+        toolbar.setTitleTextAppearance(this,R.style.AppTheme_toolbar);
+//        toolbar.setTitleTextColor(Color.BLACK);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_action_back);
 
         NetworkManager.getInstance().getMyPageUpdate(this, my_id, new NetworkManager.OnResultListener<MyPageModifyResult>() {
             @Override

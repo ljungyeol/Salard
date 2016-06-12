@@ -29,8 +29,8 @@
         android:layout_below="@+id/text_name" />
 
     <RatingBar
-        android:layout_width="80dp"
-        android:layout_height="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:id="@+id/ratingBar3"
         style="@style/salardRatingBar"

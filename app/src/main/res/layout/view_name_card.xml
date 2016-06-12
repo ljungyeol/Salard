@@ -20,6 +20,8 @@
         android:layout_width="138dp"
         android:layout_height="18dp"
         android:id="@+id/text_name2"
+        android:textSize="18sp"
+        android:textColor="@color/SalardColor"
         android:layout_marginTop="41dp"
         android:layout_marginLeft="83dp"/>
 
@@ -28,7 +30,8 @@
         android:layout_height="13dp"
         android:id="@+id/text_location"
         android:layout_marginTop="71dp"
-
+        android:textColor="@color/SalardWeakColor"
+        android:textSize="13sp"
         android:layout_marginLeft="101dp"
          />
 

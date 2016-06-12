@@ -64,7 +64,7 @@ public class MyProductDetailActivity extends AppCompatActivity {
                     NetworkManager.getInstance().getSoldout(this, _id, new NetworkManager.OnResultListener<SuccessCode>() {
                         @Override
                         public void onSuccess(Request request, SuccessCode result) {
-                            btn.setText("판매완료 취소");
+                            btn.setClickable(true);
                             key=false;
                         }
 
@@ -78,7 +78,7 @@ public class MyProductDetailActivity extends AppCompatActivity {
                     NetworkManager.getInstance().getSoldoutCancel(this, _id, new NetworkManager.OnResultListener<SuccessCode>() {
                         @Override
                         public void onSuccess(Request request, SuccessCode result) {
-                            btn.setText("판매완료");
+                            btn.setClickable(false);
                             key=true;
                         }
 
@@ -131,7 +131,7 @@ public class MyProductDetailActivity extends AppCompatActivity {
                     key= false;
                 }
                 if(!key){
-                    btn.setText("판매완료 취소");
+                    btn.setClickable(false);
                 }
             }
 

@@ -39,7 +39,6 @@
         <item name="android:textColor">@color/SalardColor</item>
     </style>
 
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -47,9 +46,8 @@
     <style name="salardRatingBar" parent="@android:style/Widget.RatingBar">
 
         <item name="android:progressDrawable">@drawable/salard_ratingbar</item>
-        <item name="android:maxHeight">16dp</item>
-        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">22dp</item>
+        <item name="android:minHeight">22dp</item>
     </style>
-
 
 </resources>

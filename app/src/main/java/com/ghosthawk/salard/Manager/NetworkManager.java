@@ -8,6 +8,7 @@ import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
 
 import com.ghosthawk.salard.Data.CommentResult;
+import com.ghosthawk.salard.Data.Complete;
 import com.ghosthawk.salard.Data.FollowerResult;
 import com.ghosthawk.salard.Data.FollowingResult;
 import com.ghosthawk.salard.Data.MapResult;
@@ -1513,6 +1514,48 @@ public class NetworkManager {
                     result.result = data;
 
 
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+
+    private static final String SALARD_COMPLETE_URL = SALARD_SERVER + "/salard_complete/";
+
+    public Request getComplete(Object tag, String my_id, String partner_id, String Package_num, OnResultListener<Complete> listener) {
+        String url = String.format(SALARD_COMPLETE_URL);
+
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .add("partner_id",partner_id)
+                .add("Package_num",Package_num)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<Complete> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Complete data = gson.fromJson(response.body().charStream(), Complete.class);
+                    result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
                     result.excpetion = new IOException(response.message());

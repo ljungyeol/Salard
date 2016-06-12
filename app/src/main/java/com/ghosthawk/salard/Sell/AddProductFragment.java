@@ -87,10 +87,15 @@ public class AddProductFragment extends Fragment {
         textSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editSubDetail.getVisibility()==v.GONE)
+                if(editSubDetail.getVisibility()==v.GONE) {
                     editSubDetail.setVisibility(View.VISIBLE);
-                else
+                    editDetail.setNextFocusDownId(R.id.edit_subdetail);
+                    editSubDetail.setNextFocusDownId(R.id.edit_recipe);
+                }
+                else {
                     editSubDetail.setVisibility(View.GONE);
+                    editDetail.setNextFocusDownId(R.id.edit_recipe);
+                }
             }
         });
         btnMinus.setOnClickListener(new View.OnClickListener() {
