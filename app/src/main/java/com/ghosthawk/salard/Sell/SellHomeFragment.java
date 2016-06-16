@@ -38,9 +38,8 @@ public class SellHomeFragment extends Fragment {
     String my_id;
 
     LinearLayoutManager mLayoutManager;
-    TextView textFollowing, textFollower,textName,textStat,textLoca,textComment,textRating,textnono;
+    TextView textFollowing, textFollower,textName,textStat,textLoca,textComment,textnono, text1,text2;
     ImageView imageView,imageView2,imageRank;
-    RatingBar ratingBar;
     Button btnRating;
     public SellHomeFragment() {
         // Required empty public constructor
@@ -52,6 +51,7 @@ public class SellHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sell_home, container, false);
         my_id = PropertyManager.getInstance().getId();
+        btnRating = (Button)view.findViewById(R.id.btn_rating);
         textnono = (TextView)view.findViewById(R.id.text_noti);
         imageView2=(ImageView)view.findViewById(R.id.img_modify) ;
         imageView = (ImageView)view.findViewById(R.id.img_my);
@@ -60,7 +60,8 @@ public class SellHomeFragment extends Fragment {
         textStat = (TextView)view.findViewById(R.id.text_statmsg);
         textLoca = (TextView)view.findViewById(R.id.text_location);
         textComment = (TextView)view.findViewById(R.id.text_comment) ;
-
+        text1 = (TextView)view.findViewById(R.id.text1);
+        text2 = (TextView)view.findViewById(R.id.text2);
         textFollower = (TextView)view.findViewById(R.id.text_follower);
         textFollower.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +71,15 @@ public class SellHomeFragment extends Fragment {
                 startActivity(i);
             }
         });
-        ratingBar = (RatingBar)view.findViewById(R.id.ratingBar);
+
+        text1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),HomeFollowerActivity.class);
+                i.putExtra(HomeFollowerActivity.EXTRA_MY_ID,my_id);
+                startActivity(i);
+            }
+        });
         textFollowing = (TextView)view.findViewById(R.id.text_following);
         textFollowing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +88,14 @@ public class SellHomeFragment extends Fragment {
                 i.putExtra(HomeFollowingActivity.EXTRA_MY_ID,my_id);
                 startActivity(i);
 
+            }
+        });
+        text2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),HomeFollowingActivity.class);
+                i.putExtra(HomeFollowingActivity.EXTRA_MY_ID,my_id);
+                startActivity(i);
             }
         });
 

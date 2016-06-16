@@ -79,7 +79,6 @@ public class SellHomeActivity extends AppCompatActivity
                 NetworkManager.getInstance().getNotify(this, a, new NetworkManager.OnResultListener<notifynofity>() {
                     @Override
                     public void onSuccess(Request request, notifynofity result) {
-                        Log.d("aaaaaaaa",result.notify.getNotify_state()+"");
 
                         switch(result.notify.getNotify_state()){
                             case 0: {
@@ -113,6 +112,8 @@ public class SellHomeActivity extends AppCompatActivity
                                 break;
                             }
                         }
+
+                        recyclerView.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
@@ -246,6 +247,7 @@ public class SellHomeActivity extends AppCompatActivity
 
 
             }else
+            mAdapter.clear();
             recyclerView.setVisibility(View.INVISIBLE);
             return true;
         }
@@ -299,6 +301,8 @@ public class SellHomeActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new SellProfileSettingFragment())
                     .commit();
+
+
         }
 
 

@@ -172,9 +172,9 @@ public class IntroActivity extends AppCompatActivity {
 //                        LoginManager.getInstance().logOut();
 //                        goLogin();
 //                    }
-                    goLogin();
+
                 }
-                goLogin();
+
             }
 
 

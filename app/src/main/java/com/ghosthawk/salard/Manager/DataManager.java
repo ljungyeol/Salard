@@ -221,7 +221,11 @@ public class DataManager extends SQLiteOpenHelper {
         String whereClause = DataConstant.ChatTable.COLUMN_USER_ID + " = ?";
         String[] whereArgs = new String[] {userid};
         db.delete(DataConstant.ChatTable.TABL_NAME,whereClause,whereArgs);
-        db.delete(DataConstant.ChatUserTable.TABLE_NAME,whereClause,whereArgs);
+
+        SQLiteDatabase db1 = getWritableDatabase();
+        String whereClause1 = DataConstant.ChatUserTable.COLUMN_MEM_ID + " = ?";
+        String[] whereArgs1 = new String[] {userid};
+        db.delete(DataConstant.ChatUserTable.TABLE_NAME,whereClause1,whereArgs1);
 
 
 

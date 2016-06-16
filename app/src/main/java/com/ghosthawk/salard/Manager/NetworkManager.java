@@ -1859,4 +1859,43 @@ public class NetworkManager {
         });
         return request;
     }
+
+    private static final String URL_DELETE_MEMBER = SALARD_SERVER + "/delete_mem";
+
+    public Request getDeleteMember(Object tag, String my_id, OnResultListener<SuccessCode> listener) {
+        RequestBody body = new FormBody.Builder()
+                .add("my_id",my_id)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(URL_DELETE_MEMBER)
+                .post(body)
+                .build();
+
+        final NetworkResult<SuccessCode> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    SuccessCode data = gson.fromJson(response.body().charStream(), SuccessCode.class);
+                    result.result = data;
+
+
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
 }

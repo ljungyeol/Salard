@@ -17,6 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 app:title="마이 샐러드"
+                android:background="@color/statusbar"
                 app:titleTextColor="@color/SalardColor">
 
 

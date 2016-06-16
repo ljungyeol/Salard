@@ -48,6 +48,7 @@ public class SellProfileSettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), NoticeActivity.class));
+
             }
         });
 
@@ -95,21 +96,34 @@ public class SellProfileSettingFragment extends Fragment {
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        NetworkManager.getInstance().getFoodRemove(this, _id, new NetworkManager.OnResultListener<SuccessCode>() {
-//                            @Override
-//                            public void onSuccess(Request request, SuccessCode result) {
-//                                Toast.makeText(AddProductModifyActivity.this,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
-//                                finish();
-//                            }
-//
-//                            @Override
-//                            public void onFail(Request request, IOException exception) {
-//
-//                            }
-//                        });
+//                        PropertyManager.getInstance().setId("");
+
+                        NetworkManager.getInstance().getDeleteMember(this, PropertyManager.getInstance().getId(), new NetworkManager.OnResultListener<SuccessCode>() {
+                            @Override
+                            public void onSuccess(Request request, SuccessCode result) {
+                                PropertyManager.getInstance().setPassword("");
+                                PropertyManager.getInstance().setLogin(false);
+                                PropertyManager.getInstance().setUser(null);
+                                //--TODO 로그인이랑 인트로 등 페북 필요한곳 삭제 -> myapplication에 설치
+//                                FacebookSdk.sdkInitialize(getContext());
+
+                                AccessToken token = AccessToken.getCurrentAccessToken();
+                                if(token!=null){
+                                    LoginManager loginManager = LoginManager.getInstance();
+                                    loginManager.logOut();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(Request request, IOException exception) {
+
+                            }
+                        });
                         Toast.makeText(getContext(),"삭제되었습니다.",Toast.LENGTH_SHORT).show();
 
                         startActivity(new Intent(getContext(), LoginActivity.class));
+                        getActivity().finish();
+
                     }
                 });
 
@@ -152,6 +166,7 @@ public class SellProfileSettingFragment extends Fragment {
                                 }
                                 Toast.makeText(getContext(),"로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getContext(), LoginActivity.class));
+                                getActivity().finish();
                             }
 
                             @Override
@@ -184,4 +199,8 @@ public class SellProfileSettingFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
