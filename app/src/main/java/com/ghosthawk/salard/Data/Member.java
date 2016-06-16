@@ -12,7 +12,7 @@ public class Member implements Serializable {
     public String mem_name;
     public String mem_picture;
     public Number mem_PicutureNum;
-    public Number mem_NotifyNewCount;
+    public Number mem_notifycount;
     public Number mem_Phone;
     public double mem_xloca;
     public double mem_yloca;
@@ -21,8 +21,24 @@ public class Member implements Serializable {
     public String mem_Email;
     public int mem_followercount;
     public int mem_followingcount;
-    public String mem_loca;
     public int mem_sellcount;
+    public String mem_locaname;
+
+    public void setMem_notifycount(Number mem_notifycount) {
+        this.mem_notifycount = mem_notifycount;
+    }
+
+    public Number getMem_notifycount() {
+        return mem_notifycount;
+    }
+
+    public void setMem_locaname(String mem_locaname) {
+        this.mem_locaname = mem_locaname;
+    }
+
+    public String getMem_locaname() {
+        return mem_locaname;
+    }
 
     public int getMem_sellcount() {
         return mem_sellcount;
@@ -40,13 +56,7 @@ public class Member implements Serializable {
         this.mem_id = mem_id;
     }
 
-    public String getMem_Location() {
-        return mem_loca;
-    }
 
-    public void setMem_Location(String mem_loca) {
-        this.mem_loca = mem_loca;
-    }
 
     public String getMem_Name() {
         return mem_name;

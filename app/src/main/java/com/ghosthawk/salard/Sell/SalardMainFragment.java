@@ -15,11 +15,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.security.ProtectionDomain;
 import java.util.List;
@@ -51,7 +55,9 @@ public class SalardMainFragment extends Fragment  implements
     String my_id;
     Member member;
     TextView textView;
-    Button imageLocation,imageMap;
+    String dong;
+
+    Button imageLocation,imageMap,imageOkay;
     String xloca, yloca;
     private List<PackageProduct> result;
     Location location;
@@ -90,7 +96,7 @@ public class SalardMainFragment extends Fragment  implements
     RecyclerView listView;
     ProductAdapter mAdapter;
     GoogleApiClient mClient;
-
+    EditText edittext;
     LinearLayoutManager mLayoutManager;
 
     @Override
@@ -146,18 +152,49 @@ public class SalardMainFragment extends Fragment  implements
         View view = inflater.inflate(R.layout.fragment_salard_main, container, false);
         listView = (RecyclerView)view.findViewById(R.id.rv_list);
         listView.setAdapter(mAdapter);
+        edittext = (EditText)view.findViewById(R.id.edit_location);
+        imageOkay= (Button)view.findViewById(R.id.btn_ok);
         textView = (TextView)view.findViewById(R.id.text_location);
         mLayoutManager = new LinearLayoutManager(getContext());
         listView.setLayoutManager(mLayoutManager);
         imageLocation = (Button)view.findViewById(R.id.img_location);
         imageMap =(Button)view.findViewById(R.id.img_map);
+
         my_id = PropertyManager.getInstance().getId();
         imageMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MapActivity.class));
+                imageMap.setVisibility(View.INVISIBLE);
+                imageOkay.setVisibility(View.VISIBLE);
+                edittext.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.INVISIBLE);
             }
         });
+
+            imageOkay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String keyword = edittext.getText().toString();
+                    if (!TextUtils.isEmpty(keyword)) {
+                        NetworkManager.getInstance().getSalardSearch(this, keyword, PropertyManager.getInstance().getId(), new NetworkManager.OnResultListener<PackageProductResult>() {
+                            @Override
+                            public void onSuccess(Request request, PackageProductResult result) {
+                                mAdapter.clear();
+                                mAdapter.addAll(result._package);
+
+                            }
+
+                            @Override
+                            public void onFail(Request request, IOException exception) {
+
+                            }
+                        });
+
+                    }
+                }
+
+            });
+
 //        btn.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"NotoSansKR-Regular.otf"));
 
         init();
@@ -166,6 +203,10 @@ public class SalardMainFragment extends Fragment  implements
         imageLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imageMap.setVisibility(View.VISIBLE);
+                imageOkay.setVisibility(View.INVISIBLE);
+                edittext.setVisibility(View.INVISIBLE);
+                textView.setVisibility(View.VISIBLE);
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -176,7 +217,7 @@ public class SalardMainFragment extends Fragment  implements
                     @Override
                     public void onSuccess(Request request, AddressInfo result) {
                         textView.setText(result.city_do+" "+result.gu_gun+" "+result.legalDong);
-
+                        PropertyManager.getInstance().setDong(result.legalDong);
                     }
 
                     @Override
@@ -210,8 +251,16 @@ public class SalardMainFragment extends Fragment  implements
             xloca = Double.toString(PropertyManager.getInstance().getMember().getMem_xloca());
             yloca = Double.toString(PropertyManager.getInstance().getMember().getMem_yloca());
         }
-
-        NetworkManager.getInstance().getHomeProductList(getContext(), xloca, yloca, my_id, new NetworkManager.OnResultListener<PackageProductResult>() {
+        else{
+            xloca = "37.4670231";
+            yloca = "126.957591";
+        }
+        if(PropertyManager.getInstance().getDong()==null){
+            dong = "";
+        }
+        else
+            dong = PropertyManager.getInstance().getDong();
+        NetworkManager.getInstance().getHomeProductList(getContext(), xloca, yloca, my_id, dong,new NetworkManager.OnResultListener<PackageProductResult>() {
                     @Override
                     public void onSuccess(Request request,PackageProductResult result) {
 //                        mHandler.sendMessage(mHandler.obtainMessage(1, result));

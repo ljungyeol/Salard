@@ -3,12 +3,16 @@ package com.ghosthawk.salard.Map;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,6 +53,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,11 +71,13 @@ public class MapActivity extends AppCompatActivity implements
         GoogleMap.OnCameraChangeListener{
 
     GoogleApiClient mClient;
-    TextView messageView;
+    TextView messageView,messageView2;
    // TextView infoView;
+    EditText editMessage;
     TextView textName, textPrice,textLocation;
     ImageView imageMem, imageMain, imageRank;
     Location location;
+    Button btn2;
     View view;
     int packid;
     Map<Marker, PackageProduct> poiResolver = new HashMap<>();
@@ -79,11 +87,22 @@ public class MapActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        if (Build.VERSION.SDK_INT >= 21) {   //상태바 색
+            getWindow().setStatusBarColor(Color.parseColor("#00d076"));
+        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Salard");
         messageView = (TextView) findViewById(R.id.text_message);
+        messageView2 = (TextView)findViewById(R.id.text_message1);
         Button btn=(Button)findViewById(R.id.btn_location);
+        btn2=(Button)findViewById(R.id.btn_map);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                messageView.setVisibility(View.VISIBLE);
+//                messageView2.setVisibility(View.VISIBLE);
+                editMessage.setVisibility(View.GONE);
                 if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -119,6 +138,7 @@ public class MapActivity extends AppCompatActivity implements
 
         });
       //  infoView = (TextView)findViewById(R.id.text_info);
+        editMessage = (EditText)findViewById(R.id.edit_message);
         textName = (TextView)findViewById(R.id.text_name);
         textPrice = (TextView)findViewById(R.id.text_price);
         textLocation = (TextView)findViewById(R.id.text_location);
@@ -137,7 +157,7 @@ public class MapActivity extends AppCompatActivity implements
         fragment.getMapAsync(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_action_back);//--TODO 아이콘
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_action_back);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -182,22 +202,40 @@ public class MapActivity extends AppCompatActivity implements
             finish();
         }
         if (id == R.id.action_search) {
-            PoiSearchDialogFragment f = new PoiSearchDialogFragment();
-            f.setOnPoiSearchResultCallback(new PoiSearchDialogFragment.OnPoiSearchResultCallback() {
+            editMessage.setVisibility(View.VISIBLE);
+            messageView.setVisibility(View.INVISIBLE);
+//            messageView2.setVisibility(View.INVISIBLE);
+            btn2.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onPoiSearchResult(SearchPOIInfo info) {
-                    boolean isFirst = true;
-                    clearAll();
-                    for (PackageProduct packageProduct : info.pois.packageProducts) {
-                        if (isFirst) {
-                            moveMap(packageProduct.getPackage_xloca(), packageProduct.getPackage_yloca(), 15f);
-                            isFirst = false;
+                public void onClick(View v) {
+                    String keyword = editMessage.getText().toString();
+                    editMessage.setText("");
+                    if(!TextUtils.isEmpty(keyword)){
+                        try {
+                            NetworkManager.getInstance().getTMapSearchPOI(this, keyword, new NetworkManager.OnResultListener<SearchPOIInfo>() {
+                                @Override
+                                public void onSuccess(Request request, SearchPOIInfo result) {
+                                    boolean isFirst = true;
+                                    for (POI poi: result.pois.poiList) {
+                                        if (isFirst) {
+                                            moveMap(poi.getLatitude(), poi.getLongitude(), 15f);
+                                            break;
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(Request request, IOException exception) {
+                                    Toast.makeText(MapActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
                         }
-                        addMarker(packageProduct);
                     }
                 }
             });
-            f.show(getSupportFragmentManager(), "searchdialog");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -275,22 +313,23 @@ public class MapActivity extends AppCompatActivity implements
         textLocation.setText(p.getPackage_count()+"개 / "+foodloca.distanceTo(location)+"km");
 
         if(i>0 && i<10){
-            Glide.with(imageRank.getContext()).load(img[0]).into(imageRank);
-        }
-        else if(i<30){
             Glide.with(imageRank.getContext()).load(img[1]).into(imageRank);
         }
-        else if(i<50){
+        else if(i<30){
             Glide.with(imageRank.getContext()).load(img[2]).into(imageRank);
         }
-        else if(i<80){
+        else if(i<50){
             Glide.with(imageRank.getContext()).load(img[3]).into(imageRank);
         }
-        else if(i<100){
+        else if(i<80){
             Glide.with(imageRank.getContext()).load(img[4]).into(imageRank);
         }
-        else
+        else if(i>=100){
             Glide.with(imageRank.getContext()).load(img[5]).into(imageRank);
+        }
+        else{
+
+        }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -342,6 +381,7 @@ public class MapActivity extends AppCompatActivity implements
         options.snippet("lat : "+lat +"lng : "+lng);
         options.draggable(true);
         Marker m = mMap.addMarker(options);
+
     }
 
 //    private void addMarker(PackageProduct packageproduct){

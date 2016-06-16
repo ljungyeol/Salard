@@ -46,7 +46,6 @@ public class MembershipActivity extends AppCompatActivity {
         textStatmsg = (EditText)findViewById(R.id.edit_statemsg);
         textId =(EditText)findViewById(R.id.edit_id);
         textPw = (EditText)findViewById(R.id.edit_pw);
-
         imageMem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

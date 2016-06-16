@@ -20,6 +20,7 @@ import com.ghosthawk.salard.Data.MessageResult;
 import com.ghosthawk.salard.Manager.DataConstant;
 import com.ghosthawk.salard.Manager.DataManager;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.R;
 
 import java.io.IOException;
@@ -43,7 +44,6 @@ public class MessageFragment extends Fragment {
     public MessageFragment() {
         // Required empty public constructor
     }
-    int img = R.drawable.rank1;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +55,8 @@ public class MessageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-        Bundle b = getArguments();
-        my_id = b.getString(EXTRA_MY_ID);
+
+        my_id = PropertyManager.getInstance().getId();
         listView = (RecyclerView)view.findViewById(R.id.rv_list);
         mAdapter = new MessageAdapter();
         listView.setAdapter(mAdapter);

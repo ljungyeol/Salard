@@ -20,6 +20,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView,imageView2,imageRank;
     TextView nameView, priceView, countView;
     PackageProduct pack;
+
     public interface OnItemClickListener {
         public void onItemClick(View view, PackageProduct pack);
     }
@@ -67,7 +68,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         //imageView.setImageResource(Integer.parseInt(pack.getPackage_mainpicture()));
         nameView.setText(pack.getPackage_name());
         priceView.setText(+pack.getPackage_price()+"원");
-        countView.setText(+pack.getPackage_count()+"개");
+        countView.setText(+pack.getPackage_count()+"개 / "+pack.getPackage_loca()+"km");
         Glide.with(imageView2.getContext()).load(pack.getPackage_personpicture()).into(imageView2);
         int img[]={
                 R.drawable.rank0, R.drawable.rank1, R.drawable.rank2,
@@ -75,22 +76,26 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         };
         int i = pack.getPerson_sellcount();
         if(i>0 && i<10){
-            Glide.with(imageRank.getContext()).load(img[0]).into(imageRank);
-        }
-        else if(i<30){
             Glide.with(imageRank.getContext()).load(img[1]).into(imageRank);
         }
-        else if(i<50){
+        else if(i<30){
             Glide.with(imageRank.getContext()).load(img[2]).into(imageRank);
         }
-        else if(i<80){
+        else if(i<50){
             Glide.with(imageRank.getContext()).load(img[3]).into(imageRank);
         }
-        else if(i<100){
+        else if(i<80){
             Glide.with(imageRank.getContext()).load(img[4]).into(imageRank);
         }
-        else
+        else if(i<100){
             Glide.with(imageRank.getContext()).load(img[5]).into(imageRank);
+        }
+        else if(i>=100){
+            Glide.with(imageRank.getContext()).load(img[5]).into(imageRank);
+        }
+        else{
+
+        }
 
     }
 

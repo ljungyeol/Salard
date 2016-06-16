@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/setting</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/statusbar</item>
         <item name="colorAccent">@color/statusbar</item>
 
@@ -23,23 +23,29 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="toolbarStyle">@style/SalardToolbar</item>
     </style>
     <style name="AppTheme.NoStatusBar">
         <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SalardToolbar" parent="Base.Widget.AppCompat.Toolbar">
-        <item name ="android:color">@color/setting</item>
+    <style name="SalardToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/SalardTitleTextAppearance</item>
+        <item name="titleTextColor">@color/SalardColor</item>
+        <item name="title">마이 샐러드</item>
+
 
     </style>
-    <style name="AppTheme.toolbar">
-        <item name="android:text">식재료 정보</item>
-        <item name="android:textSize">17sp</item>
-        <item name="android:textColor">@color/SalardColor</item>
+
+    <style name="SalardTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="titleTextColor">@color/SalardColor</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="colorPrimaryDark">@color/statusbar</item>
+
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

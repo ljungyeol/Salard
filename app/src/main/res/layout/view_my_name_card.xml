@@ -5,54 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
-        android:layout_width="45dp"
-        android:layout_height="40dp"
+        android:layout_width="70dp"
+        android:layout_height="64dp"
         layout="@layout/view_member"
-        android:id="@+id/imageView3"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:layout_alignTop="@+id/text_name2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/image_mem"
+        android:layout_marginTop="32dp" />
 
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="138dp"
+        android:layout_height="21dp"
         android:id="@+id/text_name2"
-        android:text="아이디"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"/>
+        android:text="이름"
+        android:textSize="18sp"
+        android:textColor="@color/SalardColor"
+        android:layout_marginTop="41dp"
+        android:layout_marginLeft="83dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="상태 메세지"
-        android:id="@+id/text_statmsg"
-        android:layout_below="@+id/text_name2"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3"
-        android:layout_marginLeft="15dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="주소 주소 주소"
+        android:layout_width="119dp"
+        android:layout_height="16dp"
         android:id="@+id/text_location"
-        android:layout_above="@+id/btn_sell"
-        android:layout_toRightOf="@+id/btn_sell"
-        android:layout_toEndOf="@+id/btn_sell"
-        android:layout_marginLeft="29dp"
-        android:layout_marginStart="29dp" />
+        android:text="합정동"
+        android:layout_marginTop="69dp"
+        android:textColor="@color/SalardWeakColor"
+        android:textSize="13sp"
+        android:layout_marginLeft="101dp"
+        />
+
 
     <Button
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector_15_btn_sellover"
+        android:layout_width="144dp"
+        android:layout_height="28dp"
+        android:background="@drawable/selector_15_btn_soldout"
         android:id="@+id/btn_sell"
-        android:layout_below="@+id/text_statmsg"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="128dp"
+         />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -62,6 +50,14 @@
         android:layout_alignBottom="@+id/btn_follow"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="9dp"
+        android:layout_height="13dp"
+        android:id="@+id/img_location"
+        android:layout_marginLeft="83dp"
+        android:layout_marginTop="71dp"
+        android:background="@drawable/location"/>
 
 
 

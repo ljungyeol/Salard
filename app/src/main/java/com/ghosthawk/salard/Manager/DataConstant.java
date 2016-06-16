@@ -24,6 +24,7 @@ public class DataConstant {
         public static final String COLUMN_MEM_SELL_COUNT = "mem_sellcount";
         public static final String COLUMN_DATE = "date";
         public static final String COLUMN_LAST_MESSAGE = "last_message";
+        public static final String COLUMN_PACKAGE_ID = "package_id"; // 패키지 번호
 
     }
 
@@ -34,13 +35,7 @@ public class DataConstant {
     public interface ChatTable extends BaseColumns {
         public static final int TYPE_SEND = 1;
         public static final int TYPE_RECEIVE = 2;
-//        상대닉네임
-//        수신 발신 타입
-//        메세지
-//                시간
-//        사진
-//                        등급
-//        읽음표시
+
         public static final String TABL_NAME = "CHAT_TABLE";
         public static final String COLUMN_USER_ID = "uid";
         public static final String COLUMN_TYPE = "type";
@@ -49,5 +44,6 @@ public class DataConstant {
         public static final String COLUMN_MEM_PICTURE = "mem_picture";
         public static final String COLUMN_MEM_SELL_COUNT = "mem_sellcount";
         public static final String COLUMN_READ = "read";
+        public static final String COLUMN_PACKAGE_ID = "package_id";
     }
 }

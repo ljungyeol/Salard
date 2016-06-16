@@ -11,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.MyPageResult;
+import com.ghosthawk.salard.Data.Rating;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.Other.CommentsAdapter;
 import com.ghosthawk.salard.R;
 
@@ -35,8 +38,9 @@ public class SellHomeFragment extends Fragment {
     String my_id;
 
     LinearLayoutManager mLayoutManager;
-    TextView textFollowing, textFollower,textName,textStat,textLoca,textComment;
+    TextView textFollowing, textFollower,textName,textStat,textLoca,textComment,textRating,textnono;
     ImageView imageView,imageView2,imageRank;
+    RatingBar ratingBar;
     Button btnRating;
     public SellHomeFragment() {
         // Required empty public constructor
@@ -47,8 +51,8 @@ public class SellHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sell_home, container, false);
-        Bundle b = getArguments();
-        my_id = b.getString(EXTRA_MY_ID);
+        my_id = PropertyManager.getInstance().getId();
+        textnono = (TextView)view.findViewById(R.id.text_noti);
         imageView2=(ImageView)view.findViewById(R.id.img_modify) ;
         imageView = (ImageView)view.findViewById(R.id.img_my);
         imageRank = (ImageView)view.findViewById(R.id.img_rank);
@@ -56,7 +60,7 @@ public class SellHomeFragment extends Fragment {
         textStat = (TextView)view.findViewById(R.id.text_statmsg);
         textLoca = (TextView)view.findViewById(R.id.text_location);
         textComment = (TextView)view.findViewById(R.id.text_comment) ;
-        btnRating = (Button)view.findViewById(R.id.btn_rating);
+
         textFollower = (TextView)view.findViewById(R.id.text_follower);
         textFollower.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +70,7 @@ public class SellHomeFragment extends Fragment {
                 startActivity(i);
             }
         });
-
+        ratingBar = (RatingBar)view.findViewById(R.id.ratingBar);
         textFollowing = (TextView)view.findViewById(R.id.text_following);
         textFollowing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +97,12 @@ public class SellHomeFragment extends Fragment {
                 if(listView.getVisibility()==View.GONE){
                     listView.setVisibility(View.VISIBLE);
                     textComment.setText("후기 접기");
+                    btnRating.setPressed(true);
                 }
                 else{
                     listView.setVisibility(View.GONE);
                     textComment.setText("후기 더보기");
+                    btnRating.setPressed(false);
                 }
             }
         });
@@ -127,10 +133,9 @@ public class SellHomeFragment extends Fragment {
                 Glide.with(imageView.getContext()).load(result.member.getMem_Picture()).into(imageView);
                 textName.setText(result.member.getMem_Name());
                 textStat.setText(result.member.getMem_StatMsg());
-                textLoca.setText(result.member.getMem_Location());
+                textLoca.setText(result.member.getMem_locaname());
                 textFollowing.setText(result.member.getMem_followingcount()+"");
                 textFollower.setText(result.member.getMem_followercount()+"");
-
                 mAdapter.clear();
                 mAdapter.addAll(result.comments);
 

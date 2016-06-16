@@ -9,7 +9,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:id="@+id/img_location"
-        android:background="@drawable/selector_06_btn_location"            />
+        android:background="@drawable/selector_06_btn_location"           />
     <TextView
         android:background="@drawable/search_bar"
         android:layout_width="264dp"
@@ -23,9 +23,26 @@
         android:layout_height="48dp"
         android:id="@+id/img_map"
         android:layout_toRightOf="@+id/text_location1"
-        android:background="@drawable/selector_06_btn_map"
+        android:background="@drawable/selector_08_btn_search"
             />
-
+    <Button
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/btn_ok"
+        android:visibility="invisible"
+        android:layout_toRightOf="@+id/text_location1"
+        android:background="@drawable/selector_08_btn_okay"/>
+    <EditText
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_location"
+        android:layout_marginTop="9dp"
+        android:gravity="center_vertical"
+        android:textSize="13sp"
+        android:background="@drawable/search_bar"
+        android:visibility="invisible"
+        android:layout_alignLeft="@+id/text_location1"
+        android:layout_marginLeft="11dp"/>
     <TextView
         android:layout_width="240dp"
         android:layout_height="24dp"

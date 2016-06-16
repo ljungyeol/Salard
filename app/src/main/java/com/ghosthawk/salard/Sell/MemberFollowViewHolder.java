@@ -71,8 +71,12 @@ public class MemberFollowViewHolder extends RecyclerView.ViewHolder {
         else if(i<100){
             Glide.with(imageRank.getContext()).load(img[4]).into(imageRank);
         }
-        else
+        else if(i>=100){
             Glide.with(imageRank.getContext()).load(img[5]).into(imageRank);
+        }
+        else{
+
+        }
 
     }
 }

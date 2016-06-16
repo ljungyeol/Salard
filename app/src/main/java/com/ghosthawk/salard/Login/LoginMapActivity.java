@@ -48,7 +48,6 @@ public class LoginMapActivity extends AppCompatActivity implements
 
     GoogleApiClient mClient;
     TextView messageView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +179,7 @@ public class LoginMapActivity extends AppCompatActivity implements
                 @Override
                 public void onSuccess(Request request, AddressInfo result) {
                     messageView.setText(result.legalDong + " "+result.bunji);
-
+                    PropertyManager.getInstance().setDong(result.legalDong);
                 }
 
                 @Override

@@ -3,15 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:background="@color/setting"
 
     tools:context="com.ghosthawk.salard.Sell.HomeFollowerActivity">
-
-    <android.support.v7.widget.RecyclerView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_list"
-        android:layout_below="@+id/edit_keyword"
-         />
+        android:layout_height="wrap_content"
+        android:id="@+id/app"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/setting"
+            app:title="마이 샐러드"
+
+            app:titleTextColor="@color/SalardColor">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v7.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/app"
+    android:id="@+id/rv_list"
+    />
 </RelativeLayout>

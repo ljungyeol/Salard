@@ -1,18 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="216dp"
+    android:layout_height="216dp"
+    android:background="@color/setting"
     tools:context="com.ghosthawk.salard.Message.RatingFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="상대방에 대한 후기를 작성해 주세요!"
+        android:layout_width="176dp"
+        android:layout_height="54dp"
+        android:text="상대방에 대한 후기를                작성해 주세요!"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:textSize="12sp"
 
-        android:textColor="@color/setting"
+        android:textColor="@color/SalardColor"
         android:id="@+id/textmessage"/>
     <RatingBar
         android:layout_width="wrap_content"
@@ -20,16 +24,16 @@
         android:id="@+id/ratingbar"
         android:layout_below="@id/textmessage"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         style="@style/salardRatingBar"/>
     <EditText
         android:layout_width="160dp"
-        android:background="@drawable/text"
+        android:background="@drawable/search_bar_popup"
         android:layout_height="wrap_content"
         android:id="@+id/edit_rating"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/ratingbar"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="12dp"/>
     <Button
         android:layout_width="144dp"
         android:layout_height="28dp"

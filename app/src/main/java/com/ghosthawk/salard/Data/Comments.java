@@ -5,9 +5,18 @@ package com.ghosthawk.salard.Data;
  */
 public class Comments {
     public String comment_text;
-    public int comment_grade;
+    public float comment_grade;
     public String comment_sendid;
     public String comment_giveid;
+    public String comment_name;
+
+    public String getComment_name() {
+        return comment_name;
+    }
+
+    public void setComment_name(String comment_name) {
+        this.comment_name = comment_name;
+    }
 
     public void setComment_giveid(String comment_giveid) {
         this.comment_giveid = comment_giveid;
@@ -17,11 +26,11 @@ public class Comments {
         return comment_giveid;
     }
 
-    public void setComment_grade(int comment_grade) {
+    public void setComment_grade(float comment_grade) {
         this.comment_grade = comment_grade;
     }
 
-    public int getComment_grade() {
+    public float getComment_grade() {
         return comment_grade;
     }
 

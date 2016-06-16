@@ -124,17 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                             new NetworkManager.OnResultListener<MyResult>() {
                                 @Override
                                 public void onSuccess(Request request, MyResult result) {
-//                                    if (result.code == 1) {
-//                                        User user = (User)result.result;
-//                                        // login success
-//                                        PropertyManager.getInstance().setLogin(true);
-//                                        PropertyManager.getInstance().setUser(user);
-//                                        PropertyManager.getInstance().setFacebookId(user.facebookId);
-//                                        goMainActivity();
-//                                    } else if (result.code == 3) {
-//                                        FacebookInfo info = (FacebookInfo)result.result;
-//                                        ((LoginActivity)getActivity()).changeFacebookSignUp(info);
-//                                    }
+//
 
                                     Toast.makeText(LoginActivity.this,"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
                                     //--TODO 나중에는 putExtra없애면된다+ 밑에 주석없애기.
@@ -142,8 +132,6 @@ public class LoginActivity extends AppCompatActivity {
                                     PropertyManager.getInstance().setMember(result.member);
                                     PropertyManager.getInstance().setId(result.member.getMem_id());
                                     Intent i = new Intent(LoginActivity.this, LoginMapActivity.class);
-//                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//                            i.putExtra(MainActivity.EXTRA_INDEX,"main");
                                     startActivity(i);
                                     finish();
                                 }

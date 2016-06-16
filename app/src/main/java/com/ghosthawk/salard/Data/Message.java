@@ -18,6 +18,15 @@ public class Message implements Serializable {
     public String msg_date;
     public int msg_read;
     public int type;
+    public int msg_packagenum;
+
+    public int getMsg_packagenum() {
+        return msg_packagenum;
+    }
+
+    public void setMsg_packagenum(int msg_packagenum) {
+        this.msg_packagenum = msg_packagenum;
+    }
 
     public int getType() {
         return type;

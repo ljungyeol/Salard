@@ -13,16 +13,15 @@
         >
     <TextView
         android:layout_width="100dp"
-        android:layout_height="10dp"
+        android:layout_height="13dp"
         android:text="요리이름"
         android:textSize="10sp"
         android:textColor="@color/SalardWeakColor"
         android:id="@+id/textview"
         android:layout_marginTop="22dp"
         />
-        <!--TODO 입력시는 안바뀔듯?-->
     <EditText
-        android:layout_width="146dp"
+        android:layout_width="170dp"
         android:layout_height="29dp"
         android:id="@+id/edit_name"
         android:background="@null"
@@ -31,7 +30,7 @@
         android:hint="요리의 이름을 적어주세요"
         android:textSize="14sp"
         android:layout_below="@+id/textview"
-        android:layout_marginTop="3dp"
+
         />
     <View
         android:layout_width="328dp"
@@ -41,7 +40,7 @@
         android:layout_below="@id/edit_name"/>
     <TextView
         android:layout_width="100dp"
-        android:layout_height="10dp"
+        android:layout_height="13dp"
         android:text="가격"
         android:textSize="10sp"
 
@@ -56,11 +55,12 @@
         android:layout_height="29dp"
         android:id="@+id/edit_price"
         android:background="@null"
+        android:textSize="14sp"
         android:textColor="@color/SalardColor"
         android:singleLine="true"
         android:inputType="number"
         android:hint="0원"
-        android:layout_marginTop="3dp"
+
         android:layout_below="@+id/textview2" />
     <View
         android:layout_width="1dp"
@@ -91,7 +91,7 @@
 
     <TextView
         android:layout_width="100dp"
-        android:layout_height="10dp"
+        android:layout_height="13dp"
         android:text="식재료 설명"
         android:textSize="10sp"
         android:textColor="@color/SalardWeakColor"
@@ -106,17 +106,16 @@
         android:layout_height="29dp"
         android:id="@+id/edit_detail"
         android:hint="식재료의 종류와 상세정보를 적어주세요"
-        android:inputType="textImeMultiLine"
 
         android:textColor="@color/SalardColor"
         android:textSize="12sp"
         android:background="@null"
         android:layout_below="@+id/textview3"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         />
     <TextView
         android:layout_width="100dp"
-        android:layout_height="10dp"
+        android:layout_height="13dp"
         android:id="@+id/text_subbutton"
         android:textSize="10sp"
         android:textColor="@color/SalardWeakColor"
@@ -129,20 +128,19 @@
         android:layout_height="1dp"
         android:id="@+id/lineD"
         android:background="@color/SalardLine"
-        android:layout_below="@id/edit_subdetail"
-        android:layout_marginTop="10dp"/>
+        android:layout_below="@+id/edit_subdetail"
+        android:layout_marginTop="7dp"/>
 
-<!--TODO 나중에하자-->
+
 
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="부가 식재료를 적어주세요"
-        android:inputType="textImeMultiLine"
         android:id="@+id/edit_subdetail"
         android:background="@null"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textColor="@color/SalardWeakColor"
         android:nextFocusDown="@+id/edit_recipe"
         android:layout_below="@id/text_subbutton"
@@ -154,7 +152,7 @@
 
     <TextView
         android:layout_width="100dp"
-        android:layout_height="10dp"
+        android:layout_height="13dp"
         android:text="레시피"
         android:textSize="10sp"
         android:textColor="@color/SalardWeakColor"
@@ -167,7 +165,6 @@
         android:layout_height="29dp"
         android:id="@+id/edit_recipe"
         android:background="@null"
-        android:inputType="textImeMultiLine"
         android:nextFocusDown="@null"
         android:hint="식재료를 활용한 레시피를 적어주세요"
         android:textSize="12sp"
@@ -184,7 +181,7 @@
             android:layout_marginTop="30dp"/>
     <TextView
         android:layout_width="100dp"
-        android:layout_height="10dp"
+        android:layout_height="13dp"
         android:text="사진"
         android:textSize="10sp"
         android:textColor="@color/SalardWeakColor"
@@ -193,12 +190,13 @@
         android:layout_marginTop="6dp"/>
 
     <TextView
-        android:layout_width="220dp"
-        android:layout_height="12dp"
+        android:layout_width="240dp"
+        android:layout_height="15dp"
         android:text="요리사진과 식재료 사진 2가지를 올려주세요."
         android:textSize="12sp"
         android:textColor="@color/SalardWeakColor"
         android:id="@+id/textview6"
+        android:layout_marginTop="7dp"
         android:layout_below="@+id/textview5"
         />
 

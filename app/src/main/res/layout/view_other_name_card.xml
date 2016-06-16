@@ -10,7 +10,6 @@
         android:layout_width="70dp"
         android:layout_height="64dp"
         layout="@layout/view_member"
-        android:layout_marginTop="32dp"
         android:id="@+id/imageView3"
         android:layout_centerHorizontal="true" />
 
@@ -20,10 +19,11 @@
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="260dp"
-        android:layout_height="18dp"
+        android:layout_height="21dp"
         android:id="@+id/text_name2"
         android:text="아이디"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:gravity="center"
         android:textColor="@color/SalardColor"
         android:layout_marginTop="19dp"
@@ -33,25 +33,27 @@
 
     <TextView
         android:layout_width="260dp"
-        android:layout_height="11dp"
+        android:layout_height="13dp"
         android:text="상태 메세지"
         android:textSize="11sp"
         android:gravity="center"
         android:textColor="@color/SalardWeakColor"
         android:id="@+id/text_statmsg"
         android:layout_below="@+id/text_name2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:layout_centerHorizontal="true" />
     <View
-        android:layout_width="360dp"
-        android:layout_height="1dp"
+        android:layout_width="1dp"
+        android:layout_height="13dp"
         android:background="@color/SalardLine"
         android:layout_centerHorizontal="true"
-        android:id="@+id/lineB"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/btn_follow"
-
+        android:id="@+id/lineC"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/text_statmsg"
         />
+
+
+
     <ImageView
         android:layout_width="13dp"
         android:layout_height="13dp"
@@ -65,14 +67,14 @@
 
     <TextView
         android:layout_width="33dp"
-        android:layout_height="13dp"
+        android:layout_height="14dp"
         android:text="000"
         android:textSize="13sp"
         android:textColor="@color/SalardWeakColor"
         android:id="@+id/text_follow"
         android:gravity="right"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="17dp"
         android:layout_toLeftOf="@+id/lineC"
         android:layout_below="@+id/text_statmsg"/>
 
@@ -88,7 +90,7 @@
 
     <TextView
         android:layout_width="50dp"
-        android:layout_height="13dp"
+        android:layout_height="15dp"
         android:text="낙성대"
         android:textSize="13sp"
         android:textColor="@color/SalardWeakColor"
@@ -118,16 +120,15 @@
         android:layout_toRightOf="@+id/lineC"
         android:layout_marginLeft="4dp"
         android:layout_below="@+id/text_follow" />
+
     <View
-        android:layout_width="1dp"
-        android:layout_height="13dp"
+        android:layout_width="360dp"
+        android:layout_height="1dp"
         android:background="@color/SalardLine"
         android:layout_centerHorizontal="true"
-        android:id="@+id/lineC"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/text_statmsg"
+        android:id="@+id/lineB"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/btn_follow"
+
         />
-
-
-
 </RelativeLayout>

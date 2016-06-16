@@ -7,7 +7,7 @@
     android:background="@drawable/join_image"
     tools:context="com.ghosthawk.salard.Login.MembershipActivity">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/camera_180"
@@ -15,9 +15,8 @@
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="170dp"
-        app:civ_border="true"
-        app:civ_border_color="#ffffff"
-        app:civ_border_width="1dp"/>
+        app:riv_oval="true"
+        />
 
 
 

@@ -1,14 +1,19 @@
 package com.ghosthawk.salard.Sell;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ghosthawk.salard.Data.FollowingResult;
 import com.ghosthawk.salard.Data.Member;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.R;
 
 import java.io.IOException;
@@ -27,12 +32,22 @@ public class HomeFollowingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_following);
+        if (Build.VERSION.SDK_INT >= 21) {   //상태바 색
+            getWindow().setStatusBarColor(Color.parseColor("#00d076"));
+        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_17_btn_x);
+        toolbar.setTitle("팔로윙");
+
         listView = (RecyclerView)findViewById(R.id.rv_list);
         mAdapter = new MemberFollowAdapter();
         listView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         listView.setLayoutManager(mLayoutManager);
-        my_id = getIntent().getStringExtra(EXTRA_MY_ID);
+        my_id = PropertyManager.getInstance().getId();
+
         init();
     }
     int img[] = {
@@ -64,6 +79,13 @@ public class HomeFollowingActivity extends AppCompatActivity {
             //member.setMem_Picture(img[i]);
             mAdapter.add(member);
         }*/
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

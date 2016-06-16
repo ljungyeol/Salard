@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,7 +41,7 @@ import okhttp3.Request;
 public class AddProductModifyActivity extends AppCompatActivity {
     public static final String EXTRA_ID="_id";
     ImageView imageView, imageView2;
-    TextView textNumber,textSub,textView;
+    TextView textNumber,textSub;
     EditText editName,editDetail,editRecipe,editPrice,editSubDetail;
     Button btnPlus,btnMinus,btnRegist;
     String[] items = {"카메라로 촬영","앨범에서 선택"};
@@ -53,11 +55,14 @@ public class AddProductModifyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_modify);
-        textView = (TextView)findViewById(R.id.text_title);
+        if (Build.VERSION.SDK_INT >= 21) {   //상태바 색
+            getWindow().setStatusBarColor(Color.parseColor("#00d076"));
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        textView.setText("식재료 등록");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_action_back);
         textNumber =(TextView)findViewById(R.id.text_number) ;
         textSub = (TextView)findViewById(R.id.text_subbutton) ;
         btnPlus = (Button)findViewById(R.id.btn_plus);
@@ -94,11 +99,9 @@ public class AddProductModifyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (editSubDetail.getVisibility() == v.GONE) {
                     editSubDetail.setVisibility(View.VISIBLE);
-                    editDetail.setNextFocusDownId(R.id.edit_subdetail);
-                    editSubDetail.setNextFocusDownId(R.id.edit_recipe);
+
                 } else {
                     editSubDetail.setVisibility(View.GONE);
-                    editDetail.setNextFocusDownId(R.id.edit_recipe);
                 }
             }
         });
@@ -233,7 +236,9 @@ public class AddProductModifyActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if(item.getItemId()==android.R.id.home){
+            finish();
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             food_name = editName.getText().toString();
@@ -257,13 +262,13 @@ public class AddProductModifyActivity extends AppCompatActivity {
             NetworkManager.getInstance().getPackageUpdateComplete(this, _id, food_name, mUploadFile, food_price, food_recipeinfo, food_detailinfo, food_subdetailinfo, food_count, new NetworkManager.OnResultListener<SuccessCode>() {
                 @Override
                 public void onSuccess(Request request, SuccessCode result) {
-                    Toast.makeText(AddProductModifyActivity.this, "수정완료됏당", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductModifyActivity.this, "수정완료됏습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
                 @Override
                 public void onFail(Request request, IOException exception) {
-                    Toast.makeText(AddProductModifyActivity.this,"수정안됏다",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductModifyActivity.this,"식재료 수정을 실패하였습니다.",Toast.LENGTH_SHORT).show();
 
                 }
             });

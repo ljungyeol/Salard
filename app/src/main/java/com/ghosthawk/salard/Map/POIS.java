@@ -10,5 +10,5 @@ import java.util.List;
  */
 public class POIS {
     @SerializedName("poi")
-    List<PackageProduct> packageProducts;
+    List<POI> poiList;
 }

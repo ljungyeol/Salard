@@ -24,7 +24,7 @@ public class PackageProduct implements Serializable {
     public double package_xloca;
     public double package_yloca;
     public int package_count;
-    public String package_loca;
+    public int package_loca;
     public int person_sellcount;
 
     public int getPerson_sellcount() {
@@ -151,11 +151,11 @@ public class PackageProduct implements Serializable {
         this.package_state = package_state;
     }
 
-    public String getPackage_loca() {
+    public int getPackage_loca() {
         return package_loca;
     }
 
-    public void setPackage_loca(String package_loca) {
+    public void setPackage_loca(int package_loca) {
         this.package_loca = package_loca;
     }
 

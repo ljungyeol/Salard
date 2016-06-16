@@ -18,8 +18,9 @@
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="138dp"
-        android:layout_height="18dp"
+        android:layout_height="21dp"
         android:id="@+id/text_name2"
+        android:text="이름"
         android:textSize="18sp"
         android:textColor="@color/SalardColor"
         android:layout_marginTop="41dp"
@@ -27,9 +28,10 @@
 
     <TextView
         android:layout_width="119dp"
-        android:layout_height="13dp"
+        android:layout_height="16dp"
         android:id="@+id/text_location"
-        android:layout_marginTop="71dp"
+        android:text="합정동"
+        android:layout_marginTop="69dp"
         android:textColor="@color/SalardWeakColor"
         android:textSize="13sp"
         android:layout_marginLeft="101dp"
@@ -40,7 +42,6 @@
     <Button
         android:layout_width="144dp"
         android:layout_height="28dp"
-        android:textSize="10sp"
         android:id="@+id/btn_follow"
         android:layout_marginTop="128dp"
         android:background="@drawable/selector_10_btn_like"

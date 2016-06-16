@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class DataManager extends SQLiteOpenHelper {
 
         query = "CREATE TABLE " + DataConstant.ChatTable.TABL_NAME + "(" +
                 DataConstant.ChatTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                DataConstant.ChatTable.COLUMN_PACKAGE_ID + " INTEGER," +
                 DataConstant.ChatTable.COLUMN_USER_ID + " TEXT," +
                 DataConstant.ChatTable.COLUMN_TYPE + " INTEGER," +
                 DataConstant.ChatTable.COLUMN_MESSAGE + " TEXT," +
@@ -77,6 +79,7 @@ public class DataManager extends SQLiteOpenHelper {
     //--TODO _ID와 MEM_ID를 비교해 일치하는 ID가 잇으면 MEM_ID를 반환
     public static final String INVALID_ID = "";
     public boolean getChatUserId(String senderid) {
+
         SQLiteDatabase db = getReadableDatabase();
         String[] columns = {DataConstant.ChatUserTable.COLUMN_MEM_ID};
         String selection = DataConstant.ChatUserTable.COLUMN_MEM_ID + " = ?";
@@ -93,7 +96,6 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     ContentValues values = new ContentValues();
-    //--TODO User -> Member
     public String getUserTableId(Message message) {
         boolean id = getChatUserId(message.member.mem_id);
         SQLiteDatabase db = getWritableDatabase();
@@ -123,18 +125,6 @@ public class DataManager extends SQLiteOpenHelper {
         return message.member.mem_id;
     }
 
-//    public void getDummy(int i){
-//        SQLiteDatabase db = getWritableDatabase();
-//        values.clear();
-//        values.put(DataConstant.ChatUserTable._ID,"test_"+i);
-//        values.put(DataConstant.ChatUserTable.COLUMN_MEM_ID,"test"+i);
-//        values.put(DataConstant.ChatUserTable.COLUMN_MEM_NAME,"하기실헝"+i);
-//        values.put(DataConstant.ChatUserTable.COLUMN_MEM_PICTURE,i);
-//        values.put(DataConstant.ChatUserTable.COLUMN_MEM_SELL_COUNT,i);
-//        values.put(DataConstant.ChatUserTable.COLUMN_LAST_MESSAGE,"집에가자 태ㅗ강아아아아");
-//        db.insert(DataConstant.ChatUserTable.TABLE_NAME, null, values);
-//        db.close();
-//    }
     public String getLastDate(String serverid) {
 //        String id = getChatUserId(serverid);
 //        if (id == INVALID_ID) return null;
@@ -155,10 +145,11 @@ public class DataManager extends SQLiteOpenHelper {
         return date;
     }
 
-    public long addChatMessage(String id,Member member, int type, String message, String date) {
+    public long addChatMessage(String id,Member member, int msg_packagenum, int type, String message, String date) {
         SQLiteDatabase db = getWritableDatabase();
         values.clear();
         values.put(DataConstant.ChatTable.COLUMN_USER_ID, id);
+        values.put(DataConstant.ChatTable.COLUMN_PACKAGE_ID,msg_packagenum);
         values.put(DataConstant.ChatTable.COLUMN_TYPE, type);
         values.put(DataConstant.ChatTable.COLUMN_MESSAGE, message);
 
@@ -173,6 +164,7 @@ public class DataManager extends SQLiteOpenHelper {
             }
 
         }
+
         values.put(DataConstant.ChatTable.COLUMN_DATE, date);
         values.put(DataConstant.ChatTable.COLUMN_MEM_PICTURE,member.mem_picture);
         values.put(DataConstant.ChatTable.COLUMN_MEM_SELL_COUNT,member.mem_sellcount);
@@ -202,16 +194,43 @@ public class DataManager extends SQLiteOpenHelper {
             message.member.mem_picture = c.getString(c.getColumnIndex(DataConstant.ChatUserTable.COLUMN_MEM_PICTURE));
             message.member.mem_sellcount = c.getInt(c.getColumnIndex(DataConstant.ChatUserTable.COLUMN_MEM_SELL_COUNT));
             message.msg_date = c.getString(c.getColumnIndex(DataConstant.ChatUserTable.COLUMN_DATE));
+            if (!TextUtils.isEmpty(message.msg_date)) {
+                SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+                SimpleDateFormat new_format = new SimpleDateFormat("HH:mm");
+                try{
+                    Date a = original_format.parse(message.msg_date);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(a);
+                    cal.add(Calendar.HOUR,9);
+                    a = cal.getTime();
+                    String new_date = new_format.format(a);
+
+                    message.msg_date = new_date;
+                }catch (Exception e){
+                }
+            }
+
             message.msg_content = c.getString(c.getColumnIndex(DataConstant.ChatUserTable.COLUMN_LAST_MESSAGE));
             messages.add(message);
         }
         return messages;
     }
 
+    public void deleteMessage(String userid){
+        SQLiteDatabase db = getWritableDatabase();
+        String whereClause = DataConstant.ChatTable.COLUMN_USER_ID + " = ?";
+        String[] whereArgs = new String[] {userid};
+        db.delete(DataConstant.ChatTable.TABL_NAME,whereClause,whereArgs);
+        db.delete(DataConstant.ChatUserTable.TABLE_NAME,whereClause,whereArgs);
+
+
+
+
+    }
 
     public List<Message> getChatList(String userid) {
         List<Message> messages = new ArrayList<>();
-        String[] columns = {DataConstant.ChatTable.COLUMN_USER_ID,  DataConstant.ChatTable.COLUMN_TYPE,DataConstant.ChatTable.COLUMN_MESSAGE,DataConstant.ChatTable.COLUMN_DATE,DataConstant.ChatTable.COLUMN_MEM_PICTURE,DataConstant.ChatTable.COLUMN_MEM_SELL_COUNT,DataConstant.ChatTable.COLUMN_READ};
+        String[] columns = {DataConstant.ChatTable.COLUMN_USER_ID, DataConstant.ChatTable.COLUMN_PACKAGE_ID, DataConstant.ChatTable.COLUMN_TYPE,DataConstant.ChatTable.COLUMN_MESSAGE,DataConstant.ChatTable.COLUMN_DATE,DataConstant.ChatTable.COLUMN_MEM_PICTURE,DataConstant.ChatTable.COLUMN_MEM_SELL_COUNT,DataConstant.ChatTable.COLUMN_READ};
         String selection = DataConstant.ChatTable.COLUMN_USER_ID + " = ?";
         String[] selectionArgs = {userid};
         String orderBy = DataConstant.ChatTable.COLUMN_DATE + " ASC";
@@ -221,9 +240,25 @@ public class DataManager extends SQLiteOpenHelper {
         while(c.moveToNext()){
             Message message = new Message();
             message.member.mem_name = c.getString(c.getColumnIndex(DataConstant.ChatTable.COLUMN_USER_ID));
+            message.msg_packagenum = c.getInt(c.getColumnIndex(DataConstant.ChatTable.COLUMN_PACKAGE_ID));
             message.type = c.getInt(c.getColumnIndex(DataConstant.ChatTable.COLUMN_TYPE));
             message.msg_content = c.getString(c.getColumnIndex(DataConstant.ChatTable.COLUMN_MESSAGE));
             message.msg_date = c.getString(c.getColumnIndex(DataConstant.ChatTable.COLUMN_DATE));
+            if (!TextUtils.isEmpty(message.msg_date)) {
+                SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+                SimpleDateFormat new_format = new SimpleDateFormat("HH:mm");
+                try{
+                    Date a = original_format.parse(message.msg_date);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(a);
+                    cal.add(Calendar.HOUR,9);
+                    a = cal.getTime();
+                    String new_date = new_format.format(a);
+
+                    message.msg_date = new_date;
+                }catch (Exception e){
+                }
+            }
             message.member.mem_picture = c.getString(c.getColumnIndex(DataConstant.ChatTable.COLUMN_MEM_PICTURE));
             message.member.mem_sellcount = c.getInt(c.getColumnIndex(DataConstant.ChatTable.COLUMN_MEM_SELL_COUNT));
             message.msg_read = c.getInt(c.getColumnIndex(DataConstant.ChatTable.COLUMN_READ));

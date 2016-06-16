@@ -13,9 +13,10 @@
         android:id="@+id/img_main" />
     <TextView
         android:layout_width="140dp"
-        android:layout_height="13dp"
+        android:layout_height="16dp"
         android:id="@+id/text_name"
         android:textSize="13sp"
+        android:text="아아아"
         android:textColor="@color/SalardColor"
         android:layout_toRightOf="@+id/img_main"
         android:layout_marginLeft="10dp"
@@ -23,10 +24,11 @@
         />
     <TextView
         android:layout_width="70dp"
-        android:layout_height="13dp"
+        android:layout_height="16dp"
         android:textSize="13sp"
+        android:text="아아아"
         android:textColor="@color/SalardColor"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/text_price"
         android:layout_toRightOf="@+id/img_main"
@@ -35,13 +37,14 @@
 
     <TextView
         android:layout_width="68dp"
-        android:layout_height="13dp"
+        android:layout_height="16dp"
         android:id="@+id/text_location"
         android:textSize="13sp"
+        android:text="아아아"
         android:textColor="@color/SalardWeakColor"
         android:layout_toRightOf="@+id/text_price"
         android:layout_below="@+id/text_name"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:layout_marginLeft="2dp"
          />
 

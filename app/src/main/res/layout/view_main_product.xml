@@ -27,9 +27,8 @@
 
     <TextView
         android:layout_width="220dp"
-        android:layout_height="16dp"
+        android:layout_height="19dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="음식 이름"
         android:textColor="@color/SalardColor"
         android:textStyle="bold"
         android:layout_alignTop="@+id/namebar"
@@ -40,24 +39,22 @@
         android:textSize="16sp" />
     <TextView
         android:layout_width="70dp"
-        android:layout_height="16dp"
-        android:text="가격"
+        android:layout_height="18dp"
         android:id="@+id/text_price"
         android:layout_below="@+id/text_name"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="4dp"
         android:layout_marginLeft="16dp"
         android:gravity="center_vertical"
         android:textSize="16sp"
         android:textColor="@color/SalardColor"
         />
     <TextView
-        android:layout_width="60dp"
-        android:layout_height="13dp"
+        android:layout_width="70dp"
+        android:layout_height="15dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="음식 개수 / 거리"
         android:id="@+id/text_count"
         android:layout_alignBottom="@+id/namebar"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="4dp"
         android:layout_toRightOf="@+id/text_price"
         android:layout_marginLeft="1dp"
         android:gravity="center_vertical"

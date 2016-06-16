@@ -38,8 +38,10 @@ import com.ghosthawk.salard.MainActivity;
 import com.ghosthawk.salard.Manager.DataConstant;
 import com.ghosthawk.salard.Manager.DataManager;
 import com.ghosthawk.salard.Manager.NetworkManager;
+import com.ghosthawk.salard.Manager.PropertyManager;
 import com.ghosthawk.salard.Message.ChattingActivity;
 import com.ghosthawk.salard.R;
+import com.ghosthawk.salard.Sell.SellHomeActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 import java.io.IOError;
@@ -65,24 +67,20 @@ public class MyGcmListenerService extends GcmListenerService {
         String type = data.getString("type");
         String senderid = data.getString("sender");
         String message = data.getString("message");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "Message: " + message);
 
         if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
             if(type.equals("chat")){
                 //--TODO 채팅
-                Log.d(TAG,"채팅");
                 String lastDate = DataManager.getInstance().getLastDate(senderid);
-                Log.d(lastDate,"aaaaaaaaaaaaaaaaaaaa");
                 try{
-                    MessageResult result  = NetworkManager.getInstance().getMessageSync(lastDate);
+                    MessageResult result  = NetworkManager.getInstance().getMessageSync(lastDate, PropertyManager.getInstance().getId());
                     String notiMessage = null;
                     Message u = null;
                     for (Message m : result.message){
                         String id = DataManager.getInstance().getUserTableId(m);
-                        DataManager.getInstance().addChatMessage(id, m.member, DataConstant.ChatTable.TYPE_RECEIVE, m.msg_content, m.msg_date);
+                        DataManager.getInstance().addChatMessage(id, m.member, m.msg_packagenum, DataConstant.ChatTable.TYPE_RECEIVE, m.msg_content, m.msg_date);
 
 
 
@@ -100,14 +98,17 @@ public class MyGcmListenerService extends GcmListenerService {
                     e.printStackTrace();
                 }
             }
+
             else if(type.equals("follow")){
                 //-TODO 팔로우
-                Log.d(TAG,"팔로우");
                 sendNotification(message);
             }
             else if(type.equals("like")){
                 //-TODO 찜하기
-                Log.d(TAG,"찜하기");
+                sendNotification(message);
+            }
+            else if(type.equals("comment")){
+                //-TODO 후기
                 sendNotification(message);
             }
             else{
@@ -136,9 +137,9 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setTicker("GCM message")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("GCM ChatMessage")
+                .setTicker("Salard 알림")
+                .setSmallIcon(R.drawable.rating_bar_full)
+                .setContentTitle("Salard로부터 알림이 도착했습니다.")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
@@ -154,7 +155,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
 
     private void sendNotification(String message) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SellHomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

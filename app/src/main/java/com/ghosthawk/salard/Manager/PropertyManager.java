@@ -73,7 +73,13 @@ public class PropertyManager {
         return isLogin;
     }
 
-
+    public static final String FIELD_DONG = "dong";
+    public void setDong(String Dong){
+        mEditor.putString(FIELD_DONG,Dong);
+        mEditor.commit();
+    }
+    public String getDong(){return mPrefs.getString(FIELD_DONG,"");
+    }
 
     private Member member = null;
     public void setUser(Member member) {
@@ -104,6 +110,12 @@ public class PropertyManager {
         this.mem_xloca = mem_xloca;
         this.mem_yloca = mem_yloca;
     }
+
+
+
+
+
+
 
 
     public double getMem_xloca(){

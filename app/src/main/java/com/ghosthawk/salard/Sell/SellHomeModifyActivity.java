@@ -10,17 +10,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,8 +42,9 @@ import okhttp3.Request;
 
 public class SellHomeModifyActivity extends AppCompatActivity {
     public static final String EXTRA_MY_ID = "my_id";
+    TextView textName;
     EditText editName,editStatmsg;
-    ImageView imageMy;
+    ImageView imageMy,imageDelete1,imageDelete2;
     String my_id;
     String[] items = {"카메라로 촬영","앨범에서 선택"};
     String mem_name, mem_statemsg;
@@ -48,6 +52,12 @@ public class SellHomeModifyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_home_modify);
+        if (Build.VERSION.SDK_INT >= 21) {   //상태바 색
+            getWindow().setStatusBarColor(Color.parseColor("#00d076"));
+        }
+        textName=  (TextView)findViewById(R.id.edit_id);
+        imageDelete1 = (ImageView)findViewById(R.id.delete1);
+        imageDelete2 = (ImageView)findViewById(R.id.delete2);
         my_id = getIntent().getStringExtra(EXTRA_MY_ID);
         editName = (EditText)findViewById(R.id.edit_name);
         editStatmsg = (EditText)findViewById(R.id.edit_statmsg);
@@ -56,14 +66,27 @@ public class SellHomeModifyActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("마이 샐러드");
-        toolbar.setTitleTextAppearance(this,R.style.AppTheme_toolbar);
 //        toolbar.setTitleTextColor(Color.BLACK);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.selector_action_back);
+        imageDelete1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editName.setText("");
+            }
+        });
+        imageDelete2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editStatmsg.setText("");
+
+            }
+        });
 
         NetworkManager.getInstance().getMyPageUpdate(this, my_id, new NetworkManager.OnResultListener<MyPageModifyResult>() {
             @Override
             public void onSuccess(Request request, MyPageModifyResult result) {
+                textName.setText(result.member.getMem_id());
                 editName.setText(result.member.getMem_Name());
                 editStatmsg.setText(result.member.getMem_StatMsg());
                 Glide.with(imageMy.getContext()).load(result.member.getMem_Picture()).into(imageMy);
@@ -110,6 +133,7 @@ public class SellHomeModifyActivity extends AppCompatActivity {
                 builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         mem_name = editName.getText().toString();
                         mem_statemsg = editStatmsg.getText().toString();
                         if( mUploadFile==null || TextUtils.isEmpty(mem_name) || TextUtils.isEmpty(mem_statemsg)){
@@ -154,7 +178,13 @@ public class SellHomeModifyActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 

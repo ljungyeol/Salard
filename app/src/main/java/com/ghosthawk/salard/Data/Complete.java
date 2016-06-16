@@ -5,4 +5,12 @@ package com.ghosthawk.salard.Data;
  */
 public class Complete {
     public int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

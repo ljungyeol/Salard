@@ -89,12 +89,10 @@ public class AddProductFragment extends Fragment {
             public void onClick(View v) {
                 if(editSubDetail.getVisibility()==v.GONE) {
                     editSubDetail.setVisibility(View.VISIBLE);
-                    editDetail.setNextFocusDownId(R.id.edit_subdetail);
-                    editSubDetail.setNextFocusDownId(R.id.edit_recipe);
+
                 }
                 else {
                     editSubDetail.setVisibility(View.GONE);
-                    editDetail.setNextFocusDownId(R.id.edit_recipe);
                 }
             }
         });
@@ -197,6 +195,16 @@ public class AddProductFragment extends Fragment {
                             @Override
                             public void onSuccess(Request request, SuccessCode result) {
                                 Toast.makeText(getContext(),"완료되었습니다.",Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(getContext(),MyProductDetailActivity.class);
+                                AddListFragment ft = new AddListFragment();
+                                Bundle b = new Bundle();
+                                b.putString(ft.EXTRA_MY_ID,mem_id);
+                                ft.setArguments(b);
+                                getFragmentManager().beginTransaction()
+                                        .replace(R.id.container, ft)
+                                        .commit();
+//                                intent.putExtra(MyProductDetailActivity.EXTRA_MY_ID,mem_id);
+//                                startActivity(intent);
                             }
 
                             @Override

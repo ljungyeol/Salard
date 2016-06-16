@@ -126,7 +126,6 @@ public class IntroActivity extends AppCompatActivity {
                                 Toast.makeText(IntroActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                                 PropertyManager.getInstance().setLogin(true);
                                 PropertyManager.getInstance().setMember(result.member);
-                                Toast.makeText(IntroActivity.this, result.member.getMem_Name(), Toast.LENGTH_SHORT).show();
                                 goMain();
                             }
                             else {
@@ -149,7 +148,6 @@ public class IntroActivity extends AppCompatActivity {
                         goLogin();
                     }
                     else {
-                        Log.d("fkfkfkfkfk","Aaa");
                         NetworkManager.getInstance().getFbLogin(this, token.getToken(), PropertyManager.getInstance().getRegistrationToken(),new NetworkManager.OnResultListener<MyResult>() {
                             @Override
                             public void onSuccess(Request request, MyResult result) {

@@ -4,13 +4,13 @@
     android:layout_height="640dp"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
+    android:background="@color/setting"
     tools:context="com.ghosthawk.salard.Sell.AddListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_list"
-        android:layout_below="@id/linear"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />

@@ -16,10 +16,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay" >
-
-
-
+                app:title="마이 샐러드"
+                app:titleTextColor="@color/SalardColor">
 
 
             </android.support.v7.widget.Toolbar>

@@ -49,12 +49,25 @@
             android:name=".Sell.SellHomeActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Map.MapActivity" />
-        <activity android:name=".Sell.SellProfileActivity" />
-        <activity android:name=".Common.NoticeActivity" />
-        <activity android:name=".Common.VersionActivity" />
-        <activity android:name=".Common.RuleActivity" />
-        <activity android:name=".Common.RankActivity" />
+        <activity
+            android:name=".Map.MapActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Sell.SellProfileActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Common.NoticeActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Common.VersionActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Common.RuleActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Common.RankActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Sell.ProductDetailActivity"
             android:label=""
@@ -106,12 +119,26 @@
             android:name=".Other.OtherMemberInfoActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Sell.HomeFollowingActivity" />
-        <activity android:name=".Sell.HomeFollowerActivity" />
-        <activity android:name=".Sell.MyProductDetailActivity" />
-        <activity android:name=".Sell.AddProductModifyActivity" />
-        <activity android:name=".Sell.SellHomeModifyActivity" />
+        <activity android:name=".Sell.HomeFollowingActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Sell.HomeFollowerActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Sell.MyProductDetailActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Sell.AddProductModifyActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Sell.SellHomeModifyActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Message.ChattingActivity"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

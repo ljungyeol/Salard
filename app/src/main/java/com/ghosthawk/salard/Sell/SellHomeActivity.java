@@ -1,10 +1,18 @@
 package com.ghosthawk.salard.Sell;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,48 +22,123 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ghosthawk.salard.Data.Member;
+import com.ghosthawk.salard.Data.notify;
+import com.ghosthawk.salard.Data.notifyResult;
+import com.ghosthawk.salard.Data.notifynofity;
+import com.ghosthawk.salard.GCM.NotifyAdapter;
+import com.ghosthawk.salard.GCM.NotifyViewHolder;
+import com.ghosthawk.salard.Manager.NetworkManager;
 import com.ghosthawk.salard.Manager.PropertyManager;
+import com.ghosthawk.salard.Map.MapActivity;
 import com.ghosthawk.salard.Message.MessageFragment;
+import com.ghosthawk.salard.Other.OtherMemberInfoActivity;
 import com.ghosthawk.salard.R;
+
+import java.io.IOException;
+
+import okhttp3.Request;
+
 public class SellHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public String my_id;
+
+
     int img[]={
             R.drawable.rank0, R.drawable.rank1, R.drawable.rank2,
             R.drawable.rank3,R.drawable.rank4,R.drawable.rank5
     };
-
-    private final long FINISH_INTERVAL_TIME = 2000;
-    private long   backPressedTime = 0;
-
-
-
+    RecyclerView recyclerView;
+    NotifyAdapter mAdapter;
     ImageView imageMem,imageRank;
     TextView textView,textName;
+    LinearLayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        my_id = PropertyManager.getInstance().getId();
         setContentView(R.layout.activity_sell_home);
+
+        recyclerView = (RecyclerView)findViewById(R.id.rv_list2);
+        my_id = PropertyManager.getInstance().getId();
+
+        mAdapter = new NotifyAdapter();
+        recyclerView.setAdapter(mAdapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+        mAdapter.setOnItemClickListener(new NotifyViewHolder.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, notify noti) {
+                String a = noti._id+"";
+                NetworkManager.getInstance().getNotify(this, a, new NetworkManager.OnResultListener<notifynofity>() {
+                    @Override
+                    public void onSuccess(Request request, notifynofity result) {
+                        Log.d("aaaaaaaa",result.notify.getNotify_state()+"");
+
+                        switch(result.notify.getNotify_state()){
+                            case 0: {
+                                startActivity(new Intent(SellHomeActivity.this, HomeFollowerActivity.class));
+                                break;
+                            }
+                            case 1: {
+                                Intent intent = new Intent(SellHomeActivity.this, OtherMemberInfoActivity.class);
+                                intent.putExtra(OtherMemberInfoActivity.EXTRA_PERSON_ID,result.notify.getNotify_sendid());
+                                startActivity(intent);
+                                break;
+                            }
+                            case 2:{
+                                Intent intent = new Intent(SellHomeActivity.this, OtherMemberInfoActivity.class);
+                                intent.putExtra(OtherMemberInfoActivity.EXTRA_PERSON_ID,result.notify.getNotify_sendid());
+                                startActivity(intent);
+                                break;
+                            }
+                            case 3: {
+                                SellHomeFragment ft = new SellHomeFragment();
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.container, ft)
+                                        .commit();
+                                break;
+                            }
+                            case 4:{
+                                MessageFragment ft = new MessageFragment();
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.container, ft)
+                                        .commit();
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Request request, IOException exception) {
+
+                    }
+                });
+            }
+        });
 //        textView = (TextView)findViewById(R.id.text_title);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("마이 샐러드");
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitle("Salard");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
 //        textView.setText("마이 샐러드");
         Member member = PropertyManager.getInstance().getMember();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        toggle.setHomeAsUpIndicator(R.mipmap.ic_launcher);
         toggle.syncState();
+
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -70,7 +153,7 @@ public class SellHomeActivity extends AppCompatActivity
         imageMem = (ImageView)headerView.findViewById(R.id.img_mem);
         imageRank = (ImageView)headerView.findViewById(R.id.img_rank) ;
         textName = (TextView)headerView.findViewById(R.id.text_name);
-        //--TODO 나중에 랭크 작업 완료 0608
+        textView = (TextView)headerView.findViewById(R.id.text_noti);
         Glide.with(imageMem.getContext()).load(member.getMem_Picture()).into(imageMem);
         textName.setText(member.getMem_Name());
         SetRank(member);
@@ -81,9 +164,7 @@ public class SellHomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 MessageFragment ft = new MessageFragment();
-                Bundle b = new Bundle();
-                b.putString(ft.EXTRA_MY_ID,my_id);
-                ft.setArguments(b);
+
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, ft)
                         .commit();
@@ -95,9 +176,7 @@ public class SellHomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 SellHomeFragment ft = new SellHomeFragment();
-                Bundle b = new Bundle();
-                b.putString(ft.EXTRA_MY_ID,my_id);
-                ft.setArguments(b);
+
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, ft)
                         .commit();
@@ -111,6 +190,7 @@ public class SellHomeActivity extends AppCompatActivity
                     .commit();
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -136,16 +216,37 @@ public class SellHomeActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if(id==R.id.home){
 
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
 
-
+            startActivity(new Intent(this, MapActivity.class));
 
 
             return true;
         }
         if(id==R.id.action_notification){
+            if(recyclerView.getVisibility()==View.INVISIBLE) {
+                recyclerView.setVisibility(View.VISIBLE);
+                NetworkManager.getInstance().getShowNotify(this, PropertyManager.getInstance().getId(), new NetworkManager.OnResultListener<notifyResult>() {
+                    @Override
+                    public void onSuccess(Request request, notifyResult result) {
+                        mAdapter.clear();
+                        mAdapter.addAll(result.notify);
+
+                    }
+
+                    @Override
+                    public void onFail(Request request, IOException exception) {
+
+                    }
+                });
+
+
+            }else
+            recyclerView.setVisibility(View.INVISIBLE);
             return true;
         }
 
@@ -238,8 +339,10 @@ public class SellHomeActivity extends AppCompatActivity
         else if(i<100){
             Glide.with(imageRank.getContext()).load(img[4]).into(imageRank);
         }
-        else
+        else if(i>=100){
             Glide.with(imageRank.getContext()).load(img[5]).into(imageRank);
+        }
+
 
     }
 

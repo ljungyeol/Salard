@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    android:background="@color/setting"
     tools:context=".Other.OtherMemberInfoActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -13,21 +13,15 @@
         android:id="@+id/app"
         android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:id="@+id/toolbar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <TextView
-                android:layout_width="81dp"
-                android:layout_height="16dp"
-                android:text="제목"
-                android:textSize="17sp"
-                android:id="@+id/text_title"
-                android:textColor="@color/SalardColor"
-                android:gravity="center_vertical"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="24dp"/>
+            android:background="@color/setting"
+            app:title="마이 샐러드"
+
+            app:titleTextColor="@color/SalardColor">
         </android.support.v7.widget.Toolbar>
+
     </android.support.design.widget.AppBarLayout>
     <include
         android:layout_width="wrap_content"
@@ -35,14 +29,13 @@
         layout="@layout/view_other_name_card"
         android:id="@+id/view_other_name_card"
         android:layout_below="@+id/app"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginTop="32dp"
+        />
 
 
     <android.support.v4.app.FragmentTabHost
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:id="@+id/rv_list"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

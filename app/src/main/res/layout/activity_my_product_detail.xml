@@ -1,90 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ghosthawk.salard.Sell.MyProductDetailActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:id="@+id/imageView2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />'
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_name"
-        android:text = "음식 이름"
-        android:layout_above="@+id/text_price"/>
+    android:background="@color/setting"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ghosthawk.salard.Sell.ProductDetailActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text_count"
-        android:text = "개수"
-        android:layout_toRightOf="@+id/text_name"
-        android:layout_above="@+id/text_price"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView2"
-        android:id="@+id/text_price"
-        android:text = "음식 가격"/>
-    <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        layout="@layout/view_my_name_card"
-        android:id="@+id/layout_my_name_card"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/app"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/setting"
+            app:title="마이 샐러드"
 
-    <TextView
+            app:titleTextColor="@color/SalardColor">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_my_name_card"
-        android:text = "식재료 패키지 상세 설명"
-        android:id="@+id/text_detailname"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_detailname"
-        android:text = "식재료 패키지 상세 설명 내용"
-        android:id="@+id/text_detail"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_detail"
-        android:text = "추가 식재료"
-        android:id="@+id/text_detail2name"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_detail2name"
-        android:text = "추가 식재료 내용"
-        android:id="@+id/text_detail2"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_detail2"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/app"
+        android:fillViewport="false">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        android:id="@+id/text_recipename"
-        android:text = "레시피"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_recipename"
-        android:text = "레시피 내용"
-        android:id="@+id/text_recipe"/>
+            <android.support.v4.view.ViewPager
+                android:layout_width="360dp"
+                android:layout_height="360dp"
+                android:id="@+id/viewPager_detail"
+
+                android:layout_centerHorizontal="true"/>
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/image_left"
+                android:background="@drawable/left"
+                android:layout_marginTop="164dp"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/image_right"
+                android:background="@drawable/right"
+                android:layout_marginTop="164dp"
+                android:layout_alignParentRight="true"/>
+            <TextView
+                android:layout_width="260dp"
+                android:layout_height="30dp"
+                android:id="@+id/text_name"
+                android:text = "음식 이름"
+                android:textSize="23sp"
+                android:textColor="@color/SalardColor"
+                android:layout_marginTop="293dp"
+                />
+
+            <TextView
+                android:layout_width="34dp"
+                android:layout_height="15dp"
+                android:id="@+id/text_count"
+                android:text = "개수"
+                android:textSize="13sp"
+                android:textColor="@color/SalardColor"
+                android:layout_marginTop="330dp"
+                android:layout_toRightOf="@+id/text_price"
+                android:layout_marginLeft="7dp"
+                />
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:id="@+id/text_price"
+                android:textSize="18sp"
+                android:layout_marginTop="327dp"
+                android:textColor="@color/SalardColor"
+
+                android:text = "0000"/>
+        <include
+            android:layout_width="296dp"
+            android:layout_height="187dp"
+            layout="@layout/view_my_name_card"
+            android:id="@+id/layout_my_name_card"
+            android:layout_below="@+id/viewPager_detail"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            />
+        <View
+            android:layout_width="296dp"
+            android:layout_height="1dp"
+            android:background="@color/SalardLine"
+            android:layout_below="@+id/layout_my_name_card"
+            android:id="@+id/lineA"/>
+            <TextView
+                android:layout_width="107dp"
+                android:layout_height="13dp"
+
+                android:text = "식재료 패키지 상세 설명"
+                android:id="@+id/text_detailname"
+                android:textSize="11sp"
+                android:textColor="@color/SalardWeakColor"
+                android:layout_below="@+id/lineA"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="32dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_detailname"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="15sp"
+                android:lineSpacingExtra="18dp"
+                android:textColor="@color/SalardColor"
+                android:text = "식재료 패키지 상세 설명 내용"
+                android:id="@+id/text_detail"/>
+            <TextView
+                android:layout_width="107dp"
+                android:layout_height="13dp"
+                android:textSize="11sp"
+                android:textColor="@color/SalardWeakColor"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp"
+                android:layout_below="@+id/text_detail"
+                android:text = "부가 식재료 설명"
+                android:id="@+id/text_detail2name"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_detail2name"
+                android:text = "추가 식재료 내용"
+                android:textSize="15sp"
+                android:lineSpacingExtra="18dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/SalardWeakColor"
+                android:id="@+id/text_detail2"/>
+            <View
+                android:layout_width="296dp"
+                android:layout_height="1dp"
+                android:background="@color/SalardLine"
+                android:layout_below="@+id/text_detail2"
+                android:layout_marginTop="32dp"
+                android:id="@+id/lineB"/>
+            <TextView
+                android:layout_width="107dp"
+                android:layout_height="13dp"
+                android:layout_below="@+id/lineB"
+                android:layout_marginTop="32dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="11sp"
+                android:id="@+id/text_recipename"
+                android:text = "레시피"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_recipename"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="16dp"
+
+                android:text = "레시피 내용"
+                android:lineSpacingExtra="18dp"
+                android:textColor="@color/SalardColor"
+                android:textSize="13sp"
+                android:layout_marginBottom="50dp"
+                android:id="@+id/text_recipe"/>
 
 
-    </RelativeLayout>
-</ScrollView>
+        <ImageView
+            android:layout_width="296dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/imageView4"
+            android:background="@color/SalardLine"
+            android:layout_below="@+id/layout_name_card"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
