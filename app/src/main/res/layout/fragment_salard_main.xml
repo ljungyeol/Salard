@@ -39,7 +39,6 @@
         android:layout_marginTop="9dp"
         android:gravity="center_vertical"
         android:textSize="13sp"
-        android:background="@drawable/search_bar"
         android:visibility="invisible"
         android:layout_alignLeft="@+id/text_location1"
         android:layout_marginLeft="11dp"/>
